@@ -1,0 +1,15 @@
+/* Northfield University — navy and gold, institutional */
+:root {
+  --bg: #f3f5f9;
+  --brand: #1f4e8c;
+  --brand-strong: #163a6b;
+  --brand-soft: #e8eef8;
+  --header-bg: #0f2747;
+  --header-ink: #ffffff;
+  --nav-bg: #ffffff;
+  --nav-hover: #eef2f8;
+  --radius: 10px;
+}
+.logo { background: #c9a227; color: #0f2747; }
+.avatar-dot { background: rgba(255, 255, 255, .16); color: #fff; }
+.hero { background: linear-gradient(120deg, #163a6b 0%, #1f4e8c 70%, #2a62a8 100%); }

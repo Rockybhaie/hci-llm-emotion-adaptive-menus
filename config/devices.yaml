@@ -1,0 +1,39 @@
+# Which recorder to use for each sensor. `python run.py check` tests them.
+# `--mock` on the command line replaces every adapter with simulated data.
+#
+# eye_tracker:  tobii | mock | none
+# gsr:          shimmer | lsl | serial | mock | none
+# hr:           polar_h10 | lsl | serial | mock | none
+#
+# `unset` stops a real session from starting until you choose a device.
+
+eye_tracker:
+  adapter: tobii
+  tobii:
+    serial: null            # null = first tracker found
+    frequency: null         # null = tracker default (e.g. 60 Hz on a Nano)
+
+gsr:
+  adapter: unset
+  shimmer:
+    port: COM5              # Bluetooth serial port of the Shimmer3 GSR+
+  lsl:
+    name: null              # LSL stream name, or null to match by type
+    type: GSR
+  serial:
+    port: COM3              # Arduino / Grove GSR printing one value per line
+    baud: 115200
+
+hr:
+  adapter: unset
+  polar_h10:
+    address: null           # Bluetooth address, or null = first "Polar H10" found
+  lsl:
+    name: null
+    type: HR
+  serial:
+    port: COM4              # pulse sensor printing BPM per line
+    baud: 115200
+
+# A sensor must deliver samples within this many seconds of starting.
+startup_timeout: 15

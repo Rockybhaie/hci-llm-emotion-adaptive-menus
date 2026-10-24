@@ -1,0 +1,18 @@
+/* Everyday Market — charcoal header, warm amber accent */
+:root {
+  --bg: #f6f5f3;
+  --brand: #e07a1f;
+  --brand-strong: #b45c0e;
+  --brand-soft: #fdf0e3;
+  --header-bg: #1c1f24;
+  --header-ink: #ffffff;
+  --nav-bg: #2a2e35;
+  --nav-ink: #f2f3f5;
+  --nav-hover: #3a3f48;
+  --radius: 12px;
+}
+.dd-item:hover { background: var(--brand-soft); color: var(--brand-strong); }
+.hero { background: linear-gradient(120deg, #2a2e35 0%, #1c1f24 60%), #1c1f24; }
+.hero h1 { color: #fff; }
+.hero p { color: #e8e9eb; }
+.price { color: #1c1f24; }

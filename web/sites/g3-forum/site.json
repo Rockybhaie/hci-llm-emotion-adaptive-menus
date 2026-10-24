@@ -1,0 +1,2322 @@
+{
+ "id": "g3-forum",
+ "name": "Threadline",
+ "tagline": "Conversations worth having",
+ "layout": "threads",
+ "brand_icon": "message",
+ "source": "Information architecture modelled on WebArena's Postmill forum (Zhou et al., ICLR 2024).",
+ "columns": [
+  "Author",
+  "Replies",
+  "Votes",
+  "Posted",
+  "Flair"
+ ],
+ "questions": {
+  "Author": "Who posted it?",
+  "Replies": "How many replies does it have?",
+  "Votes": "How many votes does it have?",
+  "Flair": "What is its flair?"
+ },
+ "repetitive": {
+  "field": "Replies",
+  "template": "Find the thread \"{item}\" in {page}."
+ },
+ "home": {
+  "headline": "Welcome to Threadline",
+  "sub": "36 communities, one friendly place. Use the menu above to explore.",
+  "highlights": [
+   [
+    "users",
+    "48,210 members",
+    "Across all communities"
+   ],
+   [
+    "message",
+    "1,920 new posts",
+    "In the last 24 hours"
+   ],
+   [
+    "sparkles",
+    "Weekly digest",
+    "Every Friday"
+   ]
+  ]
+ },
+ "sections": [
+  {
+   "id": "technology",
+   "title": "Technology",
+   "icon": "cpu",
+   "pages": [
+    {
+     "id": "programming",
+     "title": "Programming",
+     "intro": "Conversations about programming.",
+     "items": [
+      {
+       "id": "best-way-to-learn-python-as-a-complete-beginner",
+       "name": "Best way to learn Python as a complete beginner?",
+       "values": {
+        "Author": "atlas_77",
+        "Replies": "11",
+        "Votes": "1171",
+        "Posted": "12 h ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "tabs-vs-spaces-does-it-still-matter-in-2026",
+       "name": "Tabs vs spaces: does it still matter in 2026?",
+       "values": {
+        "Author": "orbit_86",
+        "Replies": "64",
+        "Votes": "1288",
+        "Posted": "21 h ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "my-first-open-source-pull-request-got-merged",
+       "name": "My first open-source pull request got merged",
+       "values": {
+        "Author": "harbor_27",
+        "Replies": "192",
+        "Votes": "541",
+        "Posted": "2 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "how-do-you-name-variables-without-overthinking-it",
+       "name": "How do you name variables without overthinking it?",
+       "values": {
+        "Author": "cobalt_10",
+        "Replies": "52",
+        "Votes": "1172",
+        "Posted": "2 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "recommended-books-on-clean-code",
+       "name": "Recommended books on clean code",
+       "values": {
+        "Author": "willow_45",
+        "Replies": "26",
+        "Votes": "1069",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      }
+     ]
+    },
+    {
+     "id": "gadgets",
+     "title": "Gadgets",
+     "intro": "Conversations about gadgets.",
+     "items": [
+      {
+       "id": "is-a-smartwatch-worth-it-for-basic-fitness-tracking",
+       "name": "Is a smartwatch worth it for basic fitness tracking?",
+       "values": {
+        "Author": "atlas_45",
+        "Replies": "12",
+        "Votes": "333",
+        "Posted": "3 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "tiny-bluetooth-speaker-with-surprisingly-good-bass",
+       "name": "Tiny Bluetooth speaker with surprisingly good bass",
+       "values": {
+        "Author": "riverstone_55",
+        "Replies": "61",
+        "Votes": "437",
+        "Posted": "14 h ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "e-reader-vs-tablet-for-reading-pdfs",
+       "name": "E-reader vs tablet for reading PDFs",
+       "values": {
+        "Author": "tundra_31",
+        "Replies": "58",
+        "Votes": "1218",
+        "Posted": "1 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "what-s-on-your-desk-right-now",
+       "name": "What's on your desk right now?",
+       "values": {
+        "Author": "cedar_27",
+        "Replies": "89",
+        "Votes": "613",
+        "Posted": "1 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "usb-c-hubs-that-actually-work-with-every-laptop",
+       "name": "USB-C hubs that actually work with every laptop",
+       "values": {
+        "Author": "lumen_72",
+        "Replies": "41",
+        "Votes": "1641",
+        "Posted": "2 d ago",
+        "Flair": "Question"
+       }
+      }
+     ]
+    },
+    {
+     "id": "pc-building",
+     "title": "PC Building",
+     "intro": "Conversations about pc building.",
+     "items": [
+      {
+       "id": "first-build-does-this-parts-list-look-okay",
+       "name": "First build: does this parts list look okay?",
+       "values": {
+        "Author": "riverstone_31",
+        "Replies": "49",
+        "Votes": "1321",
+        "Posted": "1 h ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "quiet-case-fans-recommendations",
+       "name": "Quiet case fans recommendations",
+       "values": {
+        "Author": "nova_93",
+        "Replies": "99",
+        "Votes": "495",
+        "Posted": "10 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "how-much-ram-do-you-really-need-for-photo-editing",
+       "name": "How much RAM do you really need for photo editing?",
+       "values": {
+        "Author": "maple_89",
+        "Replies": "12",
+        "Votes": "351",
+        "Posted": "14 h ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "cable-management-before-and-after",
+       "name": "Cable management before and after",
+       "values": {
+        "Author": "maple_43",
+        "Replies": "85",
+        "Votes": "1480",
+        "Posted": "1 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "air-cooling-vs-liquid-cooling-for-a-small-case",
+       "name": "Air cooling vs liquid cooling for a small case",
+       "values": {
+        "Author": "maple_18",
+        "Replies": "150",
+        "Votes": "1293",
+        "Posted": "2 d ago",
+        "Flair": "Guide"
+       }
+      }
+     ]
+    },
+    {
+     "id": "mobile",
+     "title": "Mobile",
+     "intro": "Conversations about mobile.",
+     "items": [
+      {
+       "id": "battery-life-tips-that-actually-make-a-difference",
+       "name": "Battery life tips that actually make a difference",
+       "values": {
+        "Author": "willow_29",
+        "Replies": "52",
+        "Votes": "1394",
+        "Posted": "9 h ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "which-note-taking-app-do-you-use",
+       "name": "Which note-taking app do you use?",
+       "values": {
+        "Author": "marlow_67",
+        "Replies": "131",
+        "Votes": "783",
+        "Posted": "10 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "switching-phones-easiest-way-to-move-photos",
+       "name": "Switching phones: easiest way to move photos",
+       "values": {
+        "Author": "sable_74",
+        "Replies": "179",
+        "Votes": "93",
+        "Posted": "20 h ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "do-screen-protectors-still-matter",
+       "name": "Do screen protectors still matter?",
+       "values": {
+        "Author": "juniper_14",
+        "Replies": "221",
+        "Votes": "1025",
+        "Posted": "1 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "favourite-widgets-for-the-home-screen",
+       "name": "Favourite widgets for the home screen",
+       "values": {
+        "Author": "ember_63",
+        "Replies": "49",
+        "Votes": "1036",
+        "Posted": "2 d ago",
+        "Flair": "Question"
+       }
+      }
+     ]
+    },
+    {
+     "id": "gaming",
+     "title": "Gaming",
+     "intro": "Conversations about gaming.",
+     "items": [
+      {
+       "id": "cosy-games-for-a-rainy-weekend",
+       "name": "Cosy games for a rainy weekend",
+       "values": {
+        "Author": "quietfox_42",
+        "Replies": "138",
+        "Votes": "898",
+        "Posted": "21 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "controller-vs-keyboard-for-platformers",
+       "name": "Controller vs keyboard for platformers",
+       "values": {
+        "Author": "riverstone_29",
+        "Replies": "205",
+        "Votes": "171",
+        "Posted": "1 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "underrated-puzzle-games-list",
+       "name": "Underrated puzzle games list",
+       "values": {
+        "Author": "atlas_92",
+        "Replies": "78",
+        "Votes": "424",
+        "Posted": "2 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "how-do-you-keep-track-of-your-game-backlog",
+       "name": "How do you keep track of your game backlog?",
+       "values": {
+        "Author": "fernway_56",
+        "Replies": "227",
+        "Votes": "949",
+        "Posted": "2 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "local-co-op-games-for-two-players",
+       "name": "Local co-op games for two players",
+       "values": {
+        "Author": "atlas_15",
+        "Replies": "104",
+        "Votes": "1044",
+        "Posted": "2 d ago",
+        "Flair": "Help"
+       }
+      }
+     ]
+    },
+    {
+     "id": "web-design",
+     "title": "Web Design",
+     "intro": "Conversations about web design.",
+     "items": [
+      {
+       "id": "feedback-wanted-on-my-portfolio-layout",
+       "name": "Feedback wanted on my portfolio layout",
+       "values": {
+        "Author": "riverstone_12",
+        "Replies": "211",
+        "Votes": "1385",
+        "Posted": "4 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "choosing-a-colour-palette-that-isn-t-boring",
+       "name": "Choosing a colour palette that isn't boring",
+       "values": {
+        "Author": "quietfox_42",
+        "Replies": "210",
+        "Votes": "595",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "best-free-icon-sets",
+       "name": "Best free icon sets",
+       "values": {
+        "Author": "atlas_86",
+        "Replies": "68",
+        "Votes": "1053",
+        "Posted": "1 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "how-big-should-body-text-be-on-mobile",
+       "name": "How big should body text be on mobile?",
+       "values": {
+        "Author": "willow_59",
+        "Replies": "59",
+        "Votes": "330",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "dark-mode-auto-switch-or-let-users-choose",
+       "name": "Dark mode: auto-switch or let users choose?",
+       "values": {
+        "Author": "orbit_48",
+        "Replies": "88",
+        "Votes": "1141",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "hobbies",
+   "title": "Hobbies & Crafts",
+   "icon": "palette",
+   "pages": [
+    {
+     "id": "photography",
+     "title": "Photography",
+     "intro": "Conversations about photography.",
+     "items": [
+      {
+       "id": "golden-hour-settings-for-beginners",
+       "name": "Golden hour settings for beginners",
+       "values": {
+        "Author": "willow_53",
+        "Replies": "234",
+        "Votes": "836",
+        "Posted": "23 h ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "is-a-50mm-lens-the-best-first-upgrade",
+       "name": "Is a 50mm lens the best first upgrade?",
+       "values": {
+        "Author": "lumen_83",
+        "Replies": "71",
+        "Votes": "662",
+        "Posted": "1 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "how-to-photograph-pets-that-won-t-sit-still",
+       "name": "How to photograph pets that won't sit still",
+       "values": {
+        "Author": "quietfox_12",
+        "Replies": "222",
+        "Votes": "262",
+        "Posted": "1 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "weekly-theme-reflections",
+       "name": "Weekly theme: reflections",
+       "values": {
+        "Author": "fernway_72",
+        "Replies": "136",
+        "Votes": "340",
+        "Posted": "2 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "editing-workflow-for-travel-photos",
+       "name": "Editing workflow for travel photos",
+       "values": {
+        "Author": "harbor_81",
+        "Replies": "48",
+        "Votes": "1377",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      }
+     ]
+    },
+    {
+     "id": "gardening",
+     "title": "Gardening",
+     "intro": "Conversations about gardening.",
+     "items": [
+      {
+       "id": "tomatoes-on-a-balcony-what-worked-for-me",
+       "name": "Tomatoes on a balcony: what worked for me",
+       "values": {
+        "Author": "riverstone_94",
+        "Replies": "143",
+        "Votes": "166",
+        "Posted": "18 h ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "best-low-light-houseplants",
+       "name": "Best low-light houseplants",
+       "values": {
+        "Author": "marlow_40",
+        "Replies": "59",
+        "Votes": "961",
+        "Posted": "2 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "composting-in-a-small-flat",
+       "name": "Composting in a small flat",
+       "values": {
+        "Author": "pixel_73",
+        "Replies": "118",
+        "Votes": "648",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "when-should-i-repot-a-snake-plant",
+       "name": "When should I repot a snake plant?",
+       "values": {
+        "Author": "pixel_24",
+        "Replies": "200",
+        "Votes": "1579",
+        "Posted": "2 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "herb-garden-starter-kit-recommendations",
+       "name": "Herb garden starter kit recommendations",
+       "values": {
+        "Author": "sable_82",
+        "Replies": "212",
+        "Votes": "632",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      }
+     ]
+    },
+    {
+     "id": "woodworking",
+     "title": "Woodworking",
+     "intro": "Conversations about woodworking.",
+     "items": [
+      {
+       "id": "simple-first-project-a-cutting-board",
+       "name": "Simple first project: a cutting board",
+       "values": {
+        "Author": "fernway_67",
+        "Replies": "110",
+        "Votes": "563",
+        "Posted": "4 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "hand-tools-vs-power-tools-for-beginners",
+       "name": "Hand tools vs power tools for beginners",
+       "values": {
+        "Author": "tundra_53",
+        "Replies": "89",
+        "Votes": "948",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "finishing-oil-recommendations",
+       "name": "Finishing oil recommendations",
+       "values": {
+        "Author": "quietfox_89",
+        "Replies": "4",
+        "Votes": "271",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "built-a-bookshelf-this-weekend",
+       "name": "Built a bookshelf this weekend",
+       "values": {
+        "Author": "maple_18",
+        "Replies": "22",
+        "Votes": "172",
+        "Posted": "2 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "how-to-keep-a-chisel-sharp",
+       "name": "How to keep a chisel sharp",
+       "values": {
+        "Author": "juniper_28",
+        "Replies": "33",
+        "Votes": "841",
+        "Posted": "2 d ago",
+        "Flair": "Question"
+       }
+      }
+     ]
+    },
+    {
+     "id": "board-games",
+     "title": "Board Games",
+     "intro": "Conversations about board games.",
+     "items": [
+      {
+       "id": "games-that-work-well-with-exactly-two-players",
+       "name": "Games that work well with exactly two players",
+       "values": {
+        "Author": "nova_55",
+        "Replies": "205",
+        "Votes": "1292",
+        "Posted": "1 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "how-to-teach-a-complicated-game-quickly",
+       "name": "How to teach a complicated game quickly",
+       "values": {
+        "Author": "harbor_91",
+        "Replies": "154",
+        "Votes": "453",
+        "Posted": "1 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "storage-inserts-worth-it",
+       "name": "Storage inserts: worth it?",
+       "values": {
+        "Author": "ember_61",
+        "Replies": "40",
+        "Votes": "434",
+        "Posted": "1 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "best-party-games-for-large-groups",
+       "name": "Best party games for large groups",
+       "values": {
+        "Author": "basil_55",
+        "Replies": "175",
+        "Votes": "211",
+        "Posted": "1 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "cooperative-games-for-families",
+       "name": "Cooperative games for families",
+       "values": {
+        "Author": "juniper_47",
+        "Replies": "162",
+        "Votes": "175",
+        "Posted": "2 d ago",
+        "Flair": "Guide"
+       }
+      }
+     ]
+    },
+    {
+     "id": "knitting",
+     "title": "Knitting",
+     "intro": "Conversations about knitting.",
+     "items": [
+      {
+       "id": "finished-my-first-scarf",
+       "name": "Finished my first scarf",
+       "values": {
+        "Author": "basil_78",
+        "Replies": "120",
+        "Votes": "1327",
+        "Posted": "5 h ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "which-yarn-weight-for-a-beginner-blanket",
+       "name": "Which yarn weight for a beginner blanket?",
+       "values": {
+        "Author": "riverstone_85",
+        "Replies": "43",
+        "Votes": "751",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "circular-vs-straight-needles",
+       "name": "Circular vs straight needles",
+       "values": {
+        "Author": "willow_12",
+        "Replies": "227",
+        "Votes": "1393",
+        "Posted": "1 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "fixing-a-dropped-stitch-three-rows-down",
+       "name": "Fixing a dropped stitch three rows down",
+       "values": {
+        "Author": "riverstone_75",
+        "Replies": "58",
+        "Votes": "732",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "pattern-recommendations-for-socks",
+       "name": "Pattern recommendations for socks",
+       "values": {
+        "Author": "nova_14",
+        "Replies": "134",
+        "Votes": "1694",
+        "Posted": "2 d ago",
+        "Flair": "Guide"
+       }
+      }
+     ]
+    },
+    {
+     "id": "music-making",
+     "title": "Music Making",
+     "intro": "Conversations about music making.",
+     "items": [
+      {
+       "id": "cheap-midi-keyboard-suggestions",
+       "name": "Cheap MIDI keyboard suggestions",
+       "values": {
+        "Author": "sable_36",
+        "Replies": "125",
+        "Votes": "878",
+        "Posted": "7 h ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "how-long-did-it-take-you-to-learn-barre-chords",
+       "name": "How long did it take you to learn barre chords?",
+       "values": {
+        "Author": "harbor_23",
+        "Replies": "205",
+        "Votes": "294",
+        "Posted": "9 h ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "recording-vocals-at-home-without-a-booth",
+       "name": "Recording vocals at home without a booth",
+       "values": {
+        "Author": "basil_71",
+        "Replies": "30",
+        "Votes": "1390",
+        "Posted": "1 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "free-digital-audio-workstations-compared",
+       "name": "Free digital audio workstations compared",
+       "values": {
+        "Author": "basil_19",
+        "Replies": "198",
+        "Votes": "647",
+        "Posted": "1 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "practice-routine-for-busy-people",
+       "name": "Practice routine for busy people",
+       "values": {
+        "Author": "lumen_83",
+        "Replies": "183",
+        "Votes": "196",
+        "Posted": "2 d ago",
+        "Flair": "Showcase"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "food",
+   "title": "Food & Cooking",
+   "icon": "utensils",
+   "pages": [
+    {
+     "id": "baking",
+     "title": "Baking",
+     "intro": "Conversations about baking.",
+     "items": [
+      {
+       "id": "sourdough-starter-not-rising-help",
+       "name": "Sourdough starter not rising: help",
+       "values": {
+        "Author": "orbit_81",
+        "Replies": "225",
+        "Votes": "658",
+        "Posted": "20 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "best-chocolate-chip-cookie-ratio",
+       "name": "Best chocolate chip cookie ratio",
+       "values": {
+        "Author": "maple_75",
+        "Replies": "72",
+        "Votes": "1768",
+        "Posted": "1 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "converting-cups-to-grams-accurately",
+       "name": "Converting cups to grams accurately",
+       "values": {
+        "Author": "orbit_52",
+        "Replies": "171",
+        "Votes": "794",
+        "Posted": "1 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "lemon-drizzle-cake-tips",
+       "name": "Lemon drizzle cake tips",
+       "values": {
+        "Author": "ember_12",
+        "Replies": "58",
+        "Votes": "117",
+        "Posted": "1 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "why-did-my-bread-come-out-dense",
+       "name": "Why did my bread come out dense?",
+       "values": {
+        "Author": "zephyr_19",
+        "Replies": "18",
+        "Votes": "960",
+        "Posted": "1 d ago",
+        "Flair": "Question"
+       }
+      }
+     ]
+    },
+    {
+     "id": "vegetarian",
+     "title": "Vegetarian",
+     "intro": "Conversations about vegetarian.",
+     "items": [
+      {
+       "id": "high-protein-vegetarian-lunches",
+       "name": "High-protein vegetarian lunches",
+       "values": {
+        "Author": "marlow_81",
+        "Replies": "5",
+        "Votes": "525",
+        "Posted": "1 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "favourite-lentil-recipes",
+       "name": "Favourite lentil recipes",
+       "values": {
+        "Author": "basil_36",
+        "Replies": "228",
+        "Votes": "555",
+        "Posted": "1 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "how-do-you-make-tofu-crispy",
+       "name": "How do you make tofu crispy?",
+       "values": {
+        "Author": "fernway_52",
+        "Replies": "173",
+        "Votes": "174",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "meal-prep-ideas-for-the-week",
+       "name": "Meal prep ideas for the week",
+       "values": {
+        "Author": "sable_89",
+        "Replies": "195",
+        "Votes": "188",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "vegetarian-dishes-that-impress-guests",
+       "name": "Vegetarian dishes that impress guests",
+       "values": {
+        "Author": "willow_78",
+        "Replies": "129",
+        "Votes": "74",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      }
+     ]
+    },
+    {
+     "id": "quick-meals",
+     "title": "Quick Meals",
+     "intro": "Conversations about quick meals.",
+     "items": [
+      {
+       "id": "dinners-in-under-20-minutes",
+       "name": "Dinners in under 20 minutes",
+       "values": {
+        "Author": "marlow_42",
+        "Replies": "159",
+        "Votes": "719",
+        "Posted": "8 h ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "one-pan-pasta-ideas",
+       "name": "One-pan pasta ideas",
+       "values": {
+        "Author": "maple_55",
+        "Replies": "231",
+        "Votes": "48",
+        "Posted": "22 h ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "five-ingredient-recipes",
+       "name": "Five-ingredient recipes",
+       "values": {
+        "Author": "maple_21",
+        "Replies": "59",
+        "Votes": "1794",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "what-s-your-go-to-lazy-breakfast",
+       "name": "What's your go-to lazy breakfast?",
+       "values": {
+        "Author": "cedar_85",
+        "Replies": "191",
+        "Votes": "816",
+        "Posted": "2 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "making-the-most-of-a-slow-cooker",
+       "name": "Making the most of a slow cooker",
+       "values": {
+        "Author": "cedar_52",
+        "Replies": "88",
+        "Votes": "972",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      }
+     ]
+    },
+    {
+     "id": "coffee",
+     "title": "Coffee",
+     "intro": "Conversations about coffee.",
+     "items": [
+      {
+       "id": "pour-over-vs-french-press",
+       "name": "Pour-over vs French press",
+       "values": {
+        "Author": "marlow_47",
+        "Replies": "176",
+        "Votes": "1799",
+        "Posted": "1 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "grinding-beans-at-home-is-it-worth-it",
+       "name": "Grinding beans at home: is it worth it?",
+       "values": {
+        "Author": "tundra_10",
+        "Replies": "40",
+        "Votes": "1512",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "best-milk-for-latte-art",
+       "name": "Best milk for latte art",
+       "values": {
+        "Author": "sable_54",
+        "Replies": "150",
+        "Votes": "553",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "cold-brew-ratio-that-works",
+       "name": "Cold brew ratio that works",
+       "values": {
+        "Author": "lumen_94",
+        "Replies": "239",
+        "Votes": "850",
+        "Posted": "2 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "decaf-that-actually-tastes-good",
+       "name": "Decaf that actually tastes good",
+       "values": {
+        "Author": "quietfox_47",
+        "Replies": "206",
+        "Votes": "1179",
+        "Posted": "2 d ago",
+        "Flair": "Guide"
+       }
+      }
+     ]
+    },
+    {
+     "id": "world-cuisine",
+     "title": "World Cuisine",
+     "intro": "Conversations about world cuisine.",
+     "items": [
+      {
+       "id": "authentic-ramen-broth-at-home",
+       "name": "Authentic ramen broth at home",
+       "values": {
+        "Author": "riverstone_12",
+        "Replies": "217",
+        "Votes": "558",
+        "Posted": "10 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "favourite-ethiopian-dishes",
+       "name": "Favourite Ethiopian dishes",
+       "values": {
+        "Author": "maple_93",
+        "Replies": "210",
+        "Votes": "212",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "how-to-make-fresh-tortillas",
+       "name": "How to make fresh tortillas",
+       "values": {
+        "Author": "quietfox_71",
+        "Replies": "16",
+        "Votes": "1164",
+        "Posted": "1 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "regional-curries-explained",
+       "name": "Regional curries explained",
+       "values": {
+        "Author": "cobalt_27",
+        "Replies": "209",
+        "Votes": "562",
+        "Posted": "2 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "spice-cupboard-essentials",
+       "name": "Spice cupboard essentials",
+       "values": {
+        "Author": "marlow_59",
+        "Replies": "96",
+        "Votes": "244",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      }
+     ]
+    },
+    {
+     "id": "grilling",
+     "title": "Grilling",
+     "intro": "Conversations about grilling.",
+     "items": [
+      {
+       "id": "charcoal-vs-gas-for-beginners",
+       "name": "Charcoal vs gas for beginners",
+       "values": {
+        "Author": "quietfox_33",
+        "Replies": "119",
+        "Votes": "1251",
+        "Posted": "13 h ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "vegetable-skewers-that-don-t-fall-apart",
+       "name": "Vegetable skewers that don't fall apart",
+       "values": {
+        "Author": "tundra_17",
+        "Replies": "147",
+        "Votes": "1445",
+        "Posted": "14 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "how-long-to-rest-steak",
+       "name": "How long to rest steak",
+       "values": {
+        "Author": "maple_64",
+        "Replies": "193",
+        "Votes": "648",
+        "Posted": "22 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "homemade-barbecue-sauce",
+       "name": "Homemade barbecue sauce",
+       "values": {
+        "Author": "marlow_51",
+        "Replies": "150",
+        "Votes": "779",
+        "Posted": "2 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "cleaning-a-cast-iron-grill-grate",
+       "name": "Cleaning a cast-iron grill grate",
+       "values": {
+        "Author": "willow_48",
+        "Replies": "32",
+        "Votes": "1768",
+        "Posted": "2 d ago",
+        "Flair": "Guide"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "travel",
+   "title": "Travel",
+   "icon": "plane",
+   "pages": [
+    {
+     "id": "budget-travel",
+     "title": "Budget Travel",
+     "intro": "Conversations about budget travel.",
+     "items": [
+      {
+       "id": "how-i-travelled-for-a-month-on-a-small-budget",
+       "name": "How I travelled for a month on a small budget",
+       "values": {
+        "Author": "fernway_40",
+        "Replies": "199",
+        "Votes": "295",
+        "Posted": "2 h ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "hostels-vs-guesthouses",
+       "name": "Hostels vs guesthouses",
+       "values": {
+        "Author": "riverstone_83",
+        "Replies": "179",
+        "Votes": "559",
+        "Posted": "12 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "best-apps-for-cheap-flights",
+       "name": "Best apps for cheap flights",
+       "values": {
+        "Author": "sable_69",
+        "Replies": "158",
+        "Votes": "698",
+        "Posted": "15 h ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "packing-light-one-bag-for-two-weeks",
+       "name": "Packing light: one bag for two weeks",
+       "values": {
+        "Author": "basil_47",
+        "Replies": "169",
+        "Votes": "180",
+        "Posted": "1 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "free-walking-tours-worth-it",
+       "name": "Free walking tours: worth it?",
+       "values": {
+        "Author": "fernway_97",
+        "Replies": "203",
+        "Votes": "1087",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      }
+     ]
+    },
+    {
+     "id": "europe",
+     "title": "Europe",
+     "intro": "Conversations about europe.",
+     "items": [
+      {
+       "id": "three-days-in-lisbon-itinerary-help",
+       "name": "Three days in Lisbon: itinerary help",
+       "values": {
+        "Author": "atlas_97",
+        "Replies": "214",
+        "Votes": "1114",
+        "Posted": "6 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "night-trains-worth-taking",
+       "name": "Night trains worth taking",
+       "values": {
+        "Author": "atlas_38",
+        "Replies": "231",
+        "Votes": "768",
+        "Posted": "23 h ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "quiet-alternatives-to-busy-cities",
+       "name": "Quiet alternatives to busy cities",
+       "values": {
+        "Author": "willow_54",
+        "Replies": "47",
+        "Votes": "1494",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "visiting-the-alps-in-autumn",
+       "name": "Visiting the Alps in autumn",
+       "values": {
+        "Author": "tundra_99",
+        "Replies": "116",
+        "Votes": "1277",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "best-time-to-visit-croatia",
+       "name": "Best time to visit Croatia",
+       "values": {
+        "Author": "maple_13",
+        "Replies": "217",
+        "Votes": "1531",
+        "Posted": "2 d ago",
+        "Flair": "Help"
+       }
+      }
+     ]
+    },
+    {
+     "id": "asia",
+     "title": "Asia",
+     "intro": "Conversations about asia.",
+     "items": [
+      {
+       "id": "first-trip-to-japan-rail-pass-or-not",
+       "name": "First trip to Japan: rail pass or not?",
+       "values": {
+        "Author": "basil_40",
+        "Replies": "171",
+        "Votes": "782",
+        "Posted": "5 h ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "street-food-etiquette-tips",
+       "name": "Street food etiquette tips",
+       "values": {
+        "Author": "nova_39",
+        "Replies": "177",
+        "Votes": "1788",
+        "Posted": "1 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "two-weeks-in-vietnam-route",
+       "name": "Two weeks in Vietnam route",
+       "values": {
+        "Author": "fernway_53",
+        "Replies": "172",
+        "Votes": "1639",
+        "Posted": "1 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "visiting-temples-respectfully",
+       "name": "Visiting temples respectfully",
+       "values": {
+        "Author": "zephyr_75",
+        "Replies": "72",
+        "Votes": "313",
+        "Posted": "1 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "getting-around-seoul",
+       "name": "Getting around Seoul",
+       "values": {
+        "Author": "tundra_96",
+        "Replies": "189",
+        "Votes": "877",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      }
+     ]
+    },
+    {
+     "id": "road-trips",
+     "title": "Road Trips",
+     "intro": "Conversations about road trips.",
+     "items": [
+      {
+       "id": "playlist-suggestions-for-long-drives",
+       "name": "Playlist suggestions for long drives",
+       "values": {
+        "Author": "marlow_26",
+        "Replies": "198",
+        "Votes": "251",
+        "Posted": "22 h ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "renting-a-campervan-for-the-first-time",
+       "name": "Renting a campervan for the first time",
+       "values": {
+        "Author": "lumen_48",
+        "Replies": "43",
+        "Votes": "1255",
+        "Posted": "1 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "coastal-routes-you-recommend",
+       "name": "Coastal routes you recommend",
+       "values": {
+        "Author": "willow_94",
+        "Replies": "83",
+        "Votes": "422",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "how-to-split-driving-fairly",
+       "name": "How to split driving fairly",
+       "values": {
+        "Author": "zephyr_73",
+        "Replies": "60",
+        "Votes": "317",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "snacks-that-survive-a-hot-car",
+       "name": "Snacks that survive a hot car",
+       "values": {
+        "Author": "cobalt_38",
+        "Replies": "121",
+        "Votes": "343",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      }
+     ]
+    },
+    {
+     "id": "hiking-trails",
+     "title": "Hiking Trails",
+     "intro": "Conversations about hiking trails.",
+     "items": [
+      {
+       "id": "beginner-friendly-mountain-hikes",
+       "name": "Beginner-friendly mountain hikes",
+       "values": {
+        "Author": "tundra_51",
+        "Replies": "44",
+        "Votes": "181",
+        "Posted": "20 h ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "waterproof-boots-that-actually-stay-dry",
+       "name": "Waterproof boots that actually stay dry",
+       "values": {
+        "Author": "ember_97",
+        "Replies": "238",
+        "Votes": "441",
+        "Posted": "1 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "how-to-plan-a-multi-day-trek",
+       "name": "How to plan a multi-day trek",
+       "values": {
+        "Author": "sable_57",
+        "Replies": "87",
+        "Votes": "1423",
+        "Posted": "1 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "trail-etiquette-reminders",
+       "name": "Trail etiquette reminders",
+       "values": {
+        "Author": "maple_43",
+        "Replies": "7",
+        "Votes": "1775",
+        "Posted": "1 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "best-hiking-map-apps",
+       "name": "Best hiking map apps",
+       "values": {
+        "Author": "cedar_19",
+        "Replies": "215",
+        "Votes": "1581",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      }
+     ]
+    },
+    {
+     "id": "travel-tips",
+     "title": "Travel Tips",
+     "intro": "Conversations about travel tips.",
+     "items": [
+      {
+       "id": "how-do-you-beat-jet-lag",
+       "name": "How do you beat jet lag?",
+       "values": {
+        "Author": "atlas_57",
+        "Replies": "196",
+        "Votes": "961",
+        "Posted": "13 h ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "travel-insurance-what-to-look-for",
+       "name": "Travel insurance: what to look for",
+       "values": {
+        "Author": "fernway_92",
+        "Replies": "159",
+        "Votes": "1253",
+        "Posted": "19 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "keeping-documents-safe-abroad",
+       "name": "Keeping documents safe abroad",
+       "values": {
+        "Author": "sable_95",
+        "Replies": "202",
+        "Votes": "615",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "learning-basic-phrases-before-a-trip",
+       "name": "Learning basic phrases before a trip",
+       "values": {
+        "Author": "cedar_49",
+        "Replies": "229",
+        "Votes": "208",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "carry-on-essentials-checklist",
+       "name": "Carry-on essentials checklist",
+       "values": {
+        "Author": "atlas_20",
+        "Replies": "99",
+        "Votes": "774",
+        "Posted": "2 d ago",
+        "Flair": "Showcase"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "science",
+   "title": "Science & Nature",
+   "icon": "leaf",
+   "pages": [
+    {
+     "id": "space",
+     "title": "Space",
+     "intro": "Conversations about space.",
+     "items": [
+      {
+       "id": "best-way-to-see-the-next-meteor-shower",
+       "name": "Best way to see the next meteor shower",
+       "values": {
+        "Author": "fernway_64",
+        "Replies": "228",
+        "Votes": "1180",
+        "Posted": "14 h ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "beginner-telescope-recommendations",
+       "name": "Beginner telescope recommendations",
+       "values": {
+        "Author": "riverstone_33",
+        "Replies": "36",
+        "Votes": "1477",
+        "Posted": "22 h ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "how-do-we-know-how-far-away-stars-are",
+       "name": "How do we know how far away stars are?",
+       "values": {
+        "Author": "basil_93",
+        "Replies": "205",
+        "Votes": "493",
+        "Posted": "1 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "photos-of-the-moon-from-my-garden",
+       "name": "Photos of the Moon from my garden",
+       "values": {
+        "Author": "lumen_99",
+        "Replies": "17",
+        "Votes": "155",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "what-would-happen-on-a-trip-to-mars",
+       "name": "What would happen on a trip to Mars?",
+       "values": {
+        "Author": "willow_93",
+        "Replies": "222",
+        "Votes": "960",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      }
+     ]
+    },
+    {
+     "id": "wildlife",
+     "title": "Wildlife",
+     "intro": "Conversations about wildlife.",
+     "items": [
+      {
+       "id": "birds-visiting-my-feeder-this-week",
+       "name": "Birds visiting my feeder this week",
+       "values": {
+        "Author": "juniper_91",
+        "Replies": "156",
+        "Votes": "1290",
+        "Posted": "2 h ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "how-to-attract-hedgehogs-to-a-garden",
+       "name": "How to attract hedgehogs to a garden",
+       "values": {
+        "Author": "lumen_86",
+        "Replies": "58",
+        "Votes": "1645",
+        "Posted": "13 h ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "identifying-animal-tracks-in-snow",
+       "name": "Identifying animal tracks in snow",
+       "values": {
+        "Author": "cedar_83",
+        "Replies": "56",
+        "Votes": "1167",
+        "Posted": "1 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "best-wildlife-documentaries",
+       "name": "Best wildlife documentaries",
+       "values": {
+        "Author": "tundra_26",
+        "Replies": "28",
+        "Votes": "799",
+        "Posted": "1 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "why-do-cats-knock-things-over",
+       "name": "Why do cats knock things over?",
+       "values": {
+        "Author": "riverstone_62",
+        "Replies": "59",
+        "Votes": "832",
+        "Posted": "1 d ago",
+        "Flair": "Guide"
+       }
+      }
+     ]
+    },
+    {
+     "id": "weather",
+     "title": "Weather",
+     "intro": "Conversations about weather.",
+     "items": [
+      {
+       "id": "how-are-weather-forecasts-made",
+       "name": "How are weather forecasts made?",
+       "values": {
+        "Author": "marlow_21",
+        "Replies": "213",
+        "Votes": "688",
+        "Posted": "18 h ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "cloud-types-cheat-sheet",
+       "name": "Cloud types cheat sheet",
+       "values": {
+        "Author": "atlas_97",
+        "Replies": "15",
+        "Votes": "1691",
+        "Posted": "1 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "building-a-home-weather-station",
+       "name": "Building a home weather station",
+       "values": {
+        "Author": "zephyr_63",
+        "Replies": "140",
+        "Votes": "77",
+        "Posted": "1 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "why-is-it-windier-by-the-coast",
+       "name": "Why is it windier by the coast?",
+       "values": {
+        "Author": "tundra_85",
+        "Replies": "216",
+        "Votes": "1126",
+        "Posted": "2 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "recording-rainfall-for-a-year",
+       "name": "Recording rainfall for a year",
+       "values": {
+        "Author": "sable_65",
+        "Replies": "46",
+        "Votes": "366",
+        "Posted": "2 d ago",
+        "Flair": "Help"
+       }
+      }
+     ]
+    },
+    {
+     "id": "physics",
+     "title": "Physics",
+     "intro": "Conversations about physics.",
+     "items": [
+      {
+       "id": "explain-quantum-computing-simply",
+       "name": "Explain quantum computing simply",
+       "values": {
+        "Author": "fernway_71",
+        "Replies": "124",
+        "Votes": "1227",
+        "Posted": "9 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "why-is-the-sky-blue",
+       "name": "Why is the sky blue?",
+       "values": {
+        "Author": "maple_88",
+        "Replies": "188",
+        "Votes": "688",
+        "Posted": "1 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "favourite-physics-demonstrations",
+       "name": "Favourite physics demonstrations",
+       "values": {
+        "Author": "quietfox_17",
+        "Replies": "196",
+        "Votes": "1054",
+        "Posted": "2 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "how-do-noise-cancelling-headphones-work",
+       "name": "How do noise-cancelling headphones work?",
+       "values": {
+        "Author": "atlas_16",
+        "Replies": "49",
+        "Votes": "475",
+        "Posted": "2 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "is-time-travel-possible-in-theory",
+       "name": "Is time travel possible in theory?",
+       "values": {
+        "Author": "orbit_58",
+        "Replies": "69",
+        "Votes": "1261",
+        "Posted": "2 d ago",
+        "Flair": "Showcase"
+       }
+      }
+     ]
+    },
+    {
+     "id": "ocean",
+     "title": "Ocean",
+     "intro": "Conversations about ocean.",
+     "items": [
+      {
+       "id": "how-deep-have-humans-actually-gone",
+       "name": "How deep have humans actually gone?",
+       "values": {
+        "Author": "cobalt_41",
+        "Replies": "197",
+        "Votes": "1239",
+        "Posted": "21 h ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "bioluminescent-beaches-worth-visiting",
+       "name": "Bioluminescent beaches worth visiting",
+       "values": {
+        "Author": "fernway_51",
+        "Replies": "219",
+        "Votes": "451",
+        "Posted": "1 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "coral-reef-conservation-projects",
+       "name": "Coral reef conservation projects",
+       "values": {
+        "Author": "harbor_85",
+        "Replies": "202",
+        "Votes": "1378",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "why-is-the-sea-salty",
+       "name": "Why is the sea salty?",
+       "values": {
+        "Author": "cobalt_33",
+        "Replies": "10",
+        "Votes": "63",
+        "Posted": "2 d ago",
+        "Flair": "Showcase"
+       }
+      },
+      {
+       "id": "tide-pool-finds-this-summer",
+       "name": "Tide pool finds this summer",
+       "values": {
+        "Author": "orbit_98",
+        "Replies": "229",
+        "Votes": "663",
+        "Posted": "2 d ago",
+        "Flair": "Showcase"
+       }
+      }
+     ]
+    },
+    {
+     "id": "ask-a-scientist",
+     "title": "Ask a Scientist",
+     "intro": "Conversations about ask a scientist.",
+     "items": [
+      {
+       "id": "how-do-vaccines-get-tested",
+       "name": "How do vaccines get tested?",
+       "values": {
+        "Author": "quietfox_35",
+        "Replies": "138",
+        "Votes": "951",
+        "Posted": "8 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "why-do-we-dream",
+       "name": "Why do we dream?",
+       "values": {
+        "Author": "sable_21",
+        "Replies": "132",
+        "Votes": "1438",
+        "Posted": "1 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "how-do-plants-know-which-way-is-up",
+       "name": "How do plants know which way is up?",
+       "values": {
+        "Author": "atlas_21",
+        "Replies": "94",
+        "Votes": "216",
+        "Posted": "1 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "what-makes-a-good-experiment",
+       "name": "What makes a good experiment?",
+       "values": {
+        "Author": "juniper_93",
+        "Replies": "69",
+        "Votes": "1756",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "how-accurate-is-carbon-dating",
+       "name": "How accurate is carbon dating?",
+       "values": {
+        "Author": "orbit_52",
+        "Replies": "59",
+        "Votes": "360",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "community",
+   "title": "Community",
+   "icon": "message",
+   "pages": [
+    {
+     "id": "introductions",
+     "title": "Introductions",
+     "intro": "Conversations about introductions.",
+     "items": [
+      {
+       "id": "hello-from-a-new-member",
+       "name": "Hello from a new member!",
+       "values": {
+        "Author": "riverstone_36",
+        "Replies": "49",
+        "Votes": "925",
+        "Posted": "17 h ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "long-time-reader-first-post",
+       "name": "Long-time reader, first post",
+       "values": {
+        "Author": "atlas_28",
+        "Replies": "30",
+        "Votes": "268",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "introduce-yourself-thread-november",
+       "name": "Introduce yourself thread: November",
+       "values": {
+        "Author": "orbit_50",
+        "Replies": "136",
+        "Votes": "911",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "back-after-a-long-break",
+       "name": "Back after a long break",
+       "values": {
+        "Author": "willow_18",
+        "Replies": "219",
+        "Votes": "1635",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "new-here-and-interested-in-photography",
+       "name": "New here and interested in photography",
+       "values": {
+        "Author": "maple_15",
+        "Replies": "208",
+        "Votes": "463",
+        "Posted": "2 d ago",
+        "Flair": "Guide"
+       }
+      }
+     ]
+    },
+    {
+     "id": "book-club",
+     "title": "Book Club",
+     "intro": "Conversations about book club.",
+     "items": [
+      {
+       "id": "november-pick-discussion-thread",
+       "name": "November pick: discussion thread",
+       "values": {
+        "Author": "lumen_34",
+        "Replies": "131",
+        "Votes": "723",
+        "Posted": "5 h ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "books-that-kept-you-up-all-night",
+       "name": "Books that kept you up all night",
+       "values": {
+        "Author": "maple_42",
+        "Replies": "218",
+        "Votes": "1482",
+        "Posted": "17 h ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "audiobooks-vs-paper-books",
+       "name": "Audiobooks vs paper books",
+       "values": {
+        "Author": "lumen_49",
+        "Replies": "23",
+        "Votes": "1680",
+        "Posted": "1 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "short-books-for-a-busy-month",
+       "name": "Short books for a busy month",
+       "values": {
+        "Author": "cedar_23",
+        "Replies": "85",
+        "Votes": "781",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "best-science-fiction-of-the-decade",
+       "name": "Best science fiction of the decade",
+       "values": {
+        "Author": "sable_13",
+        "Replies": "151",
+        "Votes": "102",
+        "Posted": "2 d ago",
+        "Flair": "Recommendation"
+       }
+      }
+     ]
+    },
+    {
+     "id": "movies-tv",
+     "title": "Movies & TV",
+     "intro": "Conversations about movies & tv.",
+     "items": [
+      {
+       "id": "shows-to-watch-in-one-weekend",
+       "name": "Shows to watch in one weekend",
+       "values": {
+        "Author": "willow_27",
+        "Replies": "199",
+        "Votes": "539",
+        "Posted": "5 h ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "favourite-film-soundtracks",
+       "name": "Favourite film soundtracks",
+       "values": {
+        "Author": "cobalt_96",
+        "Replies": "233",
+        "Votes": "1789",
+        "Posted": "1 d ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "underrated-animated-films",
+       "name": "Underrated animated films",
+       "values": {
+        "Author": "willow_42",
+        "Replies": "27",
+        "Votes": "1644",
+        "Posted": "2 d ago",
+        "Flair": "Help"
+       }
+      },
+      {
+       "id": "documentaries-everyone-should-see",
+       "name": "Documentaries everyone should see",
+       "values": {
+        "Author": "orbit_76",
+        "Replies": "41",
+        "Votes": "907",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "comfort-shows-you-rewatch",
+       "name": "Comfort shows you rewatch",
+       "values": {
+        "Author": "atlas_51",
+        "Replies": "228",
+        "Votes": "252",
+        "Posted": "2 d ago",
+        "Flair": "Guide"
+       }
+      }
+     ]
+    },
+    {
+     "id": "pets",
+     "title": "Pets",
+     "intro": "Conversations about pets.",
+     "items": [
+      {
+       "id": "tips-for-a-new-kitten-owner",
+       "name": "Tips for a new kitten owner",
+       "values": {
+        "Author": "riverstone_55",
+        "Replies": "232",
+        "Votes": "1419",
+        "Posted": "12 h ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "show-us-your-dog-s-sleeping-position",
+       "name": "Show us your dog's sleeping position",
+       "values": {
+        "Author": "riverstone_51",
+        "Replies": "219",
+        "Votes": "503",
+        "Posted": "19 h ago",
+        "Flair": "Guide"
+       }
+      },
+      {
+       "id": "best-toys-for-indoor-cats",
+       "name": "Best toys for indoor cats",
+       "values": {
+        "Author": "atlas_43",
+        "Replies": "182",
+        "Votes": "1099",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "introducing-two-dogs-to-each-other",
+       "name": "Introducing two dogs to each other",
+       "values": {
+        "Author": "willow_27",
+        "Replies": "194",
+        "Votes": "1096",
+        "Posted": "1 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "how-often-should-i-bathe-my-dog",
+       "name": "How often should I bathe my dog?",
+       "values": {
+        "Author": "maple_97",
+        "Replies": "139",
+        "Votes": "102",
+        "Posted": "2 d ago",
+        "Flair": "Discussion"
+       }
+      }
+     ]
+    },
+    {
+     "id": "fitness",
+     "title": "Fitness",
+     "intro": "Conversations about fitness.",
+     "items": [
+      {
+       "id": "couch-to-5k-progress-check-in",
+       "name": "Couch to 5K progress check-in",
+       "values": {
+        "Author": "quietfox_53",
+        "Replies": "164",
+        "Votes": "1366",
+        "Posted": "14 h ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "stretching-routine-for-desk-workers",
+       "name": "Stretching routine for desk workers",
+       "values": {
+        "Author": "harbor_26",
+        "Replies": "211",
+        "Votes": "1013",
+        "Posted": "15 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "home-workout-without-equipment",
+       "name": "Home workout without equipment",
+       "values": {
+        "Author": "cedar_57",
+        "Replies": "113",
+        "Votes": "597",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "how-do-you-stay-motivated-in-winter",
+       "name": "How do you stay motivated in winter?",
+       "values": {
+        "Author": "tundra_75",
+        "Replies": "216",
+        "Votes": "589",
+        "Posted": "1 d ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "beginner-strength-training-plan",
+       "name": "Beginner strength training plan",
+       "values": {
+        "Author": "harbor_69",
+        "Replies": "12",
+        "Votes": "99",
+        "Posted": "2 d ago",
+        "Flair": "Guide"
+       }
+      }
+     ]
+    },
+    {
+     "id": "off-topic",
+     "title": "Off-topic",
+     "intro": "Conversations about off-topic.",
+     "items": [
+      {
+       "id": "what-made-you-smile-today",
+       "name": "What made you smile today?",
+       "values": {
+        "Author": "lumen_25",
+        "Replies": "223",
+        "Votes": "1633",
+        "Posted": "10 h ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "weirdest-thing-in-your-fridge",
+       "name": "Weirdest thing in your fridge",
+       "values": {
+        "Author": "maple_64",
+        "Replies": "161",
+        "Votes": "1214",
+        "Posted": "18 h ago",
+        "Flair": "Question"
+       }
+      },
+      {
+       "id": "favourite-word-in-another-language",
+       "name": "Favourite word in another language",
+       "values": {
+        "Author": "harbor_23",
+        "Replies": "95",
+        "Votes": "440",
+        "Posted": "1 d ago",
+        "Flair": "Recommendation"
+       }
+      },
+      {
+       "id": "unpopular-food-opinions",
+       "name": "Unpopular food opinions",
+       "values": {
+        "Author": "lumen_77",
+        "Replies": "110",
+        "Votes": "112",
+        "Posted": "1 d ago",
+        "Flair": "Discussion"
+       }
+      },
+      {
+       "id": "what-are-you-working-on-this-weekend",
+       "name": "What are you working on this weekend?",
+       "values": {
+        "Author": "sable_21",
+        "Replies": "76",
+        "Votes": "136",
+        "Posted": "2 d ago",
+        "Flair": "Question"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

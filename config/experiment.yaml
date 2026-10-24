@@ -1,0 +1,33 @@
+# Session-wide settings. All durations are in seconds.
+# `--fast` divides every duration by `fast_divisor` (for dry runs only).
+
+study_title: Website Navigation Study     # shown to participants (deliberately neutral)
+
+timings:
+  baseline_rest: 180        # resting baseline for GSR / HR / pupil
+  induction: 180            # MIST, breathing, copying task
+  task_block: 360           # fixed length of every task block (balanced data per emotion)
+  task_timeout: 90          # max time per task
+  washout: 150              # neutral clip between the two blocks
+  film_reflection: 30       # quiet pause after the sadness clip
+  briefing_min_read: 12     # frustration briefing: Continue unlocks after this
+
+fast_divisor: 12
+
+questionnaires:
+  # Asked after every induction and every task block, always all six, so the
+  # target emotion is never revealed. Order is shuffled per participant.
+  emotion_items: [stressed, calm, frustrated, bored, happy, sad]
+  emotion_scale: 7
+
+calibration:
+  points: [[0.5, 0.5], [0.1, 0.1], [0.9, 0.1], [0.1, 0.9], [0.9, 0.9]]
+  validation_points: [[0.3, 0.3], [0.7, 0.3], [0.3, 0.7], [0.7, 0.7]]
+  max_error: 0.05           # mean validation error (fraction of screen) to accept
+  max_attempts: 2
+
+server:
+  host: 127.0.0.1
+  port: 8765
+
+browser: edge               # edge | chrome

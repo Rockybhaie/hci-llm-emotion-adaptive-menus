@@ -1,0 +1,2384 @@
+{
+ "id": "g1-portal",
+ "name": "Northfield University",
+ "tagline": "Student Portal",
+ "layout": "table",
+ "brand_icon": "graduation",
+ "source": "Information architecture modelled on WebArena's content-management admin panel (Zhou et al., ICLR 2024).",
+ "questions": {
+  "Reference": "What is its reference number?"
+ },
+ "repetitive": {
+  "field": "Reference",
+  "template": "Find \"{item}\" in {page}."
+ },
+ "home": {
+  "headline": "Welcome back, Alex",
+  "sub": "Autumn term · Week 7. Use the menu above to find what you need.",
+  "highlights": [
+   [
+    "calendar",
+    "Reading week",
+    "Starts 3 November"
+   ],
+   [
+    "bell",
+    "2 unread messages",
+    "Check your inbox"
+   ],
+   [
+    "award",
+    "Scholarships open",
+    "Applications due soon"
+   ]
+  ]
+ },
+ "sections": [
+  {
+   "id": "academics",
+   "title": "Academics",
+   "icon": "book",
+   "pages": [
+    {
+     "id": "my-courses",
+     "title": "My Courses",
+     "intro": "Courses you are enrolled in this term.",
+     "columns": [
+      "Course",
+      "Code",
+      "Instructor",
+      "Credits",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "human-computer-interaction",
+       "name": "Human-Computer Interaction",
+       "values": {
+        "Code": "CS 342",
+        "Instructor": "Dr. Amira Haddad",
+        "Credits": "4",
+        "Reference": "NU-86172"
+       }
+      },
+      {
+       "id": "data-structures",
+       "name": "Data Structures",
+       "values": {
+        "Code": "CS 210",
+        "Instructor": "Prof. Daniel Okafor",
+        "Credits": "4",
+        "Reference": "NU-35526"
+       }
+      },
+      {
+       "id": "statistics-for-science",
+       "name": "Statistics for Science",
+       "values": {
+        "Code": "MA 205",
+        "Instructor": "Dr. Lena Fischer",
+        "Credits": "3",
+        "Reference": "NU-80677"
+       }
+      },
+      {
+       "id": "technical-writing",
+       "name": "Technical Writing",
+       "values": {
+        "Code": "EN 230",
+        "Instructor": "Ms. Priya Raman",
+        "Credits": "2",
+        "Reference": "NU-57012"
+       }
+      },
+      {
+       "id": "cognitive-psychology",
+       "name": "Cognitive Psychology",
+       "values": {
+        "Code": "PS 260",
+        "Instructor": "Dr. Marcus Bell",
+        "Credits": "3",
+        "Reference": "NU-71228"
+       }
+      }
+     ]
+    },
+    {
+     "id": "timetable",
+     "title": "Timetable",
+     "intro": "Your weekly schedule for the autumn term.",
+     "columns": [
+      "Session",
+      "Day",
+      "Time",
+      "Room",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "hci-lecture",
+       "name": "HCI Lecture",
+       "values": {
+        "Day": "Monday",
+        "Time": "09:00–10:30",
+        "Room": "B214",
+        "Reference": "NU-16359"
+       }
+      },
+      {
+       "id": "hci-lab",
+       "name": "HCI Lab",
+       "values": {
+        "Day": "Wednesday",
+        "Time": "14:00–16:00",
+        "Room": "Lab 3",
+        "Reference": "NU-96962"
+       }
+      },
+      {
+       "id": "data-structures-lecture",
+       "name": "Data Structures Lecture",
+       "values": {
+        "Day": "Tuesday",
+        "Time": "11:00–12:30",
+        "Room": "A102",
+        "Reference": "NU-75997"
+       }
+      },
+      {
+       "id": "statistics-tutorial",
+       "name": "Statistics Tutorial",
+       "values": {
+        "Day": "Thursday",
+        "Time": "10:00–11:00",
+        "Room": "C305",
+        "Reference": "NU-38117"
+       }
+      },
+      {
+       "id": "technical-writing-seminar",
+       "name": "Technical Writing Seminar",
+       "values": {
+        "Day": "Friday",
+        "Time": "13:00–14:30",
+        "Room": "D010",
+        "Reference": "NU-88910"
+       }
+      }
+     ]
+    },
+    {
+     "id": "grades",
+     "title": "Grades",
+     "intro": "Marks released so far this term.",
+     "columns": [
+      "Assessment",
+      "Course",
+      "Grade",
+      "Weight",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "midterm-exam",
+       "name": "Midterm Exam",
+       "values": {
+        "Course": "CS 210",
+        "Grade": "B+",
+        "Weight": "30%",
+        "Reference": "NU-39058"
+       }
+      },
+      {
+       "id": "usability-report",
+       "name": "Usability Report",
+       "values": {
+        "Course": "CS 342",
+        "Grade": "A-",
+        "Weight": "25%",
+        "Reference": "NU-47817"
+       }
+      },
+      {
+       "id": "problem-set-3",
+       "name": "Problem Set 3",
+       "values": {
+        "Course": "MA 205",
+        "Grade": "B",
+        "Weight": "10%",
+        "Reference": "NU-73630"
+       }
+      },
+      {
+       "id": "essay-draft",
+       "name": "Essay Draft",
+       "values": {
+        "Course": "EN 230",
+        "Grade": "A",
+        "Weight": "15%",
+        "Reference": "NU-37836"
+       }
+      },
+      {
+       "id": "lab-report-2",
+       "name": "Lab Report 2",
+       "values": {
+        "Course": "PS 260",
+        "Grade": "C+",
+        "Weight": "20%",
+        "Reference": "NU-53127"
+       }
+      }
+     ]
+    },
+    {
+     "id": "exams",
+     "title": "Exams",
+     "intro": "Confirmed final examination schedule.",
+     "columns": [
+      "Exam",
+      "Date",
+      "Time",
+      "Venue",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "data-structures-final",
+       "name": "Data Structures Final",
+       "values": {
+        "Date": "12 Dec",
+        "Time": "09:30",
+        "Venue": "Main Hall",
+        "Reference": "NU-67407"
+       }
+      },
+      {
+       "id": "statistics-final",
+       "name": "Statistics Final",
+       "values": {
+        "Date": "14 Dec",
+        "Time": "14:00",
+        "Venue": "Sports Centre",
+        "Reference": "NU-19221"
+       }
+      },
+      {
+       "id": "hci-final",
+       "name": "HCI Final",
+       "values": {
+        "Date": "16 Dec",
+        "Time": "10:00",
+        "Venue": "Room B214",
+        "Reference": "NU-43455"
+       }
+      },
+      {
+       "id": "cognitive-psychology-final",
+       "name": "Cognitive Psychology Final",
+       "values": {
+        "Date": "18 Dec",
+        "Time": "13:30",
+        "Venue": "Main Hall",
+        "Reference": "NU-35334"
+       }
+      },
+      {
+       "id": "technical-writing-portfolio",
+       "name": "Technical Writing Portfolio",
+       "values": {
+        "Date": "19 Dec",
+        "Time": "17:00",
+        "Venue": "Online",
+        "Reference": "NU-31111"
+       }
+      }
+     ]
+    },
+    {
+     "id": "assignments",
+     "title": "Assignments",
+     "intro": "Upcoming and recent coursework.",
+     "columns": [
+      "Assignment",
+      "Course",
+      "Due",
+      "Status",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "prototype-evaluation",
+       "name": "Prototype Evaluation",
+       "values": {
+        "Course": "CS 342",
+        "Due": "8 Nov",
+        "Status": "Not started",
+        "Reference": "NU-21647"
+       }
+      },
+      {
+       "id": "binary-trees-project",
+       "name": "Binary Trees Project",
+       "values": {
+        "Course": "CS 210",
+        "Due": "11 Nov",
+        "Status": "In progress",
+        "Reference": "NU-68354"
+       }
+      },
+      {
+       "id": "regression-worksheet",
+       "name": "Regression Worksheet",
+       "values": {
+        "Course": "MA 205",
+        "Due": "5 Nov",
+        "Status": "Submitted",
+        "Reference": "NU-80428"
+       }
+      },
+      {
+       "id": "instruction-manual",
+       "name": "Instruction Manual",
+       "values": {
+        "Course": "EN 230",
+        "Due": "15 Nov",
+        "Status": "In progress",
+        "Reference": "NU-58039"
+       }
+      },
+      {
+       "id": "memory-experiment-write-up",
+       "name": "Memory Experiment Write-up",
+       "values": {
+        "Course": "PS 260",
+        "Due": "22 Nov",
+        "Status": "Not started",
+        "Reference": "NU-35114"
+       }
+      }
+     ]
+    },
+    {
+     "id": "advising",
+     "title": "Academic Advising",
+     "intro": "Book time with an academic advisor.",
+     "columns": [
+      "Advisor",
+      "Area",
+      "Office",
+      "Hours",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "dr-helen-moore",
+       "name": "Dr. Helen Moore",
+       "values": {
+        "Area": "Computer Science",
+        "Office": "B301",
+        "Hours": "Mon & Wed 13:00–15:00",
+        "Reference": "NU-71824"
+       }
+      },
+      {
+       "id": "mr-tom-reyes",
+       "name": "Mr. Tom Reyes",
+       "values": {
+        "Area": "First-year students",
+        "Office": "Student Hub 2",
+        "Hours": "Daily 10:00–12:00",
+        "Reference": "NU-52733"
+       }
+      },
+      {
+       "id": "dr-grace-liu",
+       "name": "Dr. Grace Liu",
+       "values": {
+        "Area": "Mathematics",
+        "Office": "C210",
+        "Hours": "Tue 09:00–11:00",
+        "Reference": "NU-41302"
+       }
+      },
+      {
+       "id": "ms-sara-novak",
+       "name": "Ms. Sara Novak",
+       "values": {
+        "Area": "Study abroad",
+        "Office": "International Office",
+        "Hours": "Thu 14:00–16:00",
+        "Reference": "NU-93548"
+       }
+      },
+      {
+       "id": "dr-omar-siddiqui",
+       "name": "Dr. Omar Siddiqui",
+       "values": {
+        "Area": "Psychology",
+        "Office": "P105",
+        "Hours": "Fri 10:00–12:00",
+        "Reference": "NU-62939"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "registration",
+   "title": "Registration",
+   "icon": "clipboard",
+   "pages": [
+    {
+     "id": "course-catalog",
+     "title": "Course Catalog",
+     "intro": "Courses open for spring registration.",
+     "columns": [
+      "Course",
+      "Code",
+      "Level",
+      "Seats left",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "interaction-design-studio",
+       "name": "Interaction Design Studio",
+       "values": {
+        "Code": "CS 445",
+        "Level": "Advanced",
+        "Seats left": "6",
+        "Reference": "NU-65351"
+       }
+      },
+      {
+       "id": "machine-learning-basics",
+       "name": "Machine Learning Basics",
+       "values": {
+        "Code": "CS 330",
+        "Level": "Intermediate",
+        "Seats left": "14",
+        "Reference": "NU-37298"
+       }
+      },
+      {
+       "id": "linear-algebra",
+       "name": "Linear Algebra",
+       "values": {
+        "Code": "MA 220",
+        "Level": "Intermediate",
+        "Seats left": "22",
+        "Reference": "NU-18244"
+       }
+      },
+      {
+       "id": "social-psychology",
+       "name": "Social Psychology",
+       "values": {
+        "Code": "PS 310",
+        "Level": "Intermediate",
+        "Seats left": "9",
+        "Reference": "NU-66381"
+       }
+      },
+      {
+       "id": "public-speaking",
+       "name": "Public Speaking",
+       "values": {
+        "Code": "EN 120",
+        "Level": "Introductory",
+        "Seats left": "31",
+        "Reference": "NU-71304"
+       }
+      }
+     ]
+    },
+    {
+     "id": "add-drop",
+     "title": "Add / Drop",
+     "intro": "Changes to your enrolment for this term.",
+     "columns": [
+      "Request",
+      "Course",
+      "Deadline",
+      "Status",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "add-course",
+       "name": "Add course",
+       "values": {
+        "Course": "CS 330",
+        "Deadline": "15 Sep",
+        "Status": "Approved",
+        "Reference": "NU-49883"
+       }
+      },
+      {
+       "id": "drop-course",
+       "name": "Drop course",
+       "values": {
+        "Course": "EN 120",
+        "Deadline": "15 Sep",
+        "Status": "Approved",
+        "Reference": "NU-37754"
+       }
+      },
+      {
+       "id": "switch-section",
+       "name": "Switch section",
+       "values": {
+        "Course": "MA 205",
+        "Deadline": "22 Sep",
+        "Status": "Pending",
+        "Reference": "NU-24522"
+       }
+      },
+      {
+       "id": "audit-request",
+       "name": "Audit request",
+       "values": {
+        "Course": "PS 310",
+        "Deadline": "29 Sep",
+        "Status": "Declined",
+        "Reference": "NU-95495"
+       }
+      },
+      {
+       "id": "late-add-petition",
+       "name": "Late add petition",
+       "values": {
+        "Course": "CS 445",
+        "Deadline": "6 Oct",
+        "Status": "Under review",
+        "Reference": "NU-91908"
+       }
+      }
+     ]
+    },
+    {
+     "id": "waitlists",
+     "title": "Waitlists",
+     "intro": "Courses you are waiting for a seat in.",
+     "columns": [
+      "Course",
+      "Position",
+      "Section",
+      "Updated",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "interaction-design-studio",
+       "name": "Interaction Design Studio",
+       "values": {
+        "Position": "3",
+        "Section": "Section 01",
+        "Updated": "Today",
+        "Reference": "NU-99148"
+       }
+      },
+      {
+       "id": "social-psychology",
+       "name": "Social Psychology",
+       "values": {
+        "Position": "7",
+        "Section": "Section 02",
+        "Updated": "Yesterday",
+        "Reference": "NU-53061"
+       }
+      },
+      {
+       "id": "creative-writing",
+       "name": "Creative Writing",
+       "values": {
+        "Position": "12",
+        "Section": "Section 01",
+        "Updated": "2 days ago",
+        "Reference": "NU-97135"
+       }
+      },
+      {
+       "id": "game-development",
+       "name": "Game Development",
+       "values": {
+        "Position": "5",
+        "Section": "Section 03",
+        "Updated": "Today",
+        "Reference": "NU-45037"
+       }
+      },
+      {
+       "id": "data-visualisation",
+       "name": "Data Visualisation",
+       "values": {
+        "Position": "2",
+        "Section": "Section 01",
+        "Updated": "3 days ago",
+        "Reference": "NU-61726"
+       }
+      }
+     ]
+    },
+    {
+     "id": "transcripts",
+     "title": "Transcripts",
+     "intro": "Order official copies of your academic record.",
+     "columns": [
+      "Request type",
+      "Delivery",
+      "Fee",
+      "Processing",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "official-transcript",
+       "name": "Official transcript",
+       "values": {
+        "Delivery": "Post",
+        "Fee": "£10",
+        "Processing": "5 working days",
+        "Reference": "NU-59712"
+       }
+      },
+      {
+       "id": "electronic-transcript",
+       "name": "Electronic transcript",
+       "values": {
+        "Delivery": "Email",
+        "Fee": "£6",
+        "Processing": "2 working days",
+        "Reference": "NU-40030"
+       }
+      },
+      {
+       "id": "certified-copy",
+       "name": "Certified copy",
+       "values": {
+        "Delivery": "Collect in person",
+        "Fee": "£15",
+        "Processing": "3 working days",
+        "Reference": "NU-65439"
+       }
+      },
+      {
+       "id": "international-transcript",
+       "name": "International transcript",
+       "values": {
+        "Delivery": "Courier",
+        "Fee": "£35",
+        "Processing": "7 working days",
+        "Reference": "NU-20071"
+       }
+      },
+      {
+       "id": "degree-verification-letter",
+       "name": "Degree verification letter",
+       "values": {
+        "Delivery": "Email",
+        "Fee": "£8",
+        "Processing": "1 working day",
+        "Reference": "NU-63025"
+       }
+      }
+     ]
+    },
+    {
+     "id": "graduation",
+     "title": "Graduation",
+     "intro": "Track your progress towards graduation.",
+     "columns": [
+      "Item",
+      "Requirement",
+      "Status",
+      "Deadline",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "credit-total",
+       "name": "Credit total",
+       "values": {
+        "Requirement": "360 credits",
+        "Status": "240 completed",
+        "Deadline": "June 2027",
+        "Reference": "NU-97678"
+       }
+      },
+      {
+       "id": "final-year-project",
+       "name": "Final-year project",
+       "values": {
+        "Requirement": "1 project",
+        "Status": "Not started",
+        "Deadline": "May 2027",
+        "Reference": "NU-64845"
+       }
+      },
+      {
+       "id": "language-requirement",
+       "name": "Language requirement",
+       "values": {
+        "Requirement": "Level B2",
+        "Status": "Met",
+        "Deadline": "—",
+        "Reference": "NU-10854"
+       }
+      },
+      {
+       "id": "graduation-application",
+       "name": "Graduation application",
+       "values": {
+        "Requirement": "Online form",
+        "Status": "Not submitted",
+        "Deadline": "1 Mar 2027",
+        "Reference": "NU-70831"
+       }
+      },
+      {
+       "id": "gown-hire",
+       "name": "Gown hire",
+       "values": {
+        "Requirement": "Optional",
+        "Status": "Not ordered",
+        "Deadline": "15 May 2027",
+        "Reference": "NU-38403"
+       }
+      }
+     ]
+    },
+    {
+     "id": "academic-calendar",
+     "title": "Academic Calendar",
+     "intro": "Key dates for the academic year.",
+     "columns": [
+      "Event",
+      "Date",
+      "Term",
+      "Notes",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "autumn-term-begins",
+       "name": "Autumn term begins",
+       "values": {
+        "Date": "22 Sep",
+        "Term": "Autumn",
+        "Notes": "Welcome week runs the week before",
+        "Reference": "NU-80134"
+       }
+      },
+      {
+       "id": "reading-week",
+       "name": "Reading week",
+       "values": {
+        "Date": "3 Nov",
+        "Term": "Autumn",
+        "Notes": "No scheduled teaching",
+        "Reference": "NU-22412"
+       }
+      },
+      {
+       "id": "autumn-term-ends",
+       "name": "Autumn term ends",
+       "values": {
+        "Date": "19 Dec",
+        "Term": "Autumn",
+        "Notes": "Library open all break",
+        "Reference": "NU-55287"
+       }
+      },
+      {
+       "id": "spring-term-begins",
+       "name": "Spring term begins",
+       "values": {
+        "Date": "12 Jan",
+        "Term": "Spring",
+        "Notes": "Registration closes 9 Jan",
+        "Reference": "NU-12866"
+       }
+      },
+      {
+       "id": "spring-exams-start",
+       "name": "Spring exams start",
+       "values": {
+        "Date": "18 May",
+        "Term": "Spring",
+        "Notes": "Timetable released in April",
+        "Reference": "NU-58615"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "finance",
+   "title": "Finance",
+   "icon": "wallet",
+   "pages": [
+    {
+     "id": "tuition",
+     "title": "Tuition & Fees",
+     "intro": "Charges for the current academic year.",
+     "columns": [
+      "Fee",
+      "Term",
+      "Amount",
+      "Due",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "tuition-fee",
+       "name": "Tuition fee",
+       "values": {
+        "Term": "Autumn",
+        "Amount": "£4,625",
+        "Due": "30 Sep",
+        "Reference": "NU-57135"
+       }
+      },
+      {
+       "id": "tuition-fee-2",
+       "name": "Tuition fee",
+       "values": {
+        "Term": "Spring",
+        "Amount": "£4,625",
+        "Due": "31 Jan",
+        "Reference": "NU-11237"
+       }
+      },
+      {
+       "id": "lab-materials-fee",
+       "name": "Lab materials fee",
+       "values": {
+        "Term": "Autumn",
+        "Amount": "£120",
+        "Due": "15 Oct",
+        "Reference": "NU-44349"
+       }
+      },
+      {
+       "id": "student-union-fee",
+       "name": "Student union fee",
+       "values": {
+        "Term": "Annual",
+        "Amount": "£45",
+        "Due": "30 Sep",
+        "Reference": "NU-83978"
+       }
+      },
+      {
+       "id": "field-trip-deposit",
+       "name": "Field trip deposit",
+       "values": {
+        "Term": "Spring",
+        "Amount": "£80",
+        "Due": "20 Feb",
+        "Reference": "NU-30102"
+       }
+      }
+     ]
+    },
+    {
+     "id": "payments",
+     "title": "Payments",
+     "intro": "Payments received on your account.",
+     "columns": [
+      "Payment",
+      "Method",
+      "Amount",
+      "Date",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "tuition-instalment-1",
+       "name": "Tuition instalment 1",
+       "values": {
+        "Method": "Bank transfer",
+        "Amount": "£2,312",
+        "Date": "28 Sep",
+        "Reference": "NU-14532"
+       }
+      },
+      {
+       "id": "student-union-fee",
+       "name": "Student union fee",
+       "values": {
+        "Method": "Debit card",
+        "Amount": "£45",
+        "Date": "28 Sep",
+        "Reference": "NU-66595"
+       }
+      },
+      {
+       "id": "tuition-instalment-2",
+       "name": "Tuition instalment 2",
+       "values": {
+        "Method": "Direct debit",
+        "Amount": "£2,313",
+        "Date": "28 Oct",
+        "Reference": "NU-33703"
+       }
+      },
+      {
+       "id": "library-fine",
+       "name": "Library fine",
+       "values": {
+        "Method": "Debit card",
+        "Amount": "£4",
+        "Date": "2 Oct",
+        "Reference": "NU-46404"
+       }
+      },
+      {
+       "id": "lab-materials-fee",
+       "name": "Lab materials fee",
+       "values": {
+        "Method": "Credit card",
+        "Amount": "£120",
+        "Date": "10 Oct",
+        "Reference": "NU-18616"
+       }
+      }
+     ]
+    },
+    {
+     "id": "scholarships",
+     "title": "Scholarships",
+     "intro": "Awards currently open for applications.",
+     "columns": [
+      "Scholarship",
+      "Value",
+      "Deadline",
+      "Eligibility",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "merit-excellence-award",
+       "name": "Merit Excellence Award",
+       "values": {
+        "Value": "£2,000",
+        "Deadline": "15 Jan",
+        "Eligibility": "GPA 3.7 or above",
+        "Reference": "NU-29760"
+       }
+      },
+      {
+       "id": "women-in-computing-grant",
+       "name": "Women in Computing Grant",
+       "values": {
+        "Value": "£1,500",
+        "Deadline": "1 Feb",
+        "Eligibility": "Computing students",
+        "Reference": "NU-63041"
+       }
+      },
+      {
+       "id": "community-leadership-prize",
+       "name": "Community Leadership Prize",
+       "values": {
+        "Value": "£750",
+        "Deadline": "28 Feb",
+        "Eligibility": "Active volunteers",
+        "Reference": "NU-99766"
+       }
+      },
+      {
+       "id": "global-exchange-bursary",
+       "name": "Global Exchange Bursary",
+       "values": {
+        "Value": "£1,200",
+        "Deadline": "10 Mar",
+        "Eligibility": "Study-abroad students",
+        "Reference": "NU-57550"
+       }
+      },
+      {
+       "id": "first-generation-scholarship",
+       "name": "First-Generation Scholarship",
+       "values": {
+        "Value": "£2,500",
+        "Deadline": "30 Nov",
+        "Eligibility": "First in family at university",
+        "Reference": "NU-95509"
+       }
+      }
+     ]
+    },
+    {
+     "id": "financial-aid",
+     "title": "Financial Aid",
+     "intro": "Support schemes for living and study costs.",
+     "columns": [
+      "Programme",
+      "Type",
+      "Max amount",
+      "Apply by",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "hardship-fund",
+       "name": "Hardship Fund",
+       "values": {
+        "Type": "Grant",
+        "Max amount": "£1,000",
+        "Apply by": "Open all year",
+        "Reference": "NU-84589"
+       }
+      },
+      {
+       "id": "maintenance-loan",
+       "name": "Maintenance Loan",
+       "values": {
+        "Type": "Loan",
+        "Max amount": "£9,978",
+        "Apply by": "31 May",
+        "Reference": "NU-72276"
+       }
+      },
+      {
+       "id": "childcare-support",
+       "name": "Childcare Support",
+       "values": {
+        "Type": "Grant",
+        "Max amount": "£3,400",
+        "Apply by": "30 Jun",
+        "Reference": "NU-31801"
+       }
+      },
+      {
+       "id": "laptop-loan-scheme",
+       "name": "Laptop Loan Scheme",
+       "values": {
+        "Type": "Equipment",
+        "Max amount": "1 laptop",
+        "Apply by": "Open all year",
+        "Reference": "NU-75333"
+       }
+      },
+      {
+       "id": "travel-bursary",
+       "name": "Travel Bursary",
+       "values": {
+        "Type": "Grant",
+        "Max amount": "£300",
+        "Apply by": "31 Oct",
+        "Reference": "NU-76903"
+       }
+      }
+     ]
+    },
+    {
+     "id": "refunds",
+     "title": "Refunds",
+     "intro": "Refunds issued or in progress.",
+     "columns": [
+      "Refund",
+      "Amount",
+      "Status",
+      "Expected",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "overpayment-sep",
+       "name": "Overpayment Sep",
+       "values": {
+        "Amount": "£62",
+        "Status": "Completed",
+        "Expected": "Paid 4 Oct",
+        "Reference": "NU-50801"
+       }
+      },
+      {
+       "id": "dropped-course-credit",
+       "name": "Dropped course credit",
+       "values": {
+        "Amount": "£310",
+        "Status": "Processing",
+        "Expected": "14 Nov",
+        "Reference": "NU-33744"
+       }
+      },
+      {
+       "id": "accommodation-deposit",
+       "name": "Accommodation deposit",
+       "values": {
+        "Amount": "£250",
+        "Status": "Approved",
+        "Expected": "21 Nov",
+        "Reference": "NU-79543"
+       }
+      },
+      {
+       "id": "parking-permit",
+       "name": "Parking permit",
+       "values": {
+        "Amount": "£150",
+        "Status": "Under review",
+        "Expected": "—",
+        "Reference": "NU-99582"
+       }
+      },
+      {
+       "id": "field-trip-cancellation",
+       "name": "Field trip cancellation",
+       "values": {
+        "Amount": "£80",
+        "Status": "Completed",
+        "Expected": "Paid 18 Oct",
+        "Reference": "NU-10779"
+       }
+      }
+     ]
+    },
+    {
+     "id": "statements",
+     "title": "Statements",
+     "intro": "Monthly account statements.",
+     "columns": [
+      "Statement",
+      "Period",
+      "Balance",
+      "Issued",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "statement-0921",
+       "name": "Statement 0921",
+       "values": {
+        "Period": "September",
+        "Balance": "£2,388 owed",
+        "Issued": "1 Oct",
+        "Reference": "NU-21018"
+       }
+      },
+      {
+       "id": "statement-1021",
+       "name": "Statement 1021",
+       "values": {
+        "Period": "October",
+        "Balance": "£75 owed",
+        "Issued": "1 Nov",
+        "Reference": "NU-18644"
+       }
+      },
+      {
+       "id": "statement-0821",
+       "name": "Statement 0821",
+       "values": {
+        "Period": "August",
+        "Balance": "£0",
+        "Issued": "1 Sep",
+        "Reference": "NU-14193"
+       }
+      },
+      {
+       "id": "statement-0721",
+       "name": "Statement 0721",
+       "values": {
+        "Period": "July",
+        "Balance": "£0",
+        "Issued": "1 Aug",
+        "Reference": "NU-85454"
+       }
+      },
+      {
+       "id": "annual-summary",
+       "name": "Annual summary",
+       "values": {
+        "Period": "Last year",
+        "Balance": "£0",
+        "Issued": "15 Jul",
+        "Reference": "NU-55320"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "campus-life",
+   "title": "Campus Life",
+   "icon": "users",
+   "pages": [
+    {
+     "id": "housing",
+     "title": "Housing",
+     "intro": "University residences and room options.",
+     "columns": [
+      "Residence",
+      "Room type",
+      "Monthly rent",
+      "Distance",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "elm-court",
+       "name": "Elm Court",
+       "values": {
+        "Room type": "Single, shared bath",
+        "Monthly rent": "£540",
+        "Distance": "5 min walk",
+        "Reference": "NU-80017"
+       }
+      },
+      {
+       "id": "riverside-studios",
+       "name": "Riverside Studios",
+       "values": {
+        "Room type": "Studio",
+        "Monthly rent": "£890",
+        "Distance": "12 min walk",
+        "Reference": "NU-67968"
+       }
+      },
+      {
+       "id": "oakfield-hall",
+       "name": "Oakfield Hall",
+       "values": {
+        "Room type": "Single, en-suite",
+        "Monthly rent": "£720",
+        "Distance": "8 min walk",
+        "Reference": "NU-25580"
+       }
+      },
+      {
+       "id": "maple-house",
+       "name": "Maple House",
+       "values": {
+        "Room type": "Twin, shared bath",
+        "Monthly rent": "£430",
+        "Distance": "15 min bus",
+        "Reference": "NU-98581"
+       }
+      },
+      {
+       "id": "the-quarry",
+       "name": "The Quarry",
+       "values": {
+        "Room type": "Single, en-suite",
+        "Monthly rent": "£760",
+        "Distance": "20 min bus",
+        "Reference": "NU-89937"
+       }
+      }
+     ]
+    },
+    {
+     "id": "dining",
+     "title": "Dining",
+     "intro": "Where to eat on campus.",
+     "columns": [
+      "Location",
+      "Opening hours",
+      "Meal plan",
+      "Building",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "the-refectory",
+       "name": "The Refectory",
+       "values": {
+        "Opening hours": "07:30–20:00",
+        "Meal plan": "Accepted",
+        "Building": "Student Union",
+        "Reference": "NU-89356"
+       }
+      },
+      {
+       "id": "green-bean-caf",
+       "name": "Green Bean Café",
+       "values": {
+        "Opening hours": "08:00–17:00",
+        "Meal plan": "Accepted",
+        "Building": "Library",
+        "Reference": "NU-70374"
+       }
+      },
+      {
+       "id": "noodle-bar",
+       "name": "Noodle Bar",
+       "values": {
+        "Opening hours": "11:00–21:00",
+        "Meal plan": "Not accepted",
+        "Building": "Science Park",
+        "Reference": "NU-93570"
+       }
+      },
+      {
+       "id": "late-kitchen",
+       "name": "Late Kitchen",
+       "values": {
+        "Opening hours": "18:00–00:00",
+        "Meal plan": "Accepted",
+        "Building": "Elm Court",
+        "Reference": "NU-28391"
+       }
+      },
+      {
+       "id": "sports-caf",
+       "name": "Sports Café",
+       "values": {
+        "Opening hours": "09:00–19:00",
+        "Meal plan": "Not accepted",
+        "Building": "Sports Centre",
+        "Reference": "NU-99885"
+       }
+      }
+     ]
+    },
+    {
+     "id": "clubs",
+     "title": "Clubs & Societies",
+     "intro": "Student-run clubs you can join.",
+     "columns": [
+      "Club",
+      "Meets",
+      "Members",
+      "Room",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "robotics-society",
+       "name": "Robotics Society",
+       "values": {
+        "Meets": "Tuesday 18:00",
+        "Members": "64",
+        "Room": "Lab 5",
+        "Reference": "NU-33439"
+       }
+      },
+      {
+       "id": "film-club",
+       "name": "Film Club",
+       "values": {
+        "Meets": "Thursday 19:30",
+        "Members": "112",
+        "Room": "Lecture Theatre 2",
+        "Reference": "NU-36327"
+       }
+      },
+      {
+       "id": "hiking-club",
+       "name": "Hiking Club",
+       "values": {
+        "Meets": "Saturday 08:00",
+        "Members": "89",
+        "Room": "Meet at Main Gate",
+        "Reference": "NU-81740"
+       }
+      },
+      {
+       "id": "debate-society",
+       "name": "Debate Society",
+       "values": {
+        "Meets": "Monday 17:30",
+        "Members": "41",
+        "Room": "D204",
+        "Reference": "NU-68520"
+       }
+      },
+      {
+       "id": "chess-club",
+       "name": "Chess Club",
+       "values": {
+        "Meets": "Wednesday 18:30",
+        "Members": "27",
+        "Room": "Library Seminar Room",
+        "Reference": "NU-28272"
+       }
+      }
+     ]
+    },
+    {
+     "id": "sports",
+     "title": "Sports & Recreation",
+     "intro": "Facilities and how to book them.",
+     "columns": [
+      "Facility",
+      "Hours",
+      "Booking",
+      "Location",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "swimming-pool",
+       "name": "Swimming pool",
+       "values": {
+        "Hours": "06:30–21:00",
+        "Booking": "Drop-in",
+        "Location": "Sports Centre",
+        "Reference": "NU-20645"
+       }
+      },
+      {
+       "id": "fitness-suite",
+       "name": "Fitness suite",
+       "values": {
+        "Hours": "06:00–22:00",
+        "Booking": "Membership",
+        "Location": "Sports Centre",
+        "Reference": "NU-29658"
+       }
+      },
+      {
+       "id": "squash-courts",
+       "name": "Squash courts",
+       "values": {
+        "Hours": "08:00–22:00",
+        "Booking": "Book 7 days ahead",
+        "Location": "Court Block",
+        "Reference": "NU-50886"
+       }
+      },
+      {
+       "id": "climbing-wall",
+       "name": "Climbing wall",
+       "values": {
+        "Hours": "12:00–21:00",
+        "Booking": "Induction required",
+        "Location": "Sports Hall B",
+        "Reference": "NU-54244"
+       }
+      },
+      {
+       "id": "tennis-courts",
+       "name": "Tennis courts",
+       "values": {
+        "Hours": "08:00–20:00",
+        "Booking": "Book 3 days ahead",
+        "Location": "North Fields",
+        "Reference": "NU-59154"
+       }
+      }
+     ]
+    },
+    {
+     "id": "events",
+     "title": "Events",
+     "intro": "What's happening on campus this month.",
+     "columns": [
+      "Event",
+      "Date",
+      "Venue",
+      "Capacity",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "careers-fair",
+       "name": "Careers Fair",
+       "values": {
+        "Date": "6 Nov",
+        "Venue": "Main Hall",
+        "Capacity": "800",
+        "Reference": "NU-18854"
+       }
+      },
+      {
+       "id": "international-food-night",
+       "name": "International Food Night",
+       "values": {
+        "Date": "9 Nov",
+        "Venue": "Student Union",
+        "Capacity": "300",
+        "Reference": "NU-17809"
+       }
+      },
+      {
+       "id": "guest-lecture-future-of-ai",
+       "name": "Guest Lecture: Future of AI",
+       "values": {
+        "Date": "13 Nov",
+        "Venue": "Lecture Theatre 1",
+        "Capacity": "250",
+        "Reference": "NU-81897"
+       }
+      },
+      {
+       "id": "charity-fun-run",
+       "name": "Charity Fun Run",
+       "values": {
+        "Date": "16 Nov",
+        "Venue": "North Fields",
+        "Capacity": "400",
+        "Reference": "NU-82133"
+       }
+      },
+      {
+       "id": "winter-concert",
+       "name": "Winter Concert",
+       "values": {
+        "Date": "4 Dec",
+        "Venue": "Concert Hall",
+        "Capacity": "550",
+        "Reference": "NU-55924"
+       }
+      }
+     ]
+    },
+    {
+     "id": "transport",
+     "title": "Transport & Parking",
+     "intro": "Getting to and around campus.",
+     "columns": [
+      "Service",
+      "Route",
+      "Frequency",
+      "Price",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "campus-shuttle",
+       "name": "Campus shuttle",
+       "values": {
+        "Route": "Main Gate – Science Park",
+        "Frequency": "Every 10 min",
+        "Price": "Free",
+        "Reference": "NU-70688"
+       }
+      },
+      {
+       "id": "city-bus-21",
+       "name": "City bus 21",
+       "values": {
+        "Route": "City Centre – Campus",
+        "Frequency": "Every 15 min",
+        "Price": "£1.80",
+        "Reference": "NU-17535"
+       }
+      },
+      {
+       "id": "night-bus-n4",
+       "name": "Night bus N4",
+       "values": {
+        "Route": "Campus – Riverside",
+        "Frequency": "Every 30 min",
+        "Price": "£2.50",
+        "Reference": "NU-35233"
+       }
+      },
+      {
+       "id": "student-parking-permit",
+       "name": "Student parking permit",
+       "values": {
+        "Route": "Car Park C",
+        "Frequency": "Annual",
+        "Price": "£120",
+        "Reference": "NU-46525"
+       }
+      },
+      {
+       "id": "bike-hire",
+       "name": "Bike hire",
+       "values": {
+        "Route": "6 docking stations",
+        "Frequency": "24 hours",
+        "Price": "£25 per term",
+        "Reference": "NU-99006"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "services",
+   "title": "Services",
+   "icon": "lifebuoy",
+   "pages": [
+    {
+     "id": "library",
+     "title": "Library",
+     "intro": "Opening hours and borrowing rules.",
+     "columns": [
+      "Resource",
+      "Location",
+      "Hours",
+      "Loan period",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "main-collection",
+       "name": "Main collection",
+       "values": {
+        "Location": "Library floors 1–3",
+        "Hours": "08:00–22:00",
+        "Loan period": "3 weeks",
+        "Reference": "NU-52935"
+       }
+      },
+      {
+       "id": "short-loan-books",
+       "name": "Short loan books",
+       "values": {
+        "Location": "Library ground floor",
+        "Hours": "08:00–22:00",
+        "Loan period": "48 hours",
+        "Reference": "NU-21878"
+       }
+      },
+      {
+       "id": "group-study-rooms",
+       "name": "Group study rooms",
+       "values": {
+        "Location": "Library floor 2",
+        "Hours": "08:00–21:00",
+        "Loan period": "2-hour booking",
+        "Reference": "NU-46715"
+       }
+      },
+      {
+       "id": "laptop-lending",
+       "name": "Laptop lending",
+       "values": {
+        "Location": "Library help desk",
+        "Hours": "09:00–17:00",
+        "Loan period": "1 day",
+        "Reference": "NU-30190"
+       }
+      },
+      {
+       "id": "special-collections",
+       "name": "Special collections",
+       "values": {
+        "Location": "Archive wing",
+        "Hours": "10:00–16:00",
+        "Loan period": "Reference only",
+        "Reference": "NU-42770"
+       }
+      }
+     ]
+    },
+    {
+     "id": "it-help",
+     "title": "IT Help Desk",
+     "intro": "Get help with accounts, Wi-Fi and devices.",
+     "columns": [
+      "Service",
+      "Contact",
+      "Response time",
+      "Location",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "password-reset",
+       "name": "Password reset",
+       "values": {
+        "Contact": "Self-service portal",
+        "Response time": "Instant",
+        "Location": "Online",
+        "Reference": "NU-71095"
+       }
+      },
+      {
+       "id": "wi-fi-problems",
+       "name": "Wi-Fi problems",
+       "values": {
+        "Contact": "Ext. 4400",
+        "Response time": "Same day",
+        "Location": "Library ground floor",
+        "Reference": "NU-36796"
+       }
+      },
+      {
+       "id": "software-licences",
+       "name": "Software licences",
+       "values": {
+        "Contact": "it@northfield.ac",
+        "Response time": "2 working days",
+        "Location": "Online",
+        "Reference": "NU-65703"
+       }
+      },
+      {
+       "id": "laptop-repair",
+       "name": "Laptop repair",
+       "values": {
+        "Contact": "Walk-in",
+        "Response time": "3 working days",
+        "Location": "Tech Bar, Student Hub",
+        "Reference": "NU-24705"
+       }
+      },
+      {
+       "id": "printing-credit",
+       "name": "Printing credit",
+       "values": {
+        "Contact": "Ext. 4410",
+        "Response time": "1 working day",
+        "Location": "Library ground floor",
+        "Reference": "NU-78732"
+       }
+      }
+     ]
+    },
+    {
+     "id": "health",
+     "title": "Health Centre",
+     "intro": "Medical services for registered students.",
+     "columns": [
+      "Service",
+      "Availability",
+      "Booking",
+      "Room",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "gp-appointment",
+       "name": "GP appointment",
+       "values": {
+        "Availability": "Mon–Fri",
+        "Booking": "Book online",
+        "Room": "H1",
+        "Reference": "NU-51832"
+       }
+      },
+      {
+       "id": "nurse-clinic",
+       "name": "Nurse clinic",
+       "values": {
+        "Availability": "Mon, Wed, Fri",
+        "Booking": "Walk-in",
+        "Room": "H3",
+        "Reference": "NU-42027"
+       }
+      },
+      {
+       "id": "vaccinations",
+       "name": "Vaccinations",
+       "values": {
+        "Availability": "Tuesdays",
+        "Booking": "Book online",
+        "Room": "H3",
+        "Reference": "NU-22533"
+       }
+      },
+      {
+       "id": "physiotherapy",
+       "name": "Physiotherapy",
+       "values": {
+        "Availability": "Thursdays",
+        "Booking": "Referral needed",
+        "Room": "H6",
+        "Reference": "NU-46778"
+       }
+      },
+      {
+       "id": "pharmacy",
+       "name": "Pharmacy",
+       "values": {
+        "Availability": "Mon–Sat",
+        "Booking": "Walk-in",
+        "Room": "Ground floor",
+        "Reference": "NU-95630"
+       }
+      }
+     ]
+    },
+    {
+     "id": "counselling",
+     "title": "Counselling",
+     "intro": "Free, confidential wellbeing support.",
+     "columns": [
+      "Service",
+      "Format",
+      "Availability",
+      "Booking",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "one-to-one-counselling",
+       "name": "One-to-one counselling",
+       "values": {
+        "Format": "In person",
+        "Availability": "Mon–Fri",
+        "Booking": "Self-referral form",
+        "Reference": "NU-33074"
+       }
+      },
+      {
+       "id": "online-counselling",
+       "name": "Online counselling",
+       "values": {
+        "Format": "Video call",
+        "Availability": "Mon–Sat",
+        "Booking": "Self-referral form",
+        "Reference": "NU-11587"
+       }
+      },
+      {
+       "id": "drop-in-wellbeing-chat",
+       "name": "Drop-in wellbeing chat",
+       "values": {
+        "Format": "In person",
+        "Availability": "Wednesdays 12:00–14:00",
+        "Booking": "No booking",
+        "Reference": "NU-11853"
+       }
+      },
+      {
+       "id": "stress-workshop",
+       "name": "Stress workshop",
+       "values": {
+        "Format": "Group",
+        "Availability": "Every other Tuesday",
+        "Booking": "Sign up online",
+        "Reference": "NU-92974"
+       }
+      },
+      {
+       "id": "peer-support-line",
+       "name": "Peer support line",
+       "values": {
+        "Format": "Phone",
+        "Availability": "Evenings 18:00–23:00",
+        "Booking": "Call ext. 2525",
+        "Reference": "NU-61836"
+       }
+      }
+     ]
+    },
+    {
+     "id": "careers",
+     "title": "Careers",
+     "intro": "Advice, events and job listings.",
+     "columns": [
+      "Event / service",
+      "Date",
+      "Format",
+      "Location",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "cv-review",
+       "name": "CV review",
+       "values": {
+        "Date": "Any weekday",
+        "Format": "One-to-one",
+        "Location": "Careers Office",
+        "Reference": "NU-90346"
+       }
+      },
+      {
+       "id": "mock-interviews",
+       "name": "Mock interviews",
+       "values": {
+        "Date": "Thursdays",
+        "Format": "One-to-one",
+        "Location": "Careers Office",
+        "Reference": "NU-70138"
+       }
+      },
+      {
+       "id": "tech-employers-panel",
+       "name": "Tech employers panel",
+       "values": {
+        "Date": "20 Nov",
+        "Format": "Panel",
+        "Location": "Lecture Theatre 3",
+        "Reference": "NU-95975"
+       }
+      },
+      {
+       "id": "internship-clinic",
+       "name": "Internship clinic",
+       "values": {
+        "Date": "27 Nov",
+        "Format": "Workshop",
+        "Location": "Online",
+        "Reference": "NU-84629"
+       }
+      },
+      {
+       "id": "linkedin-photo-booth",
+       "name": "LinkedIn photo booth",
+       "values": {
+        "Date": "4 Dec",
+        "Format": "Drop-in",
+        "Location": "Student Hub",
+        "Reference": "NU-15827"
+       }
+      }
+     ]
+    },
+    {
+     "id": "accessibility",
+     "title": "Accessibility",
+     "intro": "Support and adjustments for disabled students.",
+     "columns": [
+      "Support",
+      "Contact",
+      "Format",
+      "Apply by",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "exam-adjustments",
+       "name": "Exam adjustments",
+       "values": {
+        "Contact": "access@northfield.ac",
+        "Format": "Form",
+        "Apply by": "1 Nov",
+        "Reference": "NU-54102"
+       }
+      },
+      {
+       "id": "note-taking-support",
+       "name": "Note-taking support",
+       "values": {
+        "Contact": "Ext. 3300",
+        "Format": "Meeting",
+        "Apply by": "Open all year",
+        "Reference": "NU-41263"
+       }
+      },
+      {
+       "id": "assistive-software",
+       "name": "Assistive software",
+       "values": {
+        "Contact": "IT Help Desk",
+        "Format": "Install",
+        "Apply by": "Open all year",
+        "Reference": "NU-45814"
+       }
+      },
+      {
+       "id": "accessible-housing",
+       "name": "Accessible housing",
+       "values": {
+        "Contact": "Housing Office",
+        "Format": "Form",
+        "Apply by": "1 Jun",
+        "Reference": "NU-71768"
+       }
+      },
+      {
+       "id": "mobility-parking",
+       "name": "Mobility parking",
+       "values": {
+        "Contact": "Security Office",
+        "Format": "Permit",
+        "Apply by": "Open all year",
+        "Reference": "NU-96561"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "account",
+   "title": "My Account",
+   "icon": "user",
+   "pages": [
+    {
+     "id": "inbox",
+     "title": "Inbox",
+     "intro": "Messages from university departments.",
+     "columns": [
+      "Message",
+      "From",
+      "Received",
+      "Status",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "your-timetable-has-changed",
+       "name": "Your timetable has changed",
+       "values": {
+        "From": "Registry",
+        "Received": "Today 09:12",
+        "Status": "Unread",
+        "Reference": "NU-35660"
+       }
+      },
+      {
+       "id": "library-book-due-soon",
+       "name": "Library book due soon",
+       "values": {
+        "From": "Library",
+        "Received": "Yesterday",
+        "Status": "Read",
+        "Reference": "NU-82395"
+       }
+      },
+      {
+       "id": "scholarship-results",
+       "name": "Scholarship results",
+       "values": {
+        "From": "Finance Office",
+        "Received": "3 Nov",
+        "Status": "Unread",
+        "Reference": "NU-87741"
+       }
+      },
+      {
+       "id": "room-inspection-notice",
+       "name": "Room inspection notice",
+       "values": {
+        "From": "Housing",
+        "Received": "1 Nov",
+        "Status": "Read",
+        "Reference": "NU-80169"
+       }
+      },
+      {
+       "id": "survey-rate-your-courses",
+       "name": "Survey: rate your courses",
+       "values": {
+        "From": "Quality Team",
+        "Received": "28 Oct",
+        "Status": "Read",
+        "Reference": "NU-51335"
+       }
+      }
+     ]
+    },
+    {
+     "id": "notifications",
+     "title": "Notifications",
+     "intro": "Alerts about your account.",
+     "columns": [
+      "Notification",
+      "Category",
+      "Date",
+      "Priority",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "payment-due-in-7-days",
+       "name": "Payment due in 7 days",
+       "values": {
+        "Category": "Finance",
+        "Date": "Today",
+        "Priority": "High",
+        "Reference": "NU-53824"
+       }
+      },
+      {
+       "id": "new-grade-posted",
+       "name": "New grade posted",
+       "values": {
+        "Category": "Academics",
+        "Date": "Yesterday",
+        "Priority": "Normal",
+        "Reference": "NU-12427"
+       }
+      },
+      {
+       "id": "wi-fi-maintenance-tonight",
+       "name": "Wi-Fi maintenance tonight",
+       "values": {
+        "Category": "IT",
+        "Date": "2 Nov",
+        "Priority": "Low",
+        "Reference": "NU-27531"
+       }
+      },
+      {
+       "id": "waitlist-position-changed",
+       "name": "Waitlist position changed",
+       "values": {
+        "Category": "Registration",
+        "Date": "1 Nov",
+        "Priority": "Normal",
+        "Reference": "NU-47768"
+       }
+      },
+      {
+       "id": "password-expires-soon",
+       "name": "Password expires soon",
+       "values": {
+        "Category": "Security",
+        "Date": "30 Oct",
+        "Priority": "High",
+        "Reference": "NU-55291"
+       }
+      }
+     ]
+    },
+    {
+     "id": "profile",
+     "title": "Profile",
+     "intro": "Personal details held by the university.",
+     "columns": [
+      "Field",
+      "Value",
+      "Last updated",
+      "Visible to",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "preferred-name",
+       "name": "Preferred name",
+       "values": {
+        "Value": "Alex",
+        "Last updated": "12 Sep",
+        "Visible to": "Staff",
+        "Reference": "NU-98982"
+       }
+      },
+      {
+       "id": "student-number",
+       "name": "Student number",
+       "values": {
+        "Value": "2304 1187",
+        "Last updated": "1 Sep",
+        "Visible to": "Staff",
+        "Reference": "NU-57754"
+       }
+      },
+      {
+       "id": "programme",
+       "name": "Programme",
+       "values": {
+        "Value": "BSc Computer Science",
+        "Last updated": "1 Sep",
+        "Visible to": "Staff",
+        "Reference": "NU-62853"
+       }
+      },
+      {
+       "id": "term-address",
+       "name": "Term address",
+       "values": {
+        "Value": "Elm Court, Room 214",
+        "Last updated": "15 Sep",
+        "Visible to": "Staff",
+        "Reference": "NU-62533"
+       }
+      },
+      {
+       "id": "emergency-contact",
+       "name": "Emergency contact",
+       "values": {
+        "Value": "J. Morgan",
+        "Last updated": "20 Sep",
+        "Visible to": "Wellbeing team",
+        "Reference": "NU-93671"
+       }
+      }
+     ]
+    },
+    {
+     "id": "documents",
+     "title": "Documents",
+     "intro": "Files you have uploaded or received.",
+     "columns": [
+      "Document",
+      "Type",
+      "Uploaded",
+      "Size",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "enrolment-certificate",
+       "name": "Enrolment certificate",
+       "values": {
+        "Type": "PDF",
+        "Uploaded": "2 Sep",
+        "Size": "220 KB",
+        "Reference": "NU-17121"
+       }
+      },
+      {
+       "id": "passport-scan",
+       "name": "Passport scan",
+       "values": {
+        "Type": "Image",
+        "Uploaded": "1 Sep",
+        "Size": "1.4 MB",
+        "Reference": "NU-38888"
+       }
+      },
+      {
+       "id": "council-tax-letter",
+       "name": "Council tax letter",
+       "values": {
+        "Type": "PDF",
+        "Uploaded": "18 Sep",
+        "Size": "180 KB",
+        "Reference": "NU-77679"
+       }
+      },
+      {
+       "id": "scholarship-offer",
+       "name": "Scholarship offer",
+       "values": {
+        "Type": "PDF",
+        "Uploaded": "4 Nov",
+        "Size": "310 KB",
+        "Reference": "NU-18689"
+       }
+      },
+      {
+       "id": "medical-note",
+       "name": "Medical note",
+       "values": {
+        "Type": "PDF",
+        "Uploaded": "21 Oct",
+        "Size": "95 KB",
+        "Reference": "NU-38330"
+       }
+      }
+     ]
+    },
+    {
+     "id": "security",
+     "title": "Security",
+     "intro": "Sign-in and security settings.",
+     "columns": [
+      "Setting",
+      "Status",
+      "Last changed",
+      "Device",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "password",
+       "name": "Password",
+       "values": {
+        "Status": "Set",
+        "Last changed": "30 Aug",
+        "Device": "Laptop",
+        "Reference": "NU-29415"
+       }
+      },
+      {
+       "id": "two-step-verification",
+       "name": "Two-step verification",
+       "values": {
+        "Status": "On",
+        "Last changed": "1 Sep",
+        "Device": "Phone",
+        "Reference": "NU-97153"
+       }
+      },
+      {
+       "id": "recovery-email",
+       "name": "Recovery email",
+       "values": {
+        "Status": "Verified",
+        "Last changed": "1 Sep",
+        "Device": "—",
+        "Reference": "NU-25786"
+       }
+      },
+      {
+       "id": "trusted-devices",
+       "name": "Trusted devices",
+       "values": {
+        "Status": "3 devices",
+        "Last changed": "12 Oct",
+        "Device": "Various",
+        "Reference": "NU-29117"
+       }
+      },
+      {
+       "id": "recent-sign-in",
+       "name": "Recent sign-in",
+       "values": {
+        "Status": "Successful",
+        "Last changed": "Today 08:41",
+        "Device": "Laptop",
+        "Reference": "NU-54891"
+       }
+      }
+     ]
+    },
+    {
+     "id": "settings",
+     "title": "Settings",
+     "intro": "Personalise how the portal works.",
+     "columns": [
+      "Setting",
+      "Value",
+      "Scope",
+      "Updated",
+      "Reference"
+     ],
+     "items": [
+      {
+       "id": "language",
+       "name": "Language",
+       "values": {
+        "Value": "English (UK)",
+        "Scope": "Portal",
+        "Updated": "1 Sep",
+        "Reference": "NU-25915"
+       }
+      },
+      {
+       "id": "email-digest",
+       "name": "Email digest",
+       "values": {
+        "Value": "Weekly",
+        "Scope": "Notifications",
+        "Updated": "3 Sep",
+        "Reference": "NU-58487"
+       }
+      },
+      {
+       "id": "calendar-sync",
+       "name": "Calendar sync",
+       "values": {
+        "Value": "On",
+        "Scope": "Timetable",
+        "Updated": "5 Sep",
+        "Reference": "NU-13117"
+       }
+      },
+      {
+       "id": "text-size",
+       "name": "Text size",
+       "values": {
+        "Value": "Medium",
+        "Scope": "Display",
+        "Updated": "1 Sep",
+        "Reference": "NU-68639"
+       }
+      },
+      {
+       "id": "sms-alerts",
+       "name": "SMS alerts",
+       "values": {
+        "Value": "Off",
+        "Scope": "Notifications",
+        "Updated": "1 Sep",
+        "Reference": "NU-97175"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

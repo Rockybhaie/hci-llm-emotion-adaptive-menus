@@ -1,0 +1,15 @@
+/* Threadline — light, friendly, violet accent */
+:root {
+  --bg: #f3f3f8;
+  --brand: #6d4ce0;
+  --brand-strong: #5434c4;
+  --brand-soft: #efebfd;
+  --header-bg: #ffffff;
+  --header-ink: #1d2330;
+  --nav-bg: #ffffff;
+  --nav-hover: #f2f1f8;
+  --radius: 14px;
+}
+.top { box-shadow: 0 1px 0 var(--line), 0 2px 8px rgba(16, 24, 40, .04); }
+.nav { border-top: 1px solid var(--line); }
+.hero { background: linear-gradient(120deg, #5434c4 0%, #6d4ce0 55%, #8b6cf0 100%); }

@@ -1,0 +1,2718 @@
+{
+ "id": "g2-store",
+ "name": "Everyday Market",
+ "tagline": "Everything for everyday life",
+ "layout": "products",
+ "brand_icon": "bag",
+ "source": "Information architecture modelled on WebArena's OneStopShop (Zhou et al., ICLR 2024).",
+ "columns": [
+  "Price",
+  "Rating",
+  "Reviews",
+  "Item code",
+  "Availability"
+ ],
+ "questions": {
+  "Price": "What is its price?",
+  "Rating": "What is its rating?",
+  "Item code": "What is its item code?",
+  "Availability": "What is its availability?"
+ },
+ "repetitive": {
+  "field": "Item code",
+  "template": "Find the {item} in {page}."
+ },
+ "home": {
+  "headline": "Everyday essentials, thoughtfully chosen",
+  "sub": "Thousands of products across six departments. Use the menu above to browse.",
+  "highlights": [
+   [
+    "truck",
+    "Free delivery",
+    "On orders over $35"
+   ],
+   [
+    "refresh",
+    "30-day returns",
+    "No questions asked"
+   ],
+   [
+    "shield",
+    "Secure checkout",
+    "Your data stays private"
+   ]
+  ]
+ },
+ "sections": [
+  {
+   "id": "electronics",
+   "title": "Electronics",
+   "icon": "cpu",
+   "pages": [
+    {
+     "id": "headphones",
+     "title": "Headphones",
+     "intro": "Over-ear, in-ear and everything in between.",
+     "items": [
+      {
+       "id": "aurora-anc-over-ear-headphones",
+       "name": "Aurora ANC Over-Ear Headphones",
+       "values": {
+        "Price": "$55.99",
+        "Rating": "4.4",
+        "Reviews": "76",
+        "Item code": "EM-7316",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "pulse-wireless-earbuds",
+       "name": "Pulse Wireless Earbuds",
+       "values": {
+        "Price": "$245.49",
+        "Rating": "4.3",
+        "Reviews": "1,786",
+        "Item code": "EM-8683",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "studio-monitor-headphones",
+       "name": "Studio Monitor Headphones",
+       "values": {
+        "Price": "$269.95",
+        "Rating": "3.9",
+        "Reviews": "482",
+        "Item code": "EM-7708",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "breeze-sport-earbuds",
+       "name": "Breeze Sport Earbuds",
+       "values": {
+        "Price": "$167.95",
+        "Rating": "3.6",
+        "Reviews": "392",
+        "Item code": "EM-4245",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "echo-kids-headphones",
+       "name": "Echo Kids Headphones",
+       "values": {
+        "Price": "$100.95",
+        "Rating": "4.5",
+        "Reviews": "1,997",
+        "Item code": "EM-4210",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "nimbus-noise-cancelling-earbuds",
+       "name": "Nimbus Noise-Cancelling Earbuds",
+       "values": {
+        "Price": "$89.00",
+        "Rating": "4.9",
+        "Reviews": "253",
+        "Item code": "EM-7520",
+        "Availability": "Low stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "laptops",
+     "title": "Laptops",
+     "intro": "Machines for study, work and play.",
+     "items": [
+      {
+       "id": "vertex-14-ultrabook",
+       "name": "Vertex 14\" Ultrabook",
+       "values": {
+        "Price": "$758.95",
+        "Rating": "4.3",
+        "Reviews": "1,952",
+        "Item code": "EM-1920",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "vertex-16-creator-laptop",
+       "name": "Vertex 16\" Creator Laptop",
+       "values": {
+        "Price": "$1012.49",
+        "Rating": "3.7",
+        "Reviews": "2,176",
+        "Item code": "EM-8008",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "orbit-13-chromebook",
+       "name": "Orbit 13\" Chromebook",
+       "values": {
+        "Price": "$1459.99",
+        "Rating": "4.2",
+        "Reviews": "1,617",
+        "Item code": "EM-8252",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "titan-17-gaming-laptop",
+       "name": "Titan 17\" Gaming Laptop",
+       "values": {
+        "Price": "$739.00",
+        "Rating": "4.9",
+        "Reviews": "1,068",
+        "Item code": "EM-8393",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "slate-2-in-1-convertible",
+       "name": "Slate 2-in-1 Convertible",
+       "values": {
+        "Price": "$1123.95",
+        "Rating": "3.6",
+        "Reviews": "1,943",
+        "Item code": "EM-1591",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "nova-15-everyday-laptop",
+       "name": "Nova 15\" Everyday Laptop",
+       "values": {
+        "Price": "$1620.95",
+        "Rating": "4.6",
+        "Reviews": "2,393",
+        "Item code": "EM-9647",
+        "Availability": "Low stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "smart-home",
+     "title": "Smart Home",
+     "intro": "Small upgrades that make home easier.",
+     "items": [
+      {
+       "id": "halo-smart-speaker",
+       "name": "Halo Smart Speaker",
+       "values": {
+        "Price": "$245.99",
+        "Rating": "3.9",
+        "Reviews": "776",
+        "Item code": "EM-6341",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "lumen-smart-bulbs-4-pack",
+       "name": "Lumen Smart Bulbs (4-pack)",
+       "values": {
+        "Price": "$95.00",
+        "Rating": "3.4",
+        "Reviews": "2,001",
+        "Item code": "EM-4302",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "sentinel-video-doorbell",
+       "name": "Sentinel Video Doorbell",
+       "values": {
+        "Price": "$118.99",
+        "Rating": "4.1",
+        "Reviews": "186",
+        "Item code": "EM-4890",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "thermo-smart-thermostat",
+       "name": "Thermo Smart Thermostat",
+       "values": {
+        "Price": "$210.99",
+        "Rating": "4.5",
+        "Reviews": "1,237",
+        "Item code": "EM-9098",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "guardian-indoor-camera",
+       "name": "Guardian Indoor Camera",
+       "values": {
+        "Price": "$42.95",
+        "Rating": "4.2",
+        "Reviews": "1,324",
+        "Item code": "EM-9568",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "plug-mini-smart-socket",
+       "name": "Plug Mini Smart Socket",
+       "values": {
+        "Price": "$120.99",
+        "Rating": "4.3",
+        "Reviews": "938",
+        "Item code": "EM-4149",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "cameras",
+     "title": "Cameras",
+     "intro": "Capture it all, from snapshots to studio work.",
+     "items": [
+      {
+       "id": "focus-mirrorless-camera",
+       "name": "Focus Mirrorless Camera",
+       "values": {
+        "Price": "$1273.49",
+        "Rating": "3.9",
+        "Reviews": "1,574",
+        "Item code": "EM-7590",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "action-cam-4k",
+       "name": "Action Cam 4K",
+       "values": {
+        "Price": "$461.00",
+        "Rating": "4.3",
+        "Reviews": "1,481",
+        "Item code": "EM-6353",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "instant-print-camera",
+       "name": "Instant Print Camera",
+       "values": {
+        "Price": "$428.99",
+        "Rating": "4.0",
+        "Reviews": "1,277",
+        "Item code": "EM-8800",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "50mm-prime-lens",
+       "name": "50mm Prime Lens",
+       "values": {
+        "Price": "$785.95",
+        "Rating": "3.5",
+        "Reviews": "856",
+        "Item code": "EM-3103",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "travel-tripod",
+       "name": "Travel Tripod",
+       "values": {
+        "Price": "$576.99",
+        "Rating": "4.7",
+        "Reviews": "2,371",
+        "Item code": "EM-7974",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "ring-light-12",
+       "name": "Ring Light 12\"",
+       "values": {
+        "Price": "$456.95",
+        "Rating": "4.9",
+        "Reviews": "1,132",
+        "Item code": "EM-8617",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "phones-tablets",
+     "title": "Phones & Tablets",
+     "intro": "Stay connected wherever you are.",
+     "items": [
+      {
+       "id": "zenith-x-smartphone",
+       "name": "Zenith X Smartphone",
+       "values": {
+        "Price": "$423.99",
+        "Rating": "4.7",
+        "Reviews": "2,282",
+        "Item code": "EM-1602",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "zenith-lite-smartphone",
+       "name": "Zenith Lite Smartphone",
+       "values": {
+        "Price": "$1048.00",
+        "Rating": "3.5",
+        "Reviews": "1,555",
+        "Item code": "EM-9558",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "canvas-11-tablet",
+       "name": "Canvas 11\" Tablet",
+       "values": {
+        "Price": "$115.99",
+        "Rating": "4.5",
+        "Reviews": "653",
+        "Item code": "EM-5072",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "canvas-mini-tablet",
+       "name": "Canvas Mini Tablet",
+       "values": {
+        "Price": "$625.99",
+        "Rating": "4.6",
+        "Reviews": "1,121",
+        "Item code": "EM-5167",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "paperlight-e-reader",
+       "name": "Paperlight E-Reader",
+       "values": {
+        "Price": "$820.00",
+        "Rating": "4.0",
+        "Reviews": "1,252",
+        "Item code": "EM-8322",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "rugged-field-phone",
+       "name": "Rugged Field Phone",
+       "values": {
+        "Price": "$273.99",
+        "Rating": "4.2",
+        "Reviews": "896",
+        "Item code": "EM-8726",
+        "Availability": "Only 3 left"
+       }
+      }
+     ]
+    },
+    {
+     "id": "chargers-cables",
+     "title": "Chargers & Cables",
+     "intro": "Keep every device topped up.",
+     "items": [
+      {
+       "id": "65w-usb-c-charger",
+       "name": "65W USB-C Charger",
+       "values": {
+        "Price": "$33.49",
+        "Rating": "4.2",
+        "Reviews": "1,789",
+        "Item code": "EM-9065",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "braided-usb-c-cable-2-m",
+       "name": "Braided USB-C Cable (2 m)",
+       "values": {
+        "Price": "$13.00",
+        "Rating": "4.6",
+        "Reviews": "938",
+        "Item code": "EM-5438",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "10-000-mah-power-bank",
+       "name": "10,000 mAh Power Bank",
+       "values": {
+        "Price": "$24.49",
+        "Rating": "3.7",
+        "Reviews": "917",
+        "Item code": "EM-1751",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "wireless-charging-pad",
+       "name": "Wireless Charging Pad",
+       "values": {
+        "Price": "$50.49",
+        "Rating": "4.5",
+        "Reviews": "2,266",
+        "Item code": "EM-3903",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "car-phone-mount",
+       "name": "Car Phone Mount",
+       "values": {
+        "Price": "$74.49",
+        "Rating": "4.8",
+        "Reviews": "138",
+        "Item code": "EM-2636",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "3-in-1-charging-stand",
+       "name": "3-in-1 Charging Stand",
+       "values": {
+        "Price": "$11.00",
+        "Rating": "3.8",
+        "Reviews": "831",
+        "Item code": "EM-1633",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "home-kitchen",
+   "title": "Home & Kitchen",
+   "icon": "home",
+   "pages": [
+    {
+     "id": "cookware",
+     "title": "Cookware",
+     "intro": "Browse our cookware range.",
+     "items": [
+      {
+       "id": "cast-iron-skillet-10",
+       "name": "Cast Iron Skillet 10\"",
+       "values": {
+        "Price": "$83.95",
+        "Rating": "4.6",
+        "Reviews": "2,145",
+        "Item code": "EM-7225",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "nonstick-frying-pan-set",
+       "name": "Nonstick Frying Pan Set",
+       "values": {
+        "Price": "$49.00",
+        "Rating": "4.0",
+        "Reviews": "2,053",
+        "Item code": "EM-5271",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "stainless-saucepan-2-qt",
+       "name": "Stainless Saucepan 2 qt",
+       "values": {
+        "Price": "$116.99",
+        "Rating": "3.6",
+        "Reviews": "270",
+        "Item code": "EM-1190",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "enamel-dutch-oven-5-5-qt",
+       "name": "Enamel Dutch Oven 5.5 qt",
+       "values": {
+        "Price": "$170.49",
+        "Rating": "4.2",
+        "Reviews": "225",
+        "Item code": "EM-3896",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "stockpot-8-qt",
+       "name": "Stockpot 8 qt",
+       "values": {
+        "Price": "$78.99",
+        "Rating": "3.7",
+        "Reviews": "1,751",
+        "Item code": "EM-4489",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "carbon-steel-wok",
+       "name": "Carbon Steel Wok",
+       "values": {
+        "Price": "$31.00",
+        "Rating": "4.1",
+        "Reviews": "1,274",
+        "Item code": "EM-4304",
+        "Availability": "Ships in 2–3 days"
+       }
+      }
+     ]
+    },
+    {
+     "id": "small-appliances",
+     "title": "Small Appliances",
+     "intro": "Browse our small appliances range.",
+     "items": [
+      {
+       "id": "air-fryer-5-l",
+       "name": "Air Fryer 5 L",
+       "values": {
+        "Price": "$266.99",
+        "Rating": "4.1",
+        "Reviews": "1,117",
+        "Item code": "EM-3044",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "blender-pro-1200",
+       "name": "Blender Pro 1200",
+       "values": {
+        "Price": "$272.99",
+        "Rating": "3.5",
+        "Reviews": "1,733",
+        "Item code": "EM-6863",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "toaster-4-slice",
+       "name": "Toaster 4-Slice",
+       "values": {
+        "Price": "$224.95",
+        "Rating": "4.0",
+        "Reviews": "415",
+        "Item code": "EM-3088",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "electric-kettle-1-7-l",
+       "name": "Electric Kettle 1.7 L",
+       "values": {
+        "Price": "$52.95",
+        "Rating": "3.8",
+        "Reviews": "1,965",
+        "Item code": "EM-4615",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "stand-mixer-classic",
+       "name": "Stand Mixer Classic",
+       "values": {
+        "Price": "$374.99",
+        "Rating": "4.6",
+        "Reviews": "1,714",
+        "Item code": "EM-4244",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "rice-cooker-10-cup",
+       "name": "Rice Cooker 10-Cup",
+       "values": {
+        "Price": "$47.99",
+        "Rating": "4.9",
+        "Reviews": "524",
+        "Item code": "EM-8138",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "bedding",
+     "title": "Bedding",
+     "intro": "Browse our bedding range.",
+     "items": [
+      {
+       "id": "cotton-sheet-set-queen",
+       "name": "Cotton Sheet Set (Queen)",
+       "values": {
+        "Price": "$102.49",
+        "Rating": "4.2",
+        "Reviews": "2,160",
+        "Item code": "EM-4895",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "down-alternative-duvet",
+       "name": "Down-Alternative Duvet",
+       "values": {
+        "Price": "$149.95",
+        "Rating": "3.5",
+        "Reviews": "218",
+        "Item code": "EM-6048",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "memory-foam-pillow",
+       "name": "Memory Foam Pillow",
+       "values": {
+        "Price": "$64.00",
+        "Rating": "4.1",
+        "Reviews": "2,298",
+        "Item code": "EM-6745",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "linen-duvet-cover",
+       "name": "Linen Duvet Cover",
+       "values": {
+        "Price": "$101.95",
+        "Rating": "3.8",
+        "Reviews": "2,294",
+        "Item code": "EM-4143",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "weighted-blanket-7-kg",
+       "name": "Weighted Blanket 7 kg",
+       "values": {
+        "Price": "$157.49",
+        "Rating": "3.4",
+        "Reviews": "965",
+        "Item code": "EM-5894",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "waterproof-mattress-protector",
+       "name": "Waterproof Mattress Protector",
+       "values": {
+        "Price": "$50.00",
+        "Rating": "4.6",
+        "Reviews": "2,355",
+        "Item code": "EM-5785",
+        "Availability": "Only 3 left"
+       }
+      }
+     ]
+    },
+    {
+     "id": "storage",
+     "title": "Storage & Organisation",
+     "intro": "Browse our storage & organisation range.",
+     "items": [
+      {
+       "id": "stackable-pantry-bins",
+       "name": "Stackable Pantry Bins",
+       "values": {
+        "Price": "$55.49",
+        "Rating": "3.5",
+        "Reviews": "1,825",
+        "Item code": "EM-6511",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "under-bed-storage-bags",
+       "name": "Under-Bed Storage Bags",
+       "values": {
+        "Price": "$43.99",
+        "Rating": "3.9",
+        "Reviews": "1,387",
+        "Item code": "EM-8536",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "bamboo-drawer-dividers",
+       "name": "Bamboo Drawer Dividers",
+       "values": {
+        "Price": "$52.99",
+        "Rating": "4.8",
+        "Reviews": "474",
+        "Item code": "EM-4970",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "over-door-shoe-rack",
+       "name": "Over-Door Shoe Rack",
+       "values": {
+        "Price": "$38.00",
+        "Rating": "4.2",
+        "Reviews": "1,155",
+        "Item code": "EM-6726",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "clear-fridge-organisers",
+       "name": "Clear Fridge Organisers",
+       "values": {
+        "Price": "$37.99",
+        "Rating": "3.4",
+        "Reviews": "1,774",
+        "Item code": "EM-1940",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "woven-storage-baskets",
+       "name": "Woven Storage Baskets",
+       "values": {
+        "Price": "$57.49",
+        "Rating": "4.7",
+        "Reviews": "1,662",
+        "Item code": "EM-4188",
+        "Availability": "Low stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "lighting",
+     "title": "Lighting",
+     "intro": "Browse our lighting range.",
+     "items": [
+      {
+       "id": "arc-floor-lamp",
+       "name": "Arc Floor Lamp",
+       "values": {
+        "Price": "$104.95",
+        "Rating": "4.0",
+        "Reviews": "517",
+        "Item code": "EM-7290",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "ceramic-table-lamp",
+       "name": "Ceramic Table Lamp",
+       "values": {
+        "Price": "$85.00",
+        "Rating": "3.7",
+        "Reviews": "1,575",
+        "Item code": "EM-7414",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "led-desk-lamp",
+       "name": "LED Desk Lamp",
+       "values": {
+        "Price": "$157.99",
+        "Rating": "4.2",
+        "Reviews": "1,744",
+        "Item code": "EM-9538",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "string-lights-10-m",
+       "name": "String Lights 10 m",
+       "values": {
+        "Price": "$45.49",
+        "Rating": "3.5",
+        "Reviews": "2,311",
+        "Item code": "EM-6671",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "motion-sensor-night-light",
+       "name": "Motion Sensor Night Light",
+       "values": {
+        "Price": "$101.99",
+        "Rating": "3.8",
+        "Reviews": "649",
+        "Item code": "EM-6725",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "rattan-pendant-shade",
+       "name": "Rattan Pendant Shade",
+       "values": {
+        "Price": "$167.95",
+        "Rating": "4.1",
+        "Reviews": "1,143",
+        "Item code": "EM-7707",
+        "Availability": "Ships in 2–3 days"
+       }
+      }
+     ]
+    },
+    {
+     "id": "coffee-tea",
+     "title": "Coffee & Tea",
+     "intro": "Browse our coffee & tea range.",
+     "items": [
+      {
+       "id": "pour-over-coffee-set",
+       "name": "Pour-Over Coffee Set",
+       "values": {
+        "Price": "$267.00",
+        "Rating": "4.6",
+        "Reviews": "2,264",
+        "Item code": "EM-3589",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "french-press-1-l",
+       "name": "French Press 1 L",
+       "values": {
+        "Price": "$221.99",
+        "Rating": "3.9",
+        "Reviews": "1,120",
+        "Item code": "EM-4942",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "compact-espresso-machine",
+       "name": "Compact Espresso Machine",
+       "values": {
+        "Price": "$82.99",
+        "Rating": "4.3",
+        "Reviews": "568",
+        "Item code": "EM-6716",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "burr-coffee-grinder",
+       "name": "Burr Coffee Grinder",
+       "values": {
+        "Price": "$191.99",
+        "Rating": "4.7",
+        "Reviews": "39",
+        "Item code": "EM-6654",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "glass-teapot-with-infuser",
+       "name": "Glass Teapot with Infuser",
+       "values": {
+        "Price": "$62.99",
+        "Rating": "3.6",
+        "Reviews": "553",
+        "Item code": "EM-2819",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "milk-frother",
+       "name": "Milk Frother",
+       "values": {
+        "Price": "$334.99",
+        "Rating": "4.1",
+        "Reviews": "1,463",
+        "Item code": "EM-4246",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "clothing",
+   "title": "Clothing & Shoes",
+   "icon": "shirt",
+   "pages": [
+    {
+     "id": "mens",
+     "title": "Men's Clothing",
+     "intro": "Browse our men's clothing range.",
+     "items": [
+      {
+       "id": "oxford-button-down-shirt",
+       "name": "Oxford Button-Down Shirt",
+       "values": {
+        "Price": "$38.00",
+        "Rating": "4.1",
+        "Reviews": "1,545",
+        "Item code": "EM-6314",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "slim-chino-trousers",
+       "name": "Slim Chino Trousers",
+       "values": {
+        "Price": "$58.99",
+        "Rating": "3.6",
+        "Reviews": "1,801",
+        "Item code": "EM-1247",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "merino-crew-sweater",
+       "name": "Merino Crew Sweater",
+       "values": {
+        "Price": "$114.00",
+        "Rating": "3.8",
+        "Reviews": "2,190",
+        "Item code": "EM-2325",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "quilted-puffer-jacket",
+       "name": "Quilted Puffer Jacket",
+       "values": {
+        "Price": "$49.99",
+        "Rating": "4.9",
+        "Reviews": "439",
+        "Item code": "EM-9263",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "classic-denim-jacket",
+       "name": "Classic Denim Jacket",
+       "values": {
+        "Price": "$105.49",
+        "Rating": "3.5",
+        "Reviews": "1,489",
+        "Item code": "EM-7388",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "performance-polo",
+       "name": "Performance Polo",
+       "values": {
+        "Price": "$145.00",
+        "Rating": "4.4",
+        "Reviews": "838",
+        "Item code": "EM-6228",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "womens",
+     "title": "Women's Clothing",
+     "intro": "Browse our women's clothing range.",
+     "items": [
+      {
+       "id": "wrap-midi-dress",
+       "name": "Wrap Midi Dress",
+       "values": {
+        "Price": "$76.99",
+        "Rating": "4.5",
+        "Reviews": "2,341",
+        "Item code": "EM-2720",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "high-rise-straight-jeans",
+       "name": "High-Rise Straight Jeans",
+       "values": {
+        "Price": "$128.99",
+        "Rating": "4.6",
+        "Reviews": "625",
+        "Item code": "EM-5717",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "cashmere-blend-cardigan",
+       "name": "Cashmere Blend Cardigan",
+       "values": {
+        "Price": "$42.00",
+        "Rating": "3.8",
+        "Reviews": "733",
+        "Item code": "EM-3766",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "linen-wide-leg-trousers",
+       "name": "Linen Wide-Leg Trousers",
+       "values": {
+        "Price": "$166.99",
+        "Rating": "3.7",
+        "Reviews": "404",
+        "Item code": "EM-5126",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "belted-trench-coat",
+       "name": "Belted Trench Coat",
+       "values": {
+        "Price": "$118.99",
+        "Rating": "4.0",
+        "Reviews": "2,163",
+        "Item code": "EM-9182",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "ribbed-knit-top",
+       "name": "Ribbed Knit Top",
+       "values": {
+        "Price": "$175.99",
+        "Rating": "4.8",
+        "Reviews": "644",
+        "Item code": "EM-5952",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "kids",
+     "title": "Kids' Clothing",
+     "intro": "Browse our kids' clothing range.",
+     "items": [
+      {
+       "id": "kids-rain-jacket",
+       "name": "Kids' Rain Jacket",
+       "values": {
+        "Price": "$35.49",
+        "Rating": "4.5",
+        "Reviews": "618",
+        "Item code": "EM-3111",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "kids-fleece-hoodie",
+       "name": "Kids' Fleece Hoodie",
+       "values": {
+        "Price": "$56.99",
+        "Rating": "3.6",
+        "Reviews": "781",
+        "Item code": "EM-4032",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "kids-pyjama-set",
+       "name": "Kids' Pyjama Set",
+       "values": {
+        "Price": "$67.99",
+        "Rating": "4.1",
+        "Reviews": "1,147",
+        "Item code": "EM-8647",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "kids-denim-overalls",
+       "name": "Kids' Denim Overalls",
+       "values": {
+        "Price": "$18.99",
+        "Rating": "3.9",
+        "Reviews": "745",
+        "Item code": "EM-3190",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "kids-swim-set",
+       "name": "Kids' Swim Set",
+       "values": {
+        "Price": "$17.99",
+        "Rating": "3.7",
+        "Reviews": "1,250",
+        "Item code": "EM-8204",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "kids-winter-mittens",
+       "name": "Kids' Winter Mittens",
+       "values": {
+        "Price": "$44.00",
+        "Rating": "3.8",
+        "Reviews": "1,086",
+        "Item code": "EM-1893",
+        "Availability": "Low stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "shoes",
+     "title": "Shoes",
+     "intro": "Browse our shoes range.",
+     "items": [
+      {
+       "id": "everyday-canvas-sneakers",
+       "name": "Everyday Canvas Sneakers",
+       "values": {
+        "Price": "$69.99",
+        "Rating": "4.1",
+        "Reviews": "1,239",
+        "Item code": "EM-1254",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "leather-chelsea-boots",
+       "name": "Leather Chelsea Boots",
+       "values": {
+        "Price": "$143.95",
+        "Rating": "3.4",
+        "Reviews": "1,249",
+        "Item code": "EM-3816",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "trail-hiking-boots",
+       "name": "Trail Hiking Boots",
+       "values": {
+        "Price": "$131.49",
+        "Rating": "4.8",
+        "Reviews": "1,226",
+        "Item code": "EM-6684",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "slip-on-loafers",
+       "name": "Slip-On Loafers",
+       "values": {
+        "Price": "$46.49",
+        "Rating": "4.3",
+        "Reviews": "961",
+        "Item code": "EM-8279",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "cushioned-slides",
+       "name": "Cushioned Slides",
+       "values": {
+        "Price": "$122.49",
+        "Rating": "4.0",
+        "Reviews": "289",
+        "Item code": "EM-8632",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "waterproof-rain-boots",
+       "name": "Waterproof Rain Boots",
+       "values": {
+        "Price": "$74.99",
+        "Rating": "3.9",
+        "Reviews": "1,830",
+        "Item code": "EM-3228",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "bags",
+     "title": "Bags & Luggage",
+     "intro": "Browse our bags & luggage range.",
+     "items": [
+      {
+       "id": "carry-on-spinner-suitcase",
+       "name": "Carry-On Spinner Suitcase",
+       "values": {
+        "Price": "$105.99",
+        "Rating": "4.5",
+        "Reviews": "2,292",
+        "Item code": "EM-1432",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "canvas-tote-bag",
+       "name": "Canvas Tote Bag",
+       "values": {
+        "Price": "$182.00",
+        "Rating": "3.9",
+        "Reviews": "1,208",
+        "Item code": "EM-9189",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "laptop-backpack-20-l",
+       "name": "Laptop Backpack 20 L",
+       "values": {
+        "Price": "$66.99",
+        "Rating": "4.2",
+        "Reviews": "170",
+        "Item code": "EM-2658",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "leather-crossbody-bag",
+       "name": "Leather Crossbody Bag",
+       "values": {
+        "Price": "$215.99",
+        "Rating": "4.7",
+        "Reviews": "1,526",
+        "Item code": "EM-4076",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "weekender-duffel",
+       "name": "Weekender Duffel",
+       "values": {
+        "Price": "$100.99",
+        "Rating": "4.6",
+        "Reviews": "1,903",
+        "Item code": "EM-3569",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "packing-cubes-set-of-4",
+       "name": "Packing Cubes (Set of 4)",
+       "values": {
+        "Price": "$63.95",
+        "Rating": "4.3",
+        "Reviews": "72",
+        "Item code": "EM-1210",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "watches-jewellery",
+     "title": "Watches & Jewellery",
+     "intro": "Browse our watches & jewellery range.",
+     "items": [
+      {
+       "id": "minimalist-steel-watch",
+       "name": "Minimalist Steel Watch",
+       "values": {
+        "Price": "$167.00",
+        "Rating": "4.8",
+        "Reviews": "2,015",
+        "Item code": "EM-2009",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "sport-digital-watch",
+       "name": "Sport Digital Watch",
+       "values": {
+        "Price": "$221.95",
+        "Rating": "4.2",
+        "Reviews": "2,061",
+        "Item code": "EM-2433",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "silver-hoop-earrings",
+       "name": "Silver Hoop Earrings",
+       "values": {
+        "Price": "$242.49",
+        "Rating": "4.9",
+        "Reviews": "2,155",
+        "Item code": "EM-9131",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "gold-chain-necklace",
+       "name": "Gold Chain Necklace",
+       "values": {
+        "Price": "$287.95",
+        "Rating": "3.4",
+        "Reviews": "2,068",
+        "Item code": "EM-7286",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "leather-strap-watch",
+       "name": "Leather Strap Watch",
+       "values": {
+        "Price": "$230.99",
+        "Rating": "4.0",
+        "Reviews": "693",
+        "Item code": "EM-1103",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "pearl-stud-earrings",
+       "name": "Pearl Stud Earrings",
+       "values": {
+        "Price": "$121.99",
+        "Rating": "4.3",
+        "Reviews": "1,696",
+        "Item code": "EM-7014",
+        "Availability": "Only 3 left"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sports",
+   "title": "Sports & Outdoors",
+   "icon": "mountain",
+   "pages": [
+    {
+     "id": "camping",
+     "title": "Camping",
+     "intro": "Browse our camping range.",
+     "items": [
+      {
+       "id": "trailblazer-2-person-tent",
+       "name": "Trailblazer 2-Person Tent",
+       "values": {
+        "Price": "$316.99",
+        "Rating": "3.9",
+        "Reviews": "1,278",
+        "Item code": "EM-4191",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "summit-4-person-tent",
+       "name": "Summit 4-Person Tent",
+       "values": {
+        "Price": "$199.99",
+        "Rating": "4.5",
+        "Reviews": "823",
+        "Item code": "EM-9559",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "down-sleeping-bag-5-c",
+       "name": "Down Sleeping Bag -5°C",
+       "values": {
+        "Price": "$73.49",
+        "Rating": "4.4",
+        "Reviews": "42",
+        "Item code": "EM-2417",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "self-inflating-sleeping-mat",
+       "name": "Self-Inflating Sleeping Mat",
+       "values": {
+        "Price": "$273.49",
+        "Rating": "3.6",
+        "Reviews": "239",
+        "Item code": "EM-4375",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "camp-stove-duo",
+       "name": "Camp Stove Duo",
+       "values": {
+        "Price": "$111.99",
+        "Rating": "3.8",
+        "Reviews": "441",
+        "Item code": "EM-7753",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "led-camping-lantern",
+       "name": "LED Camping Lantern",
+       "values": {
+        "Price": "$26.49",
+        "Rating": "4.9",
+        "Reviews": "35",
+        "Item code": "EM-8659",
+        "Availability": "Ships in 2–3 days"
+       }
+      }
+     ]
+    },
+    {
+     "id": "cycling",
+     "title": "Cycling",
+     "intro": "Browse our cycling range.",
+     "items": [
+      {
+       "id": "city-commuter-bike",
+       "name": "City Commuter Bike",
+       "values": {
+        "Price": "$49.00",
+        "Rating": "3.4",
+        "Reviews": "1,821",
+        "Item code": "EM-1594",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "aero-cycling-helmet",
+       "name": "Aero Cycling Helmet",
+       "values": {
+        "Price": "$165.95",
+        "Rating": "4.9",
+        "Reviews": "873",
+        "Item code": "EM-9851",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "heavy-duty-bike-lock",
+       "name": "Heavy-Duty Bike Lock",
+       "values": {
+        "Price": "$413.95",
+        "Rating": "3.5",
+        "Reviews": "904",
+        "Item code": "EM-5163",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "rechargeable-bike-light-set",
+       "name": "Rechargeable Bike Light Set",
+       "values": {
+        "Price": "$90.99",
+        "Rating": "4.5",
+        "Reviews": "62",
+        "Item code": "EM-8003",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "padded-cycling-shorts",
+       "name": "Padded Cycling Shorts",
+       "values": {
+        "Price": "$460.99",
+        "Rating": "4.2",
+        "Reviews": "243",
+        "Item code": "EM-9185",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "mini-bike-pump",
+       "name": "Mini Bike Pump",
+       "values": {
+        "Price": "$278.95",
+        "Rating": "4.4",
+        "Reviews": "188",
+        "Item code": "EM-4990",
+        "Availability": "Only 3 left"
+       }
+      }
+     ]
+    },
+    {
+     "id": "fitness",
+     "title": "Fitness",
+     "intro": "Browse our fitness range.",
+     "items": [
+      {
+       "id": "adjustable-dumbbells-24-kg",
+       "name": "Adjustable Dumbbells 24 kg",
+       "values": {
+        "Price": "$109.49",
+        "Rating": "4.8",
+        "Reviews": "2,175",
+        "Item code": "EM-4837",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "yoga-mat-6-mm",
+       "name": "Yoga Mat 6 mm",
+       "values": {
+        "Price": "$209.00",
+        "Rating": "3.6",
+        "Reviews": "319",
+        "Item code": "EM-8712",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "resistance-band-set",
+       "name": "Resistance Band Set",
+       "values": {
+        "Price": "$240.49",
+        "Rating": "4.4",
+        "Reviews": "290",
+        "Item code": "EM-3830",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "kettlebell-12-kg",
+       "name": "Kettlebell 12 kg",
+       "values": {
+        "Price": "$211.00",
+        "Rating": "3.4",
+        "Reviews": "1,985",
+        "Item code": "EM-2193",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "foam-roller",
+       "name": "Foam Roller",
+       "values": {
+        "Price": "$180.95",
+        "Rating": "4.1",
+        "Reviews": "119",
+        "Item code": "EM-4682",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "speed-jump-rope",
+       "name": "Speed Jump Rope",
+       "values": {
+        "Price": "$99.49",
+        "Rating": "4.0",
+        "Reviews": "1,221",
+        "Item code": "EM-8436",
+        "Availability": "Only 3 left"
+       }
+      }
+     ]
+    },
+    {
+     "id": "running",
+     "title": "Running",
+     "intro": "Browse our running range.",
+     "items": [
+      {
+       "id": "stride-road-running-shoes",
+       "name": "Stride Road Running Shoes",
+       "values": {
+        "Price": "$26.00",
+        "Rating": "3.7",
+        "Reviews": "930",
+        "Item code": "EM-8696",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "grip-trail-running-shoes",
+       "name": "Grip Trail Running Shoes",
+       "values": {
+        "Price": "$27.49",
+        "Rating": "4.3",
+        "Reviews": "1,446",
+        "Item code": "EM-4836",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "running-belt",
+       "name": "Running Belt",
+       "values": {
+        "Price": "$55.95",
+        "Rating": "4.4",
+        "Reviews": "994",
+        "Item code": "EM-2356",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "reflective-running-vest",
+       "name": "Reflective Running Vest",
+       "values": {
+        "Price": "$132.99",
+        "Rating": "3.4",
+        "Reviews": "25",
+        "Item code": "EM-4402",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "hydration-bottle-500-ml",
+       "name": "Hydration Bottle 500 ml",
+       "values": {
+        "Price": "$106.49",
+        "Rating": "4.0",
+        "Reviews": "1,546",
+        "Item code": "EM-1322",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "compression-socks",
+       "name": "Compression Socks",
+       "values": {
+        "Price": "$100.99",
+        "Rating": "4.8",
+        "Reviews": "294",
+        "Item code": "EM-1693",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "water-sports",
+     "title": "Water Sports",
+     "intro": "Browse our water sports range.",
+     "items": [
+      {
+       "id": "inflatable-paddle-board",
+       "name": "Inflatable Paddle Board",
+       "values": {
+        "Price": "$182.49",
+        "Rating": "3.5",
+        "Reviews": "1,905",
+        "Item code": "EM-7847",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "snorkel-set",
+       "name": "Snorkel Set",
+       "values": {
+        "Price": "$149.00",
+        "Rating": "3.7",
+        "Reviews": "443",
+        "Item code": "EM-1984",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "pro-swim-goggles",
+       "name": "Pro Swim Goggles",
+       "values": {
+        "Price": "$202.99",
+        "Rating": "4.2",
+        "Reviews": "1,478",
+        "Item code": "EM-6128",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "dry-bag-20-l",
+       "name": "Dry Bag 20 L",
+       "values": {
+        "Price": "$304.49",
+        "Rating": "3.9",
+        "Reviews": "611",
+        "Item code": "EM-9292",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "shorty-wetsuit",
+       "name": "Shorty Wetsuit",
+       "values": {
+        "Price": "$237.99",
+        "Rating": "4.7",
+        "Reviews": "328",
+        "Item code": "EM-9337",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "kids-life-jacket",
+       "name": "Kids' Life Jacket",
+       "values": {
+        "Price": "$235.00",
+        "Rating": "4.8",
+        "Reviews": "2,009",
+        "Item code": "EM-7147",
+        "Availability": "Low stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "team-sports",
+     "title": "Team Sports",
+     "intro": "Browse our team sports range.",
+     "items": [
+      {
+       "id": "match-football-size-5",
+       "name": "Match Football Size 5",
+       "values": {
+        "Price": "$74.99",
+        "Rating": "4.0",
+        "Reviews": "1,891",
+        "Item code": "EM-7441",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "indoor-outdoor-basketball",
+       "name": "Indoor/Outdoor Basketball",
+       "values": {
+        "Price": "$48.00",
+        "Rating": "4.1",
+        "Reviews": "1,043",
+        "Item code": "EM-8988",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "shin-guards",
+       "name": "Shin Guards",
+       "values": {
+        "Price": "$19.49",
+        "Rating": "3.4",
+        "Reviews": "1,834",
+        "Item code": "EM-7085",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "badminton-set",
+       "name": "Badminton Set",
+       "values": {
+        "Price": "$129.49",
+        "Rating": "4.2",
+        "Reviews": "2,063",
+        "Item code": "EM-6089",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "soft-touch-volleyball",
+       "name": "Soft-Touch Volleyball",
+       "values": {
+        "Price": "$26.99",
+        "Rating": "4.9",
+        "Reviews": "780",
+        "Item code": "EM-3503",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "willow-cricket-bat",
+       "name": "Willow Cricket Bat",
+       "values": {
+        "Price": "$31.99",
+        "Rating": "4.5",
+        "Reviews": "2,105",
+        "Item code": "EM-5092",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "beauty-health",
+   "title": "Beauty & Health",
+   "icon": "sparkles",
+   "pages": [
+    {
+     "id": "skincare",
+     "title": "Skincare",
+     "intro": "Browse our skincare range.",
+     "items": [
+      {
+       "id": "hydrating-face-cream",
+       "name": "Hydrating Face Cream",
+       "values": {
+        "Price": "$67.49",
+        "Rating": "4.0",
+        "Reviews": "2,192",
+        "Item code": "EM-4120",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "vitamin-c-serum",
+       "name": "Vitamin C Serum",
+       "values": {
+        "Price": "$46.95",
+        "Rating": "4.8",
+        "Reviews": "1,784",
+        "Item code": "EM-2639",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "gentle-foaming-cleanser",
+       "name": "Gentle Foaming Cleanser",
+       "values": {
+        "Price": "$47.49",
+        "Rating": "3.8",
+        "Reviews": "871",
+        "Item code": "EM-9803",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "spf-50-sunscreen",
+       "name": "SPF 50 Sunscreen",
+       "values": {
+        "Price": "$51.99",
+        "Rating": "4.1",
+        "Reviews": "2,346",
+        "Item code": "EM-8358",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "overnight-recovery-mask",
+       "name": "Overnight Recovery Mask",
+       "values": {
+        "Price": "$26.99",
+        "Rating": "3.5",
+        "Reviews": "64",
+        "Item code": "EM-9125",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "exfoliating-toner",
+       "name": "Exfoliating Toner",
+       "values": {
+        "Price": "$15.00",
+        "Rating": "4.4",
+        "Reviews": "1,086",
+        "Item code": "EM-7299",
+        "Availability": "Low stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "hair-care",
+     "title": "Hair Care",
+     "intro": "Browse our hair care range.",
+     "items": [
+      {
+       "id": "argan-repair-shampoo",
+       "name": "Argan Repair Shampoo",
+       "values": {
+        "Price": "$42.99",
+        "Rating": "4.4",
+        "Reviews": "105",
+        "Item code": "EM-9830",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "volumising-conditioner",
+       "name": "Volumising Conditioner",
+       "values": {
+        "Price": "$102.95",
+        "Rating": "3.6",
+        "Reviews": "120",
+        "Item code": "EM-2950",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "ionic-hair-dryer",
+       "name": "Ionic Hair Dryer",
+       "values": {
+        "Price": "$58.99",
+        "Rating": "3.9",
+        "Reviews": "2,194",
+        "Item code": "EM-5117",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "ceramic-straightener",
+       "name": "Ceramic Straightener",
+       "values": {
+        "Price": "$110.95",
+        "Rating": "3.5",
+        "Reviews": "2,261",
+        "Item code": "EM-5024",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "wide-tooth-comb-set",
+       "name": "Wide-Tooth Comb Set",
+       "values": {
+        "Price": "$124.95",
+        "Rating": "4.9",
+        "Reviews": "1,194",
+        "Item code": "EM-5927",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "leave-in-detangler",
+       "name": "Leave-In Detangler",
+       "values": {
+        "Price": "$88.49",
+        "Rating": "4.5",
+        "Reviews": "718",
+        "Item code": "EM-9055",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "fragrance",
+     "title": "Fragrance",
+     "intro": "Browse our fragrance range.",
+     "items": [
+      {
+       "id": "cedar-sage-eau-de-parfum",
+       "name": "Cedar & Sage Eau de Parfum",
+       "values": {
+        "Price": "$95.95",
+        "Rating": "4.6",
+        "Reviews": "449",
+        "Item code": "EM-9984",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "citrus-bloom-eau-de-toilette",
+       "name": "Citrus Bloom Eau de Toilette",
+       "values": {
+        "Price": "$88.99",
+        "Rating": "4.8",
+        "Reviews": "592",
+        "Item code": "EM-2967",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "vanilla-musk-body-mist",
+       "name": "Vanilla Musk Body Mist",
+       "values": {
+        "Price": "$127.49",
+        "Rating": "3.7",
+        "Reviews": "145",
+        "Item code": "EM-5563",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "ocean-breeze-cologne",
+       "name": "Ocean Breeze Cologne",
+       "values": {
+        "Price": "$120.00",
+        "Rating": "4.4",
+        "Reviews": "1,977",
+        "Item code": "EM-4613",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "rose-oud-perfume-oil",
+       "name": "Rose Oud Perfume Oil",
+       "values": {
+        "Price": "$60.99",
+        "Rating": "4.2",
+        "Reviews": "779",
+        "Item code": "EM-7018",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "travel-fragrance-trio",
+       "name": "Travel Fragrance Trio",
+       "values": {
+        "Price": "$84.99",
+        "Rating": "4.0",
+        "Reviews": "1,191",
+        "Item code": "EM-7845",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "vitamins",
+     "title": "Vitamins & Supplements",
+     "intro": "Browse our vitamins & supplements range.",
+     "items": [
+      {
+       "id": "daily-multivitamin",
+       "name": "Daily Multivitamin",
+       "values": {
+        "Price": "$29.49",
+        "Rating": "4.2",
+        "Reviews": "716",
+        "Item code": "EM-8620",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "vitamin-d3-1000-iu",
+       "name": "Vitamin D3 1000 IU",
+       "values": {
+        "Price": "$28.99",
+        "Rating": "3.9",
+        "Reviews": "1,533",
+        "Item code": "EM-3432",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "omega-3-fish-oil",
+       "name": "Omega-3 Fish Oil",
+       "values": {
+        "Price": "$9.00",
+        "Rating": "3.6",
+        "Reviews": "1,099",
+        "Item code": "EM-1853",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "magnesium-glycinate",
+       "name": "Magnesium Glycinate",
+       "values": {
+        "Price": "$12.00",
+        "Rating": "4.4",
+        "Reviews": "996",
+        "Item code": "EM-4290",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "probiotic-30-day",
+       "name": "Probiotic 30-Day",
+       "values": {
+        "Price": "$32.95",
+        "Rating": "4.3",
+        "Reviews": "1,222",
+        "Item code": "EM-8757",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "iron-vitamin-c",
+       "name": "Iron + Vitamin C",
+       "values": {
+        "Price": "$19.95",
+        "Rating": "4.6",
+        "Reviews": "550",
+        "Item code": "EM-6568",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "oral-care",
+     "title": "Oral Care",
+     "intro": "Browse our oral care range.",
+     "items": [
+      {
+       "id": "sonic-electric-toothbrush",
+       "name": "Sonic Electric Toothbrush",
+       "values": {
+        "Price": "$92.95",
+        "Rating": "3.8",
+        "Reviews": "1,961",
+        "Item code": "EM-6597",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "whitening-toothpaste",
+       "name": "Whitening Toothpaste",
+       "values": {
+        "Price": "$119.99",
+        "Rating": "4.1",
+        "Reviews": "635",
+        "Item code": "EM-4894",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "water-flosser",
+       "name": "Water Flosser",
+       "values": {
+        "Price": "$35.49",
+        "Rating": "4.2",
+        "Reviews": "1,460",
+        "Item code": "EM-4523",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "mint-floss-picks",
+       "name": "Mint Floss Picks",
+       "values": {
+        "Price": "$87.99",
+        "Rating": "4.7",
+        "Reviews": "1,484",
+        "Item code": "EM-4729",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "alcohol-free-mouthwash",
+       "name": "Alcohol-Free Mouthwash",
+       "values": {
+        "Price": "$21.99",
+        "Rating": "3.4",
+        "Reviews": "1,324",
+        "Item code": "EM-2352",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "replacement-brush-heads",
+       "name": "Replacement Brush Heads",
+       "values": {
+        "Price": "$3.49",
+        "Rating": "3.9",
+        "Reviews": "1,673",
+        "Item code": "EM-7099",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "first-aid",
+     "title": "First Aid",
+     "intro": "Browse our first aid range.",
+     "items": [
+      {
+       "id": "home-first-aid-kit",
+       "name": "Home First Aid Kit",
+       "values": {
+        "Price": "$37.95",
+        "Rating": "3.8",
+        "Reviews": "1,692",
+        "Item code": "EM-5207",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "digital-thermometer",
+       "name": "Digital Thermometer",
+       "values": {
+        "Price": "$23.99",
+        "Rating": "4.7",
+        "Reviews": "2,303",
+        "Item code": "EM-4174",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "assorted-plasters-100",
+       "name": "Assorted Plasters (100)",
+       "values": {
+        "Price": "$34.99",
+        "Rating": "3.5",
+        "Reviews": "2,179",
+        "Item code": "EM-5941",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "instant-cold-packs",
+       "name": "Instant Cold Packs",
+       "values": {
+        "Price": "$48.99",
+        "Rating": "3.4",
+        "Reviews": "427",
+        "Item code": "EM-4215",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "elastic-bandage-wrap",
+       "name": "Elastic Bandage Wrap",
+       "values": {
+        "Price": "$31.95",
+        "Rating": "4.4",
+        "Reviews": "1,947",
+        "Item code": "EM-3582",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "antiseptic-wipes",
+       "name": "Antiseptic Wipes",
+       "values": {
+        "Price": "$29.95",
+        "Rating": "3.6",
+        "Reviews": "1,046",
+        "Item code": "EM-8256",
+        "Availability": "Ships in 2–3 days"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "grocery",
+   "title": "Grocery",
+   "icon": "basket",
+   "pages": [
+    {
+     "id": "snacks",
+     "title": "Snacks",
+     "intro": "Browse our snacks range.",
+     "items": [
+      {
+       "id": "sea-salt-popcorn",
+       "name": "Sea Salt Popcorn",
+       "values": {
+        "Price": "$14.49",
+        "Rating": "3.9",
+        "Reviews": "1,014",
+        "Item code": "EM-1336",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "dark-chocolate-almonds",
+       "name": "Dark Chocolate Almonds",
+       "values": {
+        "Price": "$5.99",
+        "Rating": "4.1",
+        "Reviews": "2,362",
+        "Item code": "EM-1740",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "rice-crackers",
+       "name": "Rice Crackers",
+       "values": {
+        "Price": "$2.99",
+        "Rating": "4.9",
+        "Reviews": "135",
+        "Item code": "EM-6630",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "classic-trail-mix",
+       "name": "Classic Trail Mix",
+       "values": {
+        "Price": "$7.99",
+        "Rating": "3.7",
+        "Reviews": "773",
+        "Item code": "EM-5732",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "hummus-chips",
+       "name": "Hummus Chips",
+       "values": {
+        "Price": "$6.49",
+        "Rating": "4.4",
+        "Reviews": "732",
+        "Item code": "EM-6524",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "fruit-nut-bars-12",
+       "name": "Fruit & Nut Bars (12)",
+       "values": {
+        "Price": "$12.99",
+        "Rating": "4.7",
+        "Reviews": "685",
+        "Item code": "EM-4307",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "beverages",
+     "title": "Beverages",
+     "intro": "Browse our beverages range.",
+     "items": [
+      {
+       "id": "sparkling-water-lime-12",
+       "name": "Sparkling Water Lime (12)",
+       "values": {
+        "Price": "$12.00",
+        "Rating": "4.7",
+        "Reviews": "1,654",
+        "Item code": "EM-3285",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "cold-brew-coffee",
+       "name": "Cold Brew Coffee",
+       "values": {
+        "Price": "$14.95",
+        "Rating": "4.6",
+        "Reviews": "1,465",
+        "Item code": "EM-3305",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "green-tea-bags-80",
+       "name": "Green Tea Bags (80)",
+       "values": {
+        "Price": "$8.00",
+        "Rating": "3.9",
+        "Reviews": "668",
+        "Item code": "EM-7489",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "oat-milk-1-l",
+       "name": "Oat Milk 1 L",
+       "values": {
+        "Price": "$7.00",
+        "Rating": "4.4",
+        "Reviews": "409",
+        "Item code": "EM-1235",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "orange-juice-1-5-l",
+       "name": "Orange Juice 1.5 L",
+       "values": {
+        "Price": "$9.49",
+        "Rating": "4.1",
+        "Reviews": "373",
+        "Item code": "EM-1351",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "electrolyte-drink-mix",
+       "name": "Electrolyte Drink Mix",
+       "values": {
+        "Price": "$5.99",
+        "Rating": "3.8",
+        "Reviews": "1,802",
+        "Item code": "EM-1631",
+        "Availability": "Only 3 left"
+       }
+      }
+     ]
+    },
+    {
+     "id": "breakfast",
+     "title": "Breakfast",
+     "intro": "Browse our breakfast range.",
+     "items": [
+      {
+       "id": "honey-oat-granola",
+       "name": "Honey Oat Granola",
+       "values": {
+        "Price": "$10.49",
+        "Rating": "4.7",
+        "Reviews": "933",
+        "Item code": "EM-5931",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "steel-cut-oats",
+       "name": "Steel-Cut Oats",
+       "values": {
+        "Price": "$4.00",
+        "Rating": "3.4",
+        "Reviews": "2,210",
+        "Item code": "EM-7641",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "wholegrain-pancake-mix",
+       "name": "Wholegrain Pancake Mix",
+       "values": {
+        "Price": "$12.49",
+        "Rating": "4.6",
+        "Reviews": "283",
+        "Item code": "EM-6241",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "strawberry-jam",
+       "name": "Strawberry Jam",
+       "values": {
+        "Price": "$2.99",
+        "Rating": "4.4",
+        "Reviews": "130",
+        "Item code": "EM-2271",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "crunchy-peanut-butter",
+       "name": "Crunchy Peanut Butter",
+       "values": {
+        "Price": "$14.49",
+        "Rating": "3.8",
+        "Reviews": "1,925",
+        "Item code": "EM-7331",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "maple-syrup-250-ml",
+       "name": "Maple Syrup 250 ml",
+       "values": {
+        "Price": "$9.00",
+        "Rating": "3.7",
+        "Reviews": "118",
+        "Item code": "EM-1809",
+        "Availability": "Low stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "pantry",
+     "title": "Pantry Staples",
+     "intro": "Browse our pantry staples range.",
+     "items": [
+      {
+       "id": "extra-virgin-olive-oil-1-l",
+       "name": "Extra Virgin Olive Oil 1 L",
+       "values": {
+        "Price": "$4.49",
+        "Rating": "3.4",
+        "Reviews": "60",
+        "Item code": "EM-8385",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "basmati-rice-2-kg",
+       "name": "Basmati Rice 2 kg",
+       "values": {
+        "Price": "$15.49",
+        "Rating": "4.4",
+        "Reviews": "749",
+        "Item code": "EM-7007",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "penne-pasta-500-g",
+       "name": "Penne Pasta 500 g",
+       "values": {
+        "Price": "$14.49",
+        "Rating": "3.8",
+        "Reviews": "1,318",
+        "Item code": "EM-3061",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "chopped-tomatoes-4-pack",
+       "name": "Chopped Tomatoes (4-pack)",
+       "values": {
+        "Price": "$2.49",
+        "Rating": "3.9",
+        "Reviews": "1,386",
+        "Item code": "EM-5655",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "red-lentils-1-kg",
+       "name": "Red Lentils 1 kg",
+       "values": {
+        "Price": "$8.99",
+        "Rating": "3.6",
+        "Reviews": "811",
+        "Item code": "EM-5329",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "sea-salt-flakes",
+       "name": "Sea Salt Flakes",
+       "values": {
+        "Price": "$12.95",
+        "Rating": "4.6",
+        "Reviews": "801",
+        "Item code": "EM-7987",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "world-foods",
+     "title": "World Foods",
+     "intro": "Browse our world foods range.",
+     "items": [
+      {
+       "id": "thai-green-curry-paste",
+       "name": "Thai Green Curry Paste",
+       "values": {
+        "Price": "$8.49",
+        "Rating": "4.6",
+        "Reviews": "1,592",
+        "Item code": "EM-6333",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "miso-soup-packets",
+       "name": "Miso Soup Packets",
+       "values": {
+        "Price": "$3.95",
+        "Rating": "3.6",
+        "Reviews": "1,840",
+        "Item code": "EM-3833",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "tortilla-wraps-8",
+       "name": "Tortilla Wraps (8)",
+       "values": {
+        "Price": "$2.99",
+        "Rating": "4.3",
+        "Reviews": "1,550",
+        "Item code": "EM-4079",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "garam-masala",
+       "name": "Garam Masala",
+       "values": {
+        "Price": "$12.99",
+        "Rating": "4.1",
+        "Reviews": "259",
+        "Item code": "EM-4495",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "sushi-rice-1-kg",
+       "name": "Sushi Rice 1 kg",
+       "values": {
+        "Price": "$5.00",
+        "Rating": "3.8",
+        "Reviews": "1,311",
+        "Item code": "EM-7758",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "harissa-paste",
+       "name": "Harissa Paste",
+       "values": {
+        "Price": "$4.95",
+        "Rating": "4.9",
+        "Reviews": "1,640",
+        "Item code": "EM-6678",
+        "Availability": "In stock"
+       }
+      }
+     ]
+    },
+    {
+     "id": "baking",
+     "title": "Baking",
+     "intro": "Browse our baking range.",
+     "items": [
+      {
+       "id": "all-purpose-flour-1-5-kg",
+       "name": "All-Purpose Flour 1.5 kg",
+       "values": {
+        "Price": "$7.95",
+        "Rating": "4.2",
+        "Reviews": "1,775",
+        "Item code": "EM-8398",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "caster-sugar-1-kg",
+       "name": "Caster Sugar 1 kg",
+       "values": {
+        "Price": "$6.49",
+        "Rating": "3.8",
+        "Reviews": "1,830",
+        "Item code": "EM-4887",
+        "Availability": "Only 3 left"
+       }
+      },
+      {
+       "id": "baking-powder",
+       "name": "Baking Powder",
+       "values": {
+        "Price": "$1.99",
+        "Rating": "3.9",
+        "Reviews": "1,329",
+        "Item code": "EM-5679",
+        "Availability": "Ships in 2–3 days"
+       }
+      },
+      {
+       "id": "vanilla-extract",
+       "name": "Vanilla Extract",
+       "values": {
+        "Price": "$3.99",
+        "Rating": "4.8",
+        "Reviews": "960",
+        "Item code": "EM-4301",
+        "Availability": "In stock"
+       }
+      },
+      {
+       "id": "dark-chocolate-chips",
+       "name": "Dark Chocolate Chips",
+       "values": {
+        "Price": "$4.99",
+        "Rating": "4.8",
+        "Reviews": "564",
+        "Item code": "EM-1354",
+        "Availability": "Low stock"
+       }
+      },
+      {
+       "id": "instant-dry-yeast",
+       "name": "Instant Dry Yeast",
+       "values": {
+        "Price": "$10.99",
+        "Rating": "4.7",
+        "Reviews": "323",
+        "Item code": "EM-9493",
+        "Availability": "Low stock"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

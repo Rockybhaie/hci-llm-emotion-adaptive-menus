@@ -1,0 +1,30 @@
+# Threadline forum (G3) — two parallel task sets.
+# Same structure as g2.yaml; answers are computed from web/sites/g3-forum/site.json.
+
+A:
+  - {id: A01, type: lookup, page: technology/programming, item: "Best way to learn Python as a complete beginner?", field: Replies, text: "Find the thread \"Best way to learn Python as a complete beginner?\""}
+  - {id: A02, type: lookup, page: food/baking, item: "Sourdough starter not rising: help", field: Author, text: "Find the thread \"Sourdough starter not rising: help\""}
+  - {id: A03, type: lookup, page: travel/asia, item: "First trip to Japan: rail pass or not?", field: Votes, text: "Find the thread \"First trip to Japan: rail pass or not?\""}
+  - {id: A04, type: lookup, page: hobbies/photography, item: "Golden hour settings for beginners", field: Flair, text: "Find the thread \"Golden hour settings for beginners\""}
+  - {id: A05, type: extreme, page: science/space, field: Votes, mode: max, text: "Which thread in the Space community has the most votes?"}
+  - {id: A06, type: lookup, page: community/pets, item: "Tips for a new kitten owner", field: Replies, text: "Find the thread \"Tips for a new kitten owner\""}
+  - {id: A07, type: lookup, page: technology/gaming, item: "Cosy games for a rainy weekend", field: Author, text: "Find the thread \"Cosy games for a rainy weekend\""}
+  - {id: A08, type: extreme, page: food/coffee, field: Replies, mode: max, text: "Which coffee thread has the most replies?"}
+  - {id: A09, type: lookup, page: travel/hiking-trails, item: "Best hiking map apps", field: Votes, text: "Find the thread \"Best hiking map apps\""}
+  - {id: A10, type: lookup, page: hobbies/board-games, item: "Games that work well with exactly two players", field: Flair, text: "Find the thread \"Games that work well with exactly two players\""}
+  - {id: A11, type: compare, field: Votes, mode: max, items: [{page: science/physics, item: "Why is the sky blue?"}, {page: science/ocean, item: "Why is the sea salty?"}], text: "Which thread has more votes: \"Why is the sky blue?\" or \"Why is the sea salty?\""}
+  - {id: A12, type: compare, field: Replies, mode: max, items: [{page: community/book-club, item: "Audiobooks vs paper books"}, {page: community/movies-tv, item: "Favourite film soundtracks"}], text: "Which thread has more replies: \"Audiobooks vs paper books\" or \"Favourite film soundtracks\"?"}
+
+B:
+  - {id: B01, type: lookup, page: technology/web-design, item: "Best free icon sets", field: Replies, text: "Find the thread \"Best free icon sets\""}
+  - {id: B02, type: lookup, page: food/vegetarian, item: "How do you make tofu crispy?", field: Author, text: "Find the thread \"How do you make tofu crispy?\""}
+  - {id: B03, type: lookup, page: travel/europe, item: "Night trains worth taking", field: Votes, text: "Find the thread \"Night trains worth taking\""}
+  - {id: B04, type: lookup, page: hobbies/gardening, item: "Best low-light houseplants", field: Flair, text: "Find the thread \"Best low-light houseplants\""}
+  - {id: B05, type: extreme, page: science/wildlife, field: Votes, mode: max, text: "Which thread in the Wildlife community has the most votes?"}
+  - {id: B06, type: lookup, page: community/fitness, item: "Stretching routine for desk workers", field: Replies, text: "Find the thread \"Stretching routine for desk workers\""}
+  - {id: B07, type: lookup, page: technology/gadgets, item: "E-reader vs tablet for reading PDFs", field: Author, text: "Find the thread \"E-reader vs tablet for reading PDFs\""}
+  - {id: B08, type: extreme, page: food/grilling, field: Replies, mode: max, text: "Which grilling thread has the most replies?"}
+  - {id: B09, type: lookup, page: travel/road-trips, item: "Renting a campervan for the first time", field: Votes, text: "Find the thread \"Renting a campervan for the first time\""}
+  - {id: B10, type: lookup, page: hobbies/knitting, item: "Circular vs straight needles", field: Flair, text: "Find the thread \"Circular vs straight needles\""}
+  - {id: B11, type: compare, field: Votes, mode: max, items: [{page: science/weather, item: "Why is it windier by the coast?"}, {page: science/ask-a-scientist, item: "Why do we dream?"}], text: "Which thread has more votes: \"Why is it windier by the coast?\" or \"Why do we dream?\""}
+  - {id: B12, type: compare, field: Replies, mode: max, items: [{page: community/introductions, item: "Hello from a new member!"}, {page: community/off-topic, item: "What made you smile today?"}], text: "Which thread has more replies: \"Hello from a new member!\" or \"What made you smile today?\""}

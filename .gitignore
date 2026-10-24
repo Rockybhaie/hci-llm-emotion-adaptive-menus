@@ -1,0 +1,10 @@
+# participant data never goes into version control
+data/
+
+# copyrighted stimuli
+stimuli/videos/*
+!stimuli/videos/.gitkeep
+
+__pycache__/
+*.pyc
+.pytest_cache/
