@@ -10,7 +10,7 @@ page content is identical in every menu. Only the way of navigating changes.
 | | **M2** | Persistent sidebar tree | sections visible, pages hidden | click | 1–2 clicks |
 | | **M3** | Hub and spoke | yes | click | 2 clicks |
 | G2 store | **M4** | Click drop-down with large targets | yes | click | 2 clicks |
-| | **M5** | Mega-menu | yes | hover (or click) | 1 click, 2 steps |
+| | **M5** | Mega-menu | yes (all sections at once) | click | 2 clicks |
 | | **M6** | Search-first | yes (search or browse) | typing | 1 click + typing, 3 steps |
 | G3 forum | **M7** | Hamburger drawer | yes | click | 3 clicks |
 | | **M8** | Radial (pie) menu | yes | hover + click | 2 clicks, 3 steps |
@@ -20,7 +20,7 @@ Configuration lives in [config/menus.yaml](config/menus.yaml) (names, participan
 [config/groups.yaml](config/groups.yaml) (`menus:` per group). Preview any of them without recording anything:
 
 ```powershell
-python run.py preview --group G2 --menu M5      # opens the store with the mega-menu; a green box lists the events it logs
+python run.py preview --group G2 --menu M5      # opens the store with the mega-menu (add --debug for a box listing the logged events)
 python run.py preview --group G3 --menu M8
 ```
 
@@ -54,7 +54,7 @@ python run.py preview --group G3 --menu M8
 | `page_view` / `home_view` | The page that was chosen is now showing (after any induced lag). |
 | `backtrack` | See the definition above. |
 
-Panels are named `drawer` (M7), `radial` (M8), `search` and `browse` (M6); in the other menus the panel is the
+Panels are named `mega` (M5), `drawer` (M7), `radial` (M8), `search` and `browse` (M6); in the other menus the panel is the
 section id. Plus the engine-level events shared by every menu: `click`, `scroll`, `sabotage_*`, `click_while_loading`.
 
 ## Induced faults (menu-independent)
@@ -105,13 +105,13 @@ click a card. The hub stays open until a card is chosen, another tab is clicked,
 **Larger targets by design:** list items 56 px tall, panel 340 px wide (`item_height_px: 56`).
 
 ## M5 · Mega-menu (G2)
-**Idea:** more visible, fewer steps: one wide panel shows all six pages of the section at once.
-**How:** point at (150 ms intent delay) or click a section; a panel spanning the page width opens, with the section
-heading and the six pages in two columns of three; click a page. Closes when the pointer leaves, on Escape, outside
-click or selection.
-**Clicks to any page:** 1 (hover then click) · steps: 2 · click-to-open: 2.
-**Parameters:** `hover_open_ms: 150`, `leave_close_ms: 400`. Items 44 px tall. *Deviation note:* with a hover trigger
-M5 has the same click cost as M1; it differs by showing the whole section as a wide, grouped panel.
+**Idea:** see everything at once: no section choice, no hover.
+**How:** the bar holds only Home and one **All pages** button. Click it; a full-width panel opens showing all six
+sections side by side as headed columns, each with its six pages (36 pages in view). Click a page. Closes on
+selection, Escape, a second click on the button or an outside click. Hovering does nothing.
+**Clicks to any page:** always 2 (open the panel, click the page) · steps: 2.
+**Parameters:** none; items are 41 px tall. *Distinct from M1 and M4:* they reveal one section at a time after a choice
+among sections; M5 has no section step, trading one click for a wider scan.
 
 ## M6 · Search-first (G2)
 **Idea:** typing instead of pointing.
@@ -126,12 +126,14 @@ Note that tasks name an *item* (for example "Burr Coffee Grinder"), not its page
 first work out which page to search for, as in every other menu.
 
 ## M7 · Hamburger drawer (G3)
-**Idea:** hidden, mobile-style.
-**How:** press the menu button (three lines) at the top left; a 320 px drawer slides in from the left over a dimmed page;
-press a section to unfold its pages (one at a time), press a page. Closing the drawer forgets the unfolded section, so
-there is no history dependence. Home is always visible next to the button.
-**Clicks to any page:** always 3.
-**Parameters:** `accordion: true`. Rows are 44–48 px tall.
+**Idea:** hidden, mobile-style, with drill-down screens.
+**How:** press the menu button (three lines) at the top left; a wide drawer (up to 560 px) slides in over a dimmed page
+and lists only the six sections. Press a section: the drawer **replaces** the list with that section's pages and a Back
+button; press a page. Closing the drawer returns it to the section list, so there is no history dependence. Home is
+always visible next to the button.
+**Clicks to any page:** always 3. (Back is an extra click only if the participant picked the wrong section.)
+**Parameters:** `drill_down: true`. Rows are 52 px on the page screen. *Distinct from M2:* the sidebar tree is always
+on screen and unfolds pages in place; the drawer is hidden and moves between two screens.
 
 ## M8 · Radial (pie) menu (G3)
 **Idea:** spatial, gesture-like; sectors and pages are always at the same angles.
@@ -161,14 +163,14 @@ are highlighted.
 | M2 | 1–2 | 1–2 | click, click |
 | M3 | 2–2 | 2 | click, click |
 | M4 | 2–2 | 2 | click, click |
-| M5 | 1–1 | 2 | hover, click |
+| M5 | 2–2 | 2 | click, click |
 | M6 | 1–1 (Enter) or 2 (suggestion) | 3 | click box, type, Enter/click |
 | M7 | 3–3 | 3 | click, click, click |
 | M8 | 2–2 | 3 | click, hover, click |
 | M9 | 1–2 | 1–2 | click, click |
 
 Total fastest clicks for the 4 tasks of one subset (six subsets): M1 5·5·5·5·5·5 · M2 10·10·10·9·10·9 · M3 10 every subset ·
-M4 10 · M5 5 · M6 5 · M7 15 · M8 10 · M9 9·9·10·9·10·9. Within a menu the six subsets cost about the same, so a subset can be paired with any menu.
+M4 10 · M5 10 · M6 5 · M7 15 · M8 10 · M9 9·9·10·9·10·9. Within a menu the six subsets cost about the same, so a subset can be paired with any menu.
 
 ## Adding or changing a menu
 

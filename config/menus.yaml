@@ -43,8 +43,8 @@ M5:
   type: mega-menu
   name: Mega-menu
   label: Wide panel
-  how: Point at or click a section in the bar at the top of the page. A wide panel shows all of its pages. Click the page you want.
-  params: {hover_open_ms: 150, leave_close_ms: 400}
+  how: Click "All pages" in the bar at the top of the page. A wide panel shows every section with all of its pages. Click the page you want.
+  params: {}
 
 M6:
   group: G2
@@ -59,8 +59,8 @@ M7:
   type: drawer
   name: Hamburger drawer
   label: Drawer menu
-  how: Press the menu button (three lines) at the top left. Press a section to unfold its pages, then press the page you want.
-  params: {accordion: true}
+  how: Press the menu button (three lines) at the top left. Press a section to go to its pages, then press the page you want. Back returns to the sections.
+  params: {drill_down: true}
 
 M8:
   group: G3

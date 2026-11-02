@@ -42,7 +42,8 @@ def _click_dropdown(state, section):
 
 
 def _mega(state, section):
-    return [Move(Cost(1, 2), None), Move(Cost(2, 2), None)]
+    # click the single "All pages" button, then click the page in the full-width panel
+    return [Move(Cost(2, 2), None)]
 
 
 def _hub(state, section):

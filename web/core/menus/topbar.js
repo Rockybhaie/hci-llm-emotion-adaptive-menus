@@ -1,25 +1,17 @@
 // Shared implementation of the three "section bar + panel" menus:
-//   M1 hover drop-down, M4 click drop-down with large targets, M5 mega-menu.
-// They differ only in how the panel opens/closes (hover vs click) and how the panel looks.
+//   M1 hover drop-down and M4 click drop-down with large targets.
+// They differ only in how the panel opens/closes (hover vs click) and in target size.
 //
 // opts = {
 //   hover:      open on pointer hover (after an intent delay) as well as on click
 //   leaveClose: close shortly after the pointer leaves the section + panel
-//   panel:      'list' (a narrow list) | 'mega' (a wide panel, pages in two columns)
+//   panel:      'list'
 //   cls:        CSS modifier
 // }
 export function createTopbar(api, opts) {
   const { site, params, esc, icon } = api;
   const timers = {};
 
-  const mega = (s) => `
-      <div class="dropdown mega" role="menu" hidden>
-        <div class="mega-head">${icon(s.icon, 'mega-icon')}<span>${esc(s.title)}</span></div>
-        <div class="mega-cols">
-          ${[s.pages.slice(0, 3), s.pages.slice(3)].map((col) => `
-            <div class="mega-col">${col.map((p) => `<button class="mega-item" role="menuitem" data-section="${s.id}" data-page="${p.id}">${esc(p.title)}</button>`).join('')}</div>`).join('')}
-        </div>
-      </div>`;
   const list = (s) => `
       <div class="dropdown" role="menu" hidden>
         ${s.pages.map((p) => `<button class="dd-item" role="menuitem" data-section="${s.id}" data-page="${p.id}">${esc(p.title)}</button>`).join('')}
@@ -32,7 +24,7 @@ export function createTopbar(api, opts) {
         ${site.sections.map((s) => `
           <li class="nav-li" data-section="${s.id}">
             <button class="nav-item" data-section="${s.id}" aria-expanded="false" aria-haspopup="true">${esc(s.title)}${icon('chevron', 'chev')}</button>
-            ${opts.panel === 'mega' ? mega(s) : list(s)}
+            ${list(s)}
           </li>`).join('')}
       </ul>
     </nav>`;
@@ -81,7 +73,7 @@ export function createTopbar(api, opts) {
         timers.leave = setTimeout(() => api.open === sid && collapse('leave'), params.leave_close_ms);
       });
     }
-    li.querySelectorAll('.dd-item, .mega-item').forEach((b) => {
+    li.querySelectorAll('.dd-item').forEach((b) => {
       api.item(b, { id: `item:${sid}/${b.dataset.page}`, level: 'page', section: sid, page: b.dataset.page });
     });
   });

@@ -1,7 +1,7 @@
-// M7: hamburger drawer (mobile style). Everything is hidden behind a menu button at the top left.
-// Press it to slide a drawer in from the left, press a section to unfold its pages (one at a time),
-// press a page. Closing the drawer forgets which section was unfolded, so reaching any page always
-// takes three presses.
+// M7: hamburger drawer (mobile style) with drill-down navigation. Everything is hidden behind a menu button at the
+// top left. Press it to slide a large drawer over the page; it first lists only the sections. Pressing a section
+// slides to a second screen holding that section's pages (with a Back button); press a page. Closing the drawer
+// returns it to the section list, so reaching any page always takes three presses.
 export default function create(api) {
   const { site, esc, icon } = api;
 
@@ -15,32 +15,38 @@ export default function create(api) {
       <div class="drawer-backdrop"></div>
       <aside class="drawer" data-menu-root aria-label="Site menu">
         <div class="drawer-head"><span>Menu</span><button class="drawer-close" aria-label="Close menu">${icon('x')}</button></div>
-        <ul class="acc">
+        <div class="drill-views">
+          <ul class="acc drill-root">
+            ${site.sections.map((s) => `
+              <li><button class="acc-head" data-section="${s.id}">${icon(s.icon, 'acc-icon')}<span>${esc(s.title)}</span>${icon('chevron', 'chev')}</button></li>`).join('')}
+          </ul>
           ${site.sections.map((s) => `
-            <li class="acc-sec" data-section="${s.id}">
-              <button class="acc-head" data-section="${s.id}" aria-expanded="false">${icon(s.icon, 'acc-icon')}<span>${esc(s.title)}</span>${icon('chevron', 'chev')}</button>
-              <ul class="acc-pages" hidden>${s.pages.map((p) => `<li><button class="acc-page" data-page="${p.id}">${esc(p.title)}</button></li>`).join('')}</ul>
-            </li>`).join('')}
-        </ul>
+            <div class="drill-view" data-section="${s.id}" hidden>
+              <button class="drill-back" data-back>${icon('chevron', 'chev')}<span>${esc(s.title)}</span></button>
+              <ul class="acc-pages">${s.pages.map((p) => `<li><button class="acc-page" data-page="${p.id}">${esc(p.title)}</button></li>`).join('')}</ul>
+            </div>`).join('')}
+        </div>
       </aside>
     </div>`;
   const bar = api.slots.nav.querySelector('.nav');
   const wrap = api.slots.overlay.querySelector('.drawer-wrap');
   const burger = bar.querySelector('.hamburger');
-  let expanded = null;                       // the unfolded accordion section, for plan()
+  const rootList = wrap.querySelector('.drill-root');
+  const views = [...wrap.querySelectorAll('.drill-view')];
+  let expanded = null;                       // the section whose page screen is showing, for plan()
+
+  function show(sid) {
+    expanded = sid;
+    rootList.hidden = sid != null;
+    views.forEach((v) => { v.hidden = v.dataset.section !== sid; });
+    wrap.querySelector('.drawer-head span').textContent = 'Menu';
+  }
 
   function setDrawer(on) {
     wrap.hidden = !on;
     burger.setAttribute('aria-expanded', on);
     burger.classList.toggle('open', on);
-    if (!on) {
-      expanded = null;
-      wrap.querySelectorAll('.acc-sec').forEach((li) => {
-        li.classList.remove('open');
-        li.querySelector('.acc-pages').hidden = true;
-        li.querySelector('.acc-head').setAttribute('aria-expanded', false);
-      });
-    }
+    if (!on) show(null);
   }
 
   api.item(burger, { id: 'nav:menu', level: 'control' }, () => {
@@ -52,19 +58,14 @@ export default function create(api) {
     setDrawer(false);
     api.setOpen(null, 'close');
   });
-  wrap.querySelectorAll('.acc-sec').forEach((li) => {
-    const sid = li.dataset.section;
-    api.item(li.querySelector('.acc-head'), { id: `nav:${sid}`, level: 'section', section: sid }, () => {
-      const wasOpen = li.classList.contains('open');
-      wrap.querySelectorAll('.acc-sec').forEach((o) => {
-        const on = o === li && !wasOpen;
-        o.classList.toggle('open', on);
-        o.querySelector('.acc-pages').hidden = !on;
-        o.querySelector('.acc-head').setAttribute('aria-expanded', on);
-      });
-      expanded = wasOpen ? null : sid;
-    });
-    li.querySelectorAll('.acc-page').forEach((b) => {
+  wrap.querySelectorAll('.acc-head').forEach((b) => {
+    const sid = b.dataset.section;
+    api.item(b, { id: `nav:${sid}`, level: 'section', section: sid }, () => show(sid));
+  });
+  views.forEach((v) => {
+    const sid = v.dataset.section;
+    api.item(v.querySelector('[data-back]'), { id: `nav:back:${sid}`, level: 'control' }, () => show(null));
+    v.querySelectorAll('.acc-page').forEach((b) => {
       api.item(b, { id: `item:${sid}/${b.dataset.page}`, level: 'page', section: sid, page: b.dataset.page });
     });
   });

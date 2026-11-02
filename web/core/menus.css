@@ -22,21 +22,21 @@ body.has-side .loader-bar { left: var(--side-w, 272px); }
 .nav-click .dropdown { min-width: 340px; padding: 8px; }
 .nav-click .dd-item { display: flex; align-items: center; min-height: var(--dd-item-h, 56px); padding: 0 20px; font-size: 16px; }
 
-/* ---------- M5: mega-menu ---------- */
+/* ---------- M5: mega-menu (one button, one full-width panel with every section as a column) ---------- */
 .nav-mega { position: relative; }
 .nav-mega .nav-li { position: static; }
 .nav-mega .dropdown.mega {
   left: 0; right: 0; min-width: 0; padding: 18px max(24px, calc((100% - var(--max)) / 2));
   border-radius: 0 0 var(--radius) var(--radius);
 }
-.mega-head { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; margin-bottom: 8px; color: var(--brand-strong); }
-.mega-icon { width: 22px; height: 22px; }
-.mega-cols { display: grid; grid-template-columns: 280px 280px; justify-content: start; }
-.mega-col { display: grid; align-content: start; gap: 2px; }
-.mega-col + .mega-col { border-left: 1px solid var(--line); padding-left: 24px; margin-left: 24px; }
+.mega-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; }
+.mega-col { display: grid; align-content: start; gap: 2px; padding: 0 12px; }
+.mega-col + .mega-col { border-left: 1px solid var(--line); }
+.mega-head { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; min-height: 36px; margin-bottom: 4px; color: var(--brand-strong); }
+.mega-icon { width: 20px; height: 20px; flex: none; }
 .mega-item {
-  display: flex; align-items: center; width: 100%; min-height: 44px; padding: 0 14px; border: 0; border-radius: 8px;
-  background: none; text-align: left; font-size: 15px; cursor: pointer;
+  display: flex; align-items: center; width: 100%; min-height: 41px; padding: 0 10px; border: 0; border-radius: 8px;
+  background: none; text-align: left; font-size: 14px; cursor: pointer;
 }
 .mega-item:hover { background: var(--brand-soft); color: var(--brand-strong); }
 
@@ -121,7 +121,7 @@ body.has-side .loader-bar { left: var(--side-w, 272px); }
 .drawer-wrap { position: fixed; inset: 0; }
 .drawer-backdrop { position: absolute; inset: 0; background: rgba(15, 23, 42, .35); }
 .drawer {
-  position: absolute; top: 0; left: 0; bottom: 0; width: 320px; overflow-y: auto; background: var(--surface); color: var(--ink);
+  position: absolute; top: 0; left: 0; bottom: 0; width: min(560px, 82vw); overflow-y: auto; background: var(--surface); color: var(--ink);
   box-shadow: var(--shadow-lg); animation: slide .16s ease-out;
 }
 @keyframes slide { from { opacity: .3; transform: translateX(-20px); } }
@@ -136,6 +136,10 @@ body.has-side .loader-bar { left: var(--side-w, 272px); }
 .acc-head:hover, .acc-sec.open > .acc-head { background: var(--nav-hover); }
 .acc-head .chev { margin-left: auto; }
 .acc-sec.open .chev { transform: rotate(180deg); }
+.drill-back { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 52px; padding: 0 16px; border: 0; border-bottom: 1px solid var(--line); background: var(--nav-hover); font-size: 16px; font-weight: 700; cursor: pointer; }
+.drill-back .chev { transform: rotate(90deg); }
+.drill-view .acc-pages { margin: 8px; padding: 0; border: 0; display: grid; gap: 2px; }
+.drill-view .acc-page { min-height: 52px; font-size: 16px; }
 .acc-icon { width: 22px; height: 22px; color: var(--muted); }
 .acc-pages { list-style: none; margin: 2px 0 8px 22px; padding: 0 0 0 14px; border-left: 2px solid var(--line); }
 .acc-page { display: block; width: 100%; min-height: 44px; padding: 0 12px; border: 0; border-radius: 8px; background: none; text-align: left; font-size: 14px; cursor: pointer; }

@@ -180,7 +180,7 @@ def clicks_for(page_obj, section, page):
 
 @pytest.mark.parametrize("group,menu_id,second_page_clicks", [
     ("G1", "M2", 1), ("G3", "M9", 1),                       # persistent: the section stays open
-    ("G1", "M1", 1), ("G1", "M3", 2), ("G2", "M4", 2), ("G2", "M5", 1), ("G3", "M7", 3), ("G3", "M8", 2),   # not persistent
+    ("G1", "M1", 1), ("G1", "M3", 2), ("G2", "M4", 2), ("G2", "M5", 2), ("G3", "M7", 3), ("G3", "M8", 2),   # not persistent
 ], ids=lambda v: str(v))
 def test_a_second_page_in_the_same_section_costs_what_the_model_says(browser, base_url, group, menu_id, second_page_clicks):
     from hci import menus

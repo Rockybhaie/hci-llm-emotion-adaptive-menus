@@ -94,7 +94,7 @@ def test_every_group_has_three_menus_and_menus_are_nested(cfg):
 
 
 # fewest-clicks range of the fastest path to one page, over every menu state (documented in MENUS.md)
-DOCUMENTED_CLICKS = {"M1": (1, 1), "M2": (1, 2), "M3": (2, 2), "M4": (2, 2), "M5": (1, 1), "M6": (1, 1),
+DOCUMENTED_CLICKS = {"M1": (1, 1), "M2": (1, 2), "M3": (2, 2), "M4": (2, 2), "M5": (2, 2), "M6": (1, 1),
                      "M7": (3, 3), "M8": (2, 2), "M9": (1, 2)}
 
 
