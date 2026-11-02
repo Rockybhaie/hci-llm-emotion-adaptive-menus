@@ -9,6 +9,17 @@ All clips live in `stimuli/videos/`. They are excluded from version control (`.g
 | `amusement.mp4` | G3: Joy | **Installed** | *Mr. Bean*, "The Exam" (wordless slapstick). The system plays 0:00–5:46, which cuts the YouTube end card | Chosen over *When Harry Met Sally* (Gross & Levenson, 1995) because it is wordless and culturally neutral |
 | `sadness.mp4` | G3: Sadness | **Installed** | *Taare Zameen Par* (2007), the teacher and father scene, then the boy alone at school. The system plays 0:00–3:53, up to the scene fade-out | Culturally adapted alternative to *The Champ* (Gross & Levenson, 1995) |
 
+## Booster clips (not included, optional)
+
+Two short clips re-cue the G3 emotions before sub-blocks 2 and 3 (see [docs/emotion-induction.md](../docs/emotion-induction.md#boosters-before-sub-blocks-2-and-3)). They are **not bundled**: film scenes are copyrighted and must come from you (FilmStim or clips the lab owns, see below).
+
+| File | Used by | What to supply |
+|---|---|---|
+| `boosters/g3_a.mp4` | G3: Joy booster, before sub-blocks 2 and 3 | A short amusing clip, 30-35 s, ideally a different excerpt from the same source as `amusement.mp4` |
+| `boosters/g3_b.mp4` | G3: Sadness booster, before sub-blocks 2 and 3 | A short sad clip, 30-35 s, from the same film as `sadness.mp4`; 10 s of quiet reflection follow it |
+
+Until a file exists, the booster shows a clearly marked **PLACEHOLDER** screen of the same length, `python run.py check` warns, and the session still runs. The file names are neutral on purpose. To change a path or length, edit `booster:` under the emotion in `config/groups.yaml`. The other four boosters (arithmetic round, paced breathing, speed-bonus reminder, copying) need no media; the calm one reuses the `nature/` clips.
+
 ## Replacing a film clip
 
 Film scenes are copyrighted. If you replace a clip, use one of these routes:
@@ -26,6 +37,6 @@ Use the scene boundaries described in Gross & Levenson (1995) or the FilmStim do
 
 ## Checking
 
-`python run.py check` lists every clip as found or missing. A real session refuses to start if a clip it needs is missing. All clips are now installed, for every group.
+`python run.py check` lists every clip as found or missing. A real session refuses to start if a required clip is missing (the optional booster clips only warn). The status column above describes the lab machine the clips were installed on: **they are not in the repository**, so on a fresh checkout `check` will report them missing until you copy them in.
 
 To swap the calm footage, put any `.mp4` or `.webm` files in `nature/`; they play in file-name order.

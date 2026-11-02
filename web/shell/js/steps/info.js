@@ -9,7 +9,7 @@ export async function welcome(step) {
     <h1>Welcome, and thank you for taking part</h1>
     <p class="lead">Everything in this session is guided on screen. Simply follow the instructions as they appear.</p>
     <ul class="facts">
-      <li>${icon('clock')}<span><b>About 40 minutes</b> with short pauses between parts</span></li>
+      <li>${icon('clock')}<span><b>About 50 minutes</b> with short pauses between parts</span></li>
       <li>${icon('shield')}<span><b>Anonymous</b>: you are identified only by a participant code</span></li>
       <li>${icon('users')}<span><b>The researcher is nearby</b> if you need anything at all</span></li>
     </ul>
@@ -83,6 +83,9 @@ export async function demographics(step, session) {
 }
 
 const DEBRIEF_POINTS = {
+  menus: 'The website menu changed from part to part on purpose. We compare how well different menu designs work for people in different moods.',
+  speed_reminder: 'The "current ranking" shown between parts was fixed in advance. It did not reflect how fast you actually were.',
+  clip: 'The short clips between parts were used to bring a mood back for a moment.',
   mist: 'The arithmetic task was designed to be very hard. Its time limit adjusted itself to stay just beyond your speed, and the "average participant" marker was not real.',
   evaluation: 'Your results were not actually compared with other participants.',
   sabotage: 'The slow pages, ignored clicks, menus closing by themselves and "session expired" messages were deliberate. Nothing was wrong with the website or with how you used it.',

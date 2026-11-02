@@ -1,30 +1,56 @@
-# Threadline forum (G3) — two parallel task sets.
-# Same structure as g2.yaml; answers are computed from web/sites/g3-forum/site.json.
+# Threadline forum (G3): six task subsets S1-S6 (one per emotion x menu cell) and a practice pool P.
+#
+# Every subset has the same four tasks in the same order: lookup, extreme, lookup, compare (a
+# two-page compare; in G1 the two items may use different money fields). Subsets are assigned to
+# cells by a 6 x 6 Latin square (hci/counterbalance.py). All target pages are 2 levels deep in every menu.
+#   lookup : find a named item, answer a question about one field
+#   extreme: find the item on a page with the max/min value of a field
+#   compare: two items on different pages, pick the max/min (an item may name its own `field`)
+# P is the practice pool: simple lookups on pages that no S1-S6 task targets. Menu i of the group
+# practises on P[2i] and P[2i+1].
+# Answers and answer options are computed from web/sites/<site>/site.json. In the boredom block the
+# site's repetitive template replaces these (same target pages).
 
-A:
-  - {id: A01, type: lookup, page: technology/programming, item: "Best way to learn Python as a complete beginner?", field: Replies, text: "Find the thread \"Best way to learn Python as a complete beginner?\""}
-  - {id: A02, type: lookup, page: food/baking, item: "Sourdough starter not rising: help", field: Author, text: "Find the thread \"Sourdough starter not rising: help\""}
-  - {id: A03, type: lookup, page: travel/asia, item: "First trip to Japan: rail pass or not?", field: Votes, text: "Find the thread \"First trip to Japan: rail pass or not?\""}
-  - {id: A04, type: lookup, page: hobbies/photography, item: "Golden hour settings for beginners", field: Flair, text: "Find the thread \"Golden hour settings for beginners\""}
-  - {id: A05, type: extreme, page: science/space, field: Votes, mode: max, text: "Which thread in the Space community has the most votes?"}
-  - {id: A06, type: lookup, page: community/pets, item: "Tips for a new kitten owner", field: Replies, text: "Find the thread \"Tips for a new kitten owner\""}
-  - {id: A07, type: lookup, page: technology/gaming, item: "Cosy games for a rainy weekend", field: Author, text: "Find the thread \"Cosy games for a rainy weekend\""}
-  - {id: A08, type: extreme, page: food/coffee, field: Replies, mode: max, text: "Which coffee thread has the most replies?"}
-  - {id: A09, type: lookup, page: travel/hiking-trails, item: "Best hiking map apps", field: Votes, text: "Find the thread \"Best hiking map apps\""}
-  - {id: A10, type: lookup, page: hobbies/board-games, item: "Games that work well with exactly two players", field: Flair, text: "Find the thread \"Games that work well with exactly two players\""}
-  - {id: A11, type: compare, field: Votes, mode: max, items: [{page: science/physics, item: "Why is the sky blue?"}, {page: science/ocean, item: "Why is the sea salty?"}], text: "Which thread has more votes: \"Why is the sky blue?\" or \"Why is the sea salty?\""}
-  - {id: A12, type: compare, field: Replies, mode: max, items: [{page: community/book-club, item: "Audiobooks vs paper books"}, {page: community/movies-tv, item: "Favourite film soundtracks"}], text: "Which thread has more replies: \"Audiobooks vs paper books\" or \"Favourite film soundtracks\"?"}
+S1:
+  - {id: S1-1, type: lookup, page: technology/web-design, item: "Best free icon sets", field: Replies, text: "Find the thread \"Best free icon sets\""}
+  - {id: S1-2, type: extreme, page: food/coffee, field: Replies, mode: max, text: "Which coffee thread has the most replies?"}
+  - {id: S1-3, type: lookup, page: travel/road-trips, item: "Renting a campervan for the first time", field: Votes, text: "Find the thread \"Renting a campervan for the first time\""}
+  - {id: S1-4, type: compare, field: Replies, mode: max, items: [{page: community/book-club, item: "Audiobooks vs paper books"}, {page: community/movies-tv, item: "Favourite film soundtracks"}], text: "Which thread has more replies: \"Audiobooks vs paper books\" or \"Favourite film soundtracks\"?"}
 
-B:
-  - {id: B01, type: lookup, page: technology/web-design, item: "Best free icon sets", field: Replies, text: "Find the thread \"Best free icon sets\""}
-  - {id: B02, type: lookup, page: food/vegetarian, item: "How do you make tofu crispy?", field: Author, text: "Find the thread \"How do you make tofu crispy?\""}
-  - {id: B03, type: lookup, page: travel/europe, item: "Night trains worth taking", field: Votes, text: "Find the thread \"Night trains worth taking\""}
-  - {id: B04, type: lookup, page: hobbies/gardening, item: "Best low-light houseplants", field: Flair, text: "Find the thread \"Best low-light houseplants\""}
-  - {id: B05, type: extreme, page: science/wildlife, field: Votes, mode: max, text: "Which thread in the Wildlife community has the most votes?"}
-  - {id: B06, type: lookup, page: community/fitness, item: "Stretching routine for desk workers", field: Replies, text: "Find the thread \"Stretching routine for desk workers\""}
-  - {id: B07, type: lookup, page: technology/gadgets, item: "E-reader vs tablet for reading PDFs", field: Author, text: "Find the thread \"E-reader vs tablet for reading PDFs\""}
-  - {id: B08, type: extreme, page: food/grilling, field: Replies, mode: max, text: "Which grilling thread has the most replies?"}
-  - {id: B09, type: lookup, page: travel/road-trips, item: "Renting a campervan for the first time", field: Votes, text: "Find the thread \"Renting a campervan for the first time\""}
-  - {id: B10, type: lookup, page: hobbies/knitting, item: "Circular vs straight needles", field: Flair, text: "Find the thread \"Circular vs straight needles\""}
-  - {id: B11, type: compare, field: Votes, mode: max, items: [{page: science/weather, item: "Why is it windier by the coast?"}, {page: science/ask-a-scientist, item: "Why do we dream?"}], text: "Which thread has more votes: \"Why is it windier by the coast?\" or \"Why do we dream?\""}
-  - {id: B12, type: compare, field: Replies, mode: max, items: [{page: community/introductions, item: "Hello from a new member!"}, {page: community/off-topic, item: "What made you smile today?"}], text: "Which thread has more replies: \"Hello from a new member!\" or \"What made you smile today?\""}
+S2:
+  - {id: S2-1, type: lookup, page: hobbies/knitting, item: "Circular vs straight needles", field: Flair, text: "Find the thread \"Circular vs straight needles\""}
+  - {id: S2-2, type: extreme, page: travel/europe, field: Votes, mode: min, text: "Which thread in the Europe community has the fewest votes?"}
+  - {id: S2-3, type: lookup, page: community/fitness, item: "Stretching routine for desk workers", field: Replies, text: "Find the thread \"Stretching routine for desk workers\""}
+  - {id: S2-4, type: compare, field: Votes, mode: max, items: [{page: science/physics, item: "Why is the sky blue?"}, {page: science/ocean, item: "Why is the sea salty?"}], text: "Which thread has more votes: \"Why is the sky blue?\" or \"Why is the sea salty?\""}
+
+S3:
+  - {id: S3-1, type: lookup, page: travel/asia, item: "First trip to Japan: rail pass or not?", field: Votes, text: "Find the thread \"First trip to Japan: rail pass or not?\""}
+  - {id: S3-2, type: extreme, page: science/space, field: Votes, mode: max, text: "Which thread in the Space community has the most votes?"}
+  - {id: S3-3, type: lookup, page: technology/gaming, item: "Cosy games for a rainy weekend", field: Author, text: "Find the thread \"Cosy games for a rainy weekend\""}
+  - {id: S3-4, type: compare, field: Replies, mode: max, items: [{page: hobbies/woodworking, item: "Built a bookshelf this weekend"}, {page: food/quick-meals, item: "Five-ingredient recipes"}], text: "Which thread has more replies: \"Built a bookshelf this weekend\" or \"Five-ingredient recipes\"?"}
+
+S4:
+  - {id: S4-1, type: lookup, page: technology/programming, item: "Best way to learn Python as a complete beginner?", field: Replies, text: "Find the thread \"Best way to learn Python as a complete beginner?\""}
+  - {id: S4-2, type: extreme, page: food/vegetarian, field: Replies, mode: min, text: "Which vegetarian thread has the fewest replies?"}
+  - {id: S4-3, type: lookup, page: travel/hiking-trails, item: "Best hiking map apps", field: Votes, text: "Find the thread \"Best hiking map apps\""}
+  - {id: S4-4, type: compare, field: Votes, mode: max, items: [{page: science/weather, item: "Why is it windier by the coast?"}, {page: science/ask-a-scientist, item: "Why do we dream?"}], text: "Which thread has more votes: \"Why is it windier by the coast?\" or \"Why do we dream?\""}
+
+S5:
+  - {id: S5-1, type: lookup, page: hobbies/photography, item: "Golden hour settings for beginners", field: Flair, text: "Find the thread \"Golden hour settings for beginners\""}
+  - {id: S5-2, type: extreme, page: science/wildlife, field: Votes, mode: max, text: "Which thread in the Wildlife community has the most votes?"}
+  - {id: S5-3, type: lookup, page: food/baking, item: "Sourdough starter not rising: help", field: Author, text: "Find the thread \"Sourdough starter not rising: help\""}
+  - {id: S5-4, type: compare, field: Replies, mode: max, items: [{page: technology/pc-building, item: "Quiet case fans recommendations"}, {page: travel/budget-travel, item: "Best apps for cheap flights"}], text: "Which thread has more replies: \"Quiet case fans recommendations\" or \"Best apps for cheap flights\"?"}
+
+S6:
+  - {id: S6-1, type: lookup, page: hobbies/gardening, item: "Best low-light houseplants", field: Flair, text: "Find the thread \"Best low-light houseplants\""}
+  - {id: S6-2, type: extreme, page: food/grilling, field: Replies, mode: max, text: "Which grilling thread has the most replies?"}
+  - {id: S6-3, type: lookup, page: technology/gadgets, item: "E-reader vs tablet for reading PDFs", field: Author, text: "Find the thread \"E-reader vs tablet for reading PDFs\""}
+  - {id: S6-4, type: compare, field: Replies, mode: max, items: [{page: community/introductions, item: "Hello from a new member!"}, {page: community/off-topic, item: "What made you smile today?"}], text: "Which thread has more replies: \"Hello from a new member!\" or \"What made you smile today?\""}
+
+P:
+  - {id: P1, type: lookup, page: technology/mobile, item: "Battery life tips that actually make a difference", field: Votes, text: "Find the thread \"Battery life tips that actually make a difference\""}
+  - {id: P2, type: lookup, page: hobbies/board-games, item: "Games that work well with exactly two players", field: Flair, text: "Find the thread \"Games that work well with exactly two players\""}
+  - {id: P3, type: lookup, page: food/world-cuisine, item: "Authentic ramen broth at home", field: Replies, text: "Find the thread \"Authentic ramen broth at home\""}
+  - {id: P4, type: lookup, page: travel/travel-tips, item: "How do you beat jet lag?", field: Author, text: "Find the thread \"How do you beat jet lag?\""}
+  - {id: P5, type: lookup, page: community/pets, item: "Tips for a new kitten owner", field: Replies, text: "Find the thread \"Tips for a new kitten owner\""}
+  - {id: P6, type: lookup, page: hobbies/music-making, item: "Cheap MIDI keyboard suggestions", field: Flair, text: "Find the thread \"Cheap MIDI keyboard suggestions\""}

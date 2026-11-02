@@ -1,25 +1,51 @@
-// A fixed-length block of website tasks inside the group's site (iframe).
-// Emotion-specific behaviour comes only from step.params.flags.
+// A sub-block of website tasks (four tasks, one menu), or the neutral practice for one menu.
+// Emotion-specific behaviour comes only from step.params.flags and is identical for every menu;
+// the faults themselves are applied inside the site engine (web/core/engine.js).
 import { HCI } from '../hci.js';
 import { clicked, esc, fmtClock, h, icon, show, sleep, toast } from '../ui.js';
 
+function menuCard(p) {
+  return `
+    <div class="menu-card">
+      <div class="menu-card-label">${icon('menu')}<b>${esc(p.menu_label)}</b></div>
+      <p>${esc(p.menu_how)}</p>
+    </div>`;
+}
+
 function intro(p) {
   const f = p.flags;
+  if (p.practice) {
+    return `
+      <div class="eyebrow">Practice</div>
+      <h1>Try this website menu</h1>
+      <p class="lead">The menu of the <b>${esc(p.site_name)}</b> website will change from part to part. Here is the next one:</p>
+      ${menuCard(p)}
+      <p class="hint">You will do two practice tasks. There is no time pressure. Ask the researcher if anything is unclear.</p>
+      <div class="actions"><button class="btn primary" id="go">Begin practice</button></div>`;
+  }
+  if (!p.first) {
+    return `
+      <div class="eyebrow">${esc(p.part)}</div>
+      <h1>The menu changes</h1>
+      <p class="lead">This time the website uses a different menu:</p>
+      ${menuCard(p)}
+      <div class="actions"><button class="btn primary" id="go">Begin</button></div>`;
+  }
   const extra = [];
   if (f.evaluation_banner) extra.push('Your speed and accuracy are recorded and will be compared with other participants.');
   if (f.countdown) extra.push(`Each task has a time limit of ${p.timeout} seconds.`);
   if (f.reassurance) extra.push('There is no rush. Take all the time you need.');
   return `
-    <div class="eyebrow">Part ${p.part}</div>
+    <div class="eyebrow">${esc(p.part)}</div>
     <h1>Website tasks</h1>
-    <p class="lead">You'll now use the <b>${esc(p.site_name)}</b> website to complete a series of short tasks.</p>
+    <p class="lead">You'll now use the <b>${esc(p.site_name)}</b> website to complete short tasks. The website's menu changes between parts. This is the first:</p>
+    ${menuCard(p)}
     <ol class="steps">
       <li>Read the task at the top of the screen.</li>
       <li>Use the <b>menu</b> of the website to find what you need.</li>
       <li>When you know the answer, click <b>Answer</b> and choose it.</li>
     </ol>
     ${extra.map((x) => `<p class="hint">${esc(x)}</p>`).join('')}
-    <p class="hint">Keep going until this part ends by itself.</p>
     <div class="actions"><button class="btn primary" id="go">Begin</button></div>`;
 }
 
@@ -44,7 +70,7 @@ export async function tasks(step) {
     <div class="taskview">
       <div class="taskbar">
         <div class="tb-main">
-          <span class="tb-chip">Task <b id="tn">1</b></span>
+          <span class="tb-chip">Task <b id="tn">1</b> of ${p.tasks.length}</span>
           <p class="tb-text" id="tt" data-aoi="task-text"></p>
         </div>
         <div class="tb-side">
@@ -63,7 +89,7 @@ export async function tasks(step) {
           </div>
         </div>
       </div>
-      <iframe id="site" class="site-frame" src="/core/site.html?site=${encodeURIComponent(p.site)}" title="Website"></iframe>
+      <iframe id="site" class="site-frame" src="/core/site.html?site=${encodeURIComponent(p.site)}&menu=${encodeURIComponent(p.menu_id)}" title="Website"></iframe>
     </div>`, 'full');
   const $ = (s) => el.querySelector(s);
   const frame = $('#site');
@@ -82,7 +108,6 @@ export async function tasks(step) {
     }));
   };
 
-  const blockEnd = performance.now() + p.duration * 1000;
   const started = [];
   let points = 0;
 
@@ -136,15 +161,14 @@ export async function tasks(step) {
         return;
       }
       busy = true;
+      await HCI.flush();      // deliver every queued click / page view / mouse sample before the task is closed
       const r = await HCI.post('/api/task/answer', { task_id: task.id, answer: selected, t: HCI.now() });
       finish('answered', { correct: Boolean(r.correct) });
     };
 
     const tick = setInterval(() => {
       if (busy) return;
-      const now = performance.now();
-      if (now >= blockEnd) return finish('time_up');
-      const left = p.timeout - (now - t0) / 1000;
+      const left = p.timeout - (performance.now() - t0) / 1000;
       const timer = $('#timer');
       if (timer) {
         timer.textContent = fmtClock(left);
@@ -161,17 +185,18 @@ export async function tasks(step) {
   });
 
   for (const [i, task] of p.tasks.entries()) {
-    if (performance.now() >= blockEnd) break;
     started.push(task.id);
     const res = await runTask(task, i + 1);
-    if (res.outcome === 'time_up' || res.outcome === 'timeout') {
+    if (res.outcome === 'timeout') {
+      await HCI.flush();
       await HCI.post('/api/task/close', { task_id: task.id, outcome: res.outcome, t: HCI.now() });
     }
     HCI.log({ event: 'task_end', detail: res });
     HCI.ctx.task_id = '';
-    if (res.outcome === 'time_up') break;
 
-    if (res.outcome === 'timeout') {
+    if (p.practice) {
+      await toast(res.outcome === 'timeout' ? 'That is fine, on to the next one.' : 'Answer saved', 'neutral', 900);
+    } else if (res.outcome === 'timeout') {
       await toast(f.negative_feedback ? "Time's up." : "Time's up. On to the next task.", f.negative_feedback ? 'bad' : 'neutral', 1300);
     } else if (f.negative_feedback) {
       if (!res.correct) await toast('Incorrect.', 'bad', 1300);
@@ -190,7 +215,7 @@ export async function tasks(step) {
 
   HCI.frame = null;
   HCI.ctx.task_id = '';
-  await show(`<h1 class="center">That's the end of this part</h1><p class="lead center">Thank you. Please wait a moment…</p>`);
-  await sleep(1800);
+  await show(`<h1 class="center">${p.practice ? 'Practice complete' : "That's the end of this part"}</h1><p class="lead center">${p.practice ? 'Thank you.' : 'Thank you. Please wait a moment…'}</p>`);
+  await sleep(p.practice ? 1200 : 1500);
   return { started, points };
 }

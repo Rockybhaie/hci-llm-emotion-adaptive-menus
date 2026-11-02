@@ -67,3 +67,9 @@ export function fmtClock(s) {
   s = Math.max(0, Math.ceil(s));
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 }
+
+/** A one-line card shown for `ms` milliseconds (the bridge into a short activity). */
+export async function notice(text, ms = 2200) {
+  await show(`<h1 class="center">${esc(text)}</h1>`);
+  await sleep(ms);
+}

@@ -7,6 +7,7 @@ a task with a stale answer. Resolution errors are raised at start-up, not mid-se
 import random
 import re
 
+from . import menus
 from .config import ConfigError
 
 NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?")
@@ -63,11 +64,12 @@ def _value_options(site, pages, page, field, answer, rng):
     return options
 
 
-def _pick(items, field, mode, where):
-    scored = [(_numeric(_field(i, field, where), where), i["name"]) for i in items]
+def _pick(pairs, mode, where):
+    """Name of the item with the highest/lowest value; `pairs` = [(item, field), ...] (fields may differ)."""
+    scored = [(_numeric(_field(i, f, where), where), i["name"]) for i, f in pairs]
     best = (max if mode == "max" else min)(scored)
     if sum(1 for s, _ in scored if s == best[0]) > 1:
-        raise ConfigError(f"{where}: tie on {field}, the answer would be ambiguous")
+        raise ConfigError(f"{where}: tie on {', '.join(sorted({f for _, f in pairs}))}, the answer would be ambiguous")
     return best[1]
 
 
@@ -89,12 +91,14 @@ def resolve(site, spec, rng):
         names = [i["name"] for i in page["items"]]
         rng.shuffle(names)
         task.update(targets=[spec["page"]], question="", options=names,
-                    answer=_pick(page["items"], spec["field"], spec["mode"], where))
+                    answer=_pick([(i, spec["field"]) for i in page["items"]], spec["mode"], where))
     elif kind == "compare":
         found = [_item(pages, x["page"], x["item"], where) for x in spec["items"]]
         names = [it["name"] for _, it in found]
+        # each item may name its own field (a fee on one page against a deposit on another)
+        pairs = [(it, x.get("field", spec["field"])) for (_, it), x in zip(found, spec["items"])]
         task.update(targets=list(dict.fromkeys(x["page"] for x in spec["items"])), question="",
-                    options=names, answer=_pick([it for _, it in found], spec["field"], spec["mode"], where))
+                    options=names, answer=_pick(pairs, spec["mode"], where))
     else:
         raise ConfigError(f"{where}: unknown task type '{kind}'")
     return task
@@ -116,14 +120,24 @@ def to_repetitive(site, spec, rng):
                           "field": rep["field"], "text": text}, rng)
 
 
-def build_block(site, task_cfg, task_set, variant=None, seed=0):
-    if task_set not in task_cfg:
-        raise ConfigError(f"{site['id']}: task set '{task_set}' not found")
+def build_subset(site, task_cfg, subset, variant=None, seed=0, menu_type=None):
+    """Resolve one subset (S1-S6, or the practice pool P) into concrete tasks.
+
+    With `menu_type` every task also carries the fewest clicks and steps that menu needs to visit its
+    target pages from the home page (hci/menus.py).
+    """
+    if subset not in task_cfg:
+        raise ConfigError(f"{site['id']}: task subset '{subset}' not found")
     rng = random.Random(seed)
-    specs = task_cfg[task_set]
+    specs = task_cfg[subset]
     if variant == "repetitive":
-        return [to_repetitive(site, s, rng) for s in specs]
-    return [resolve(site, s, rng) for s in specs]
+        built = [to_repetitive(site, s, rng) for s in specs]
+    else:
+        built = [resolve(site, s, rng) for s in specs]
+    if menu_type:
+        for task in built:
+            task["shortest_clicks"], task["shortest_steps"] = menus.shortest(menu_type, task["targets"])
+    return built
 
 
 def client_view(task):

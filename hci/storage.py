@@ -44,16 +44,21 @@ class CsvStream:
                 self._file.close()
 
 
-# Columns of every behavioural file written by the session (sensor files are defined by each adapter).
+# Columns of every behavioural file written by the session. The six label columns
+#   phase, emotion_block, emotion, sub_block, menu_id, menu_type
+# are the same everywhere they appear (practice rows have phase = "practice").
+LABELS = ["phase", "emotion_block", "emotion", "sub_block", "menu_id", "menu_type"]
 SCHEMAS = {
-    "markers": ["t", "step", "step_type", "phase", "block", "emotion", "event"],
-    "events": ["t", "step", "block", "task_id", "source", "event", "section", "page", "item", "x", "y", "detail"],
+    "markers": ["t", "step", "step_type", *LABELS, "event"],
+    "events": ["t", "step", *LABELS, "task_id", "source", "event", "section", "page", "item", "x", "y", "detail"],
     "mouse": ["t", "x", "y"],
-    "aoi": ["t", "snapshot", "kind", "id", "x0", "y0", "x1", "y1"],
-    "tasks": ["block", "emotion", "task_set", "variant", "task_id", "type", "target_pages",
-              "t_start", "t_end", "duration_s", "outcome", "answer", "correct_answer",
-              "clicks", "menu_opens", "page_views", "wrong_pages", "sabotage_events", "answer_attempts"],
-    "questionnaires": ["t", "tag", "block", "emotion", "instrument", "item", "value"],
+    "aoi": ["t", "snapshot", "kind", "id", "x0", "y0", "x1", "y1", "phase", "sub_block", "menu_id"],
+    "tasks": [*LABELS, "subset", "attempt", "variant", "task_id", "type", "target_pages",
+              "t_start", "t_end", "duration_s", "outcome", "correct", "answer", "correct_answer",
+              "shortest_clicks", "shortest_steps", "mouse_path_px",
+              "clicks", "menu_clicks", "menu_opens", "page_views", "wrong_pages", "backtracks",
+              "sabotage_events", "answer_attempts"],
+    "questionnaires": ["t", "tag", *LABELS, "instrument", "item", "value"],
 }
 
 

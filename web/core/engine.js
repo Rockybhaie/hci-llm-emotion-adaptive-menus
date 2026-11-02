@@ -1,46 +1,96 @@
-// Site engine shared by all three websites.
-// The standard drop-down menu is the ONLY way to move between pages, so every
-// navigation in the data is a menu interaction. Runs inside the participant
-// shell's iframe (logs through parent.HCI.site) or standalone for preview.
+// Site engine shared by all three websites and all nine menus.
+//
+// The engine owns everything that must be identical across menus: page rendering, the
+// event log, the area-of-interest (AOI) snapshots, the emotion-induction faults (lag, ignored
+// clicks, a menu that collapses by itself) and the visit / backtrack bookkeeping.
+// A menu is a plug-in (web/core/menus/*.js, see MENUS.md) that only draws itself and talks to
+// the engine through the `api` object below. The engine never knows which menu it is running.
+//
+// Runs inside the participant shell's iframe (logs through parent.HCI.site) or standalone
+// for preview (`/core/site.html?site=g2-store&menu=M5&debug`).
 import { icon } from './icons.js';
+import { loadMenu } from './menus/registry.js';
 
 const params = new URLSearchParams(location.search);
 const siteId = params.get('site');
-const host = window.parent !== window && window.parent.HCI ? window.parent.HCI.site : null;
-
-const HOVER_OPEN_MS = 150;
-const LEAVE_CLOSE_MS = 400;
+const menuId = params.get('menu') || 'M1';
+// `?record=1` (tests, dry runs) collects what would be logged in window.__events / window.__aoi.
+const sink = params.has('record')
+  ? { log: (e) => (window.__events ||= []).push({ ...e, t: performance.now() }), aoi: (kind, rects) => (window.__aoi ||= []).push({ kind, rects }), mouse() {} }
+  : null;
+const host = window.parent !== window && window.parent.HCI ? window.parent.HCI.site : sink;
 
 const state = {
   site: null,
+  menu: null,           // {id, type, name, label, how, params} from config/menus.yaml
+  ctrl: null,           // the running menu plug-in
   current: null,        // null = home, else {section, page}
-  open: null,           // id of the open section
-  hovered: null,
+  open: null,           // key of whatever the menu has expanded, or null when it is at rest
   loading: false,
   sabotage: null,
+  visited: new Set(['home']),   // locations visited in the current task (home counts: the task starts there)
+  glitchArmed: false,
 };
 const timers = {};
+const hovered = new Map();       // element -> {meta, t}
 const $app = document.getElementById('app');
-
-function log(event, fields = {}) {
-  if (host) host.log({ event, ...fields });
-  else if (params.has('debug')) console.debug('[site]', event, fields);
-}
 
 const rand = (a, b) => a + Math.random() * (b - a);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const chance = (key) => state.sabotage && Math.random() < (state.sabotage[key] || 0);
+const isSection = (key) => Boolean(state.site.sections.find((s) => s.id === key));
+
+// ------------------------------------------------------------------ logging
+let debugPanel = null;
+function log(event, fields = {}) {
+  if (host) host.log({ event, ...fields });
+  if (debugPanel) {
+    const line = document.createElement('div');
+    const where = [fields.section, fields.page].filter(Boolean).join('/');
+    line.textContent = `${event}${fields.item ? ' ' + fields.item : where ? ' ' + where : ''}${fields.detail ? ' ' + JSON.stringify(fields.detail) : ''}`;
+    debugPanel.prepend(line);
+    while (debugPanel.children.length > 14) debugPanel.lastChild.remove();
+  }
+}
 
 // ------------------------------------------------------------------ AOIs
+// Every menu item carries data-aoi="nav:<id>" or "item:<section>/<page>". Hidden items have no
+// layout box and are skipped, so the snapshot is exactly "what the participant could point at now".
+const MENU_AOI = '[data-aoi^="nav:"], [data-aoi^="item:"]';
+let lastSignature = '';
+
 function rects(selector) {
   return [...document.querySelectorAll(selector)].map((el) => {
     const r = el.getBoundingClientRect();
     return { id: el.dataset.aoi, x0: r.left, y0: r.top, x1: r.right, y1: r.bottom };
-  }).filter((r) => r.x1 > r.x0 && r.y1 > r.y0 && r.y1 > 0 && r.y0 < innerHeight);
+  }).filter((r) => r.x1 > r.x0 && r.y1 > r.y0 && r.y1 > 0 && r.y0 < innerHeight && r.x1 > 0 && r.x0 < innerWidth);
 }
-function snapshotMenu() { host?.aoi('menu', rects('.nav [data-aoi]')); }
+
+function snapshotMenu(force = false) {
+  const list = rects(MENU_AOI);
+  const signature = list.map((r) => `${r.id}:${Math.round(r.x0)},${Math.round(r.y0)},${Math.round(r.x1)},${Math.round(r.y1)}`).join('|');
+  if (!force && signature === lastSignature) return;
+  lastSignature = signature;
+  host?.aoi('menu', list);
+}
 function snapshotContent() { host?.aoi('content', rects('main [data-aoi]')); }
+
+function flushHovers() {
+  for (const [el, h] of hovered) {
+    if (!el.isConnected || el.getClientRects().length === 0) {
+      hovered.delete(el);
+      log('item_hover_exit', { ...fieldsOf(h.meta), detail: { dwell_ms: Math.round(performance.now() - h.t), reason: 'hidden' } });
+    }
+  }
+}
+
+function scheduleSnapshot() {
+  cancelAnimationFrame(timers.raf);
+  timers.raf = requestAnimationFrame(() => { flushHovers(); snapshotMenu(); });
+  clearTimeout(timers.snap);
+  timers.snap = setTimeout(() => snapshotMenu(), 260);   // again after open/close animations settle
+}
 
 // ------------------------------------------------------------------ shell
 function header(site) {
@@ -57,25 +107,6 @@ function header(site) {
       </div>
       <div class="utils">${util}</div>
     </header>`;
-}
-
-function nav(site) {
-  const sections = site.sections.map((s) => `
-    <li class="nav-li" data-section="${s.id}">
-      <button class="nav-item" data-section="${s.id}" data-aoi="nav:${s.id}" aria-expanded="false" aria-haspopup="true">
-        ${esc(s.title)}${icon('chevron', 'chev')}
-      </button>
-      <div class="dropdown" role="menu" hidden>
-        ${s.pages.map((p) => `<button class="dd-item" role="menuitem" data-section="${s.id}" data-page="${p.id}" data-aoi="item:${s.id}/${p.id}">${esc(p.title)}</button>`).join('')}
-      </div>
-    </li>`).join('');
-  return `
-    <nav class="nav" aria-label="Main menu">
-      <ul class="nav-list">
-        <li class="nav-li"><button class="nav-item nav-home" data-home data-aoi="nav:home">${icon('home')}Home</button></li>
-        ${sections}
-      </ul>
-    </nav>`;
 }
 
 // ------------------------------------------------------------------ pages
@@ -182,41 +213,92 @@ function renderMain() {
   requestAnimationFrame(snapshotContent);
 }
 
-// ------------------------------------------------------------------ menu
-function setOpen(sid, reason) {
-  if (state.open === sid) return;
-  const prev = state.open;
-  clearTimeout(timers.glitch);
-  document.querySelectorAll('.nav-li[data-section]').forEach((li) => {
-    const on = li.dataset.section === sid;
-    li.classList.toggle('open', on);
-    li.querySelector('.nav-item').setAttribute('aria-expanded', on);
-    li.querySelector('.dropdown').hidden = !on;
-  });
-  state.open = sid;
-  state.hovered = null;
-  if (sid) {
-    log(prev ? 'menu_switch' : 'menu_open', { section: sid, detail: { trigger: reason, from: prev || undefined } });
-    if (chance('menu_glitch_prob')) {
-      timers.glitch = setTimeout(() => {
-        if (state.open === sid) {
-          log('sabotage_menu_glitch', { section: sid });
-          setOpen(null, 'glitch');
-        }
-      }, rand(500, 1200));
+// ------------------------------------------------------------------ menu state + faults
+// The menu reports what it has expanded through setOpen(); menu_open / menu_close are emitted here,
+// identically for every menu. `key` is a section id for menus that expand one section at a time,
+// or the name of the panel ('drawer', 'radial', 'search', 'browse').
+
+/** One glitch per navigation attempt (with probability menu_glitch_prob), fired once the menu is expanded. */
+function armAttempt() {
+  state.glitchArmed = Boolean(chance('menu_glitch_prob'));
+  maybeGlitch();
+}
+
+function maybeGlitch() {
+  if (!state.glitchArmed || state.open == null || timers.glitch) return;
+  state.glitchArmed = false;
+  const key = state.open;
+  timers.glitch = setTimeout(() => {
+    timers.glitch = null;
+    if (state.open === key) {
+      log('sabotage_menu_glitch', { section: isSection(key) ? key : '', detail: { panel: key } });
+      state.ctrl.collapse('glitch');
     }
-  } else if (prev) {
-    log('menu_close', { section: prev, detail: { reason } });
+  }, rand(500, 1200));
+}
+
+function setOpen(key, reason = '') {
+  const prev = state.open;
+  if (prev === key) return;
+  if (timers.glitch) {                 // the participant acted before the glitch fired: keep it for later
+    clearTimeout(timers.glitch);
+    timers.glitch = null;
+    state.glitchArmed = true;
   }
-  requestAnimationFrame(snapshotMenu);
+  state.open = key;
+  if (prev != null) {
+    log('menu_close', { section: isSection(prev) ? prev : '', detail: { reason: key == null ? reason : 'switch', panel: prev, state: 'closed' } });
+  }
+  if (key != null) {
+    log('menu_open', { section: isSection(key) ? key : '', detail: { trigger: reason, panel: key, from: prev ?? undefined, state: `open:${key}` } });
+    maybeGlitch();
+  }
+  scheduleSnapshot();
+}
+
+// ------------------------------------------------------------------ items, selection, navigation
+function fieldsOf(meta) {
+  return { item: meta.id, section: meta.section || '', page: meta.page || '' };
+}
+
+/**
+ * Register one menu item. The engine logs hover enter/exit and selection and applies the faults;
+ * `onSelect` is only used for items that expand something (level 'section' or 'control').
+ * meta = {id, level: 'section' | 'page' | 'home' | 'control', section?, page?}
+ */
+function item(el, meta, onSelect) {
+  el.dataset.aoi = meta.id;
+  el.addEventListener('mouseenter', () => {
+    hovered.set(el, { meta, t: performance.now() });
+    log('item_hover_enter', fieldsOf(meta));
+  });
+  el.addEventListener('mouseleave', () => {
+    const h = hovered.get(el);
+    hovered.delete(el);
+    log('item_hover_exit', { ...fieldsOf(meta), detail: { dwell_ms: h ? Math.round(performance.now() - h.t) : undefined } });
+  });
+  el.addEventListener('click', () => select(meta, 'click', onSelect));
+}
+
+function select(meta, via, onSelect) {
+  const commit = meta.level === 'page' || meta.level === 'home';
+  if (commit) {
+    if (state.loading) {
+      log('click_while_loading', { section: meta.section, page: meta.page });
+      return;
+    }
+    if (chance('drop_click_prob')) {        // the committing click is silently ignored
+      log('sabotage_click_dropped', { ...fieldsOf(meta), detail: { target: meta.level, via } });
+      return;
+    }
+  }
+  log('item_select', { ...fieldsOf(meta), detail: { level: meta.level, via } });
+  if (commit) navigate(meta.level === 'home' ? null : { section: meta.section, page: meta.page }, via);
+  else onSelect?.();
 }
 
 async function navigate(target, via) {
-  if (state.loading) {
-    log('click_while_loading', { section: target?.section, page: target?.page });
-    return;
-  }
-  setOpen(null, 'select');
+  state.ctrl.onCommit?.(target);
   if (chance('lag_prob')) {
     const ms = Math.round(rand(state.sabotage.lag_min_ms, state.sabotage.lag_max_ms));
     log('sabotage_lag', { section: target?.section, page: target?.page, detail: { ms } });
@@ -229,64 +311,24 @@ async function navigate(target, via) {
   state.current = target;
   window.scrollTo(0, 0);
   renderMain();
+  const key = target ? `${target.section}/${target.page}` : 'home';
+  const seen = state.visited.has(key);
+  state.visited.add(key);
   log(target ? 'page_view' : 'home_view', { section: target?.section, page: target?.page, detail: { via } });
+  // A backtrack is a navigation to a location already visited earlier in the same task
+  // (home counts as visited, because every task starts there).
+  if (seen) log('backtrack', { section: target?.section || '', page: target?.page || '', detail: { to: key } });
+  state.ctrl.onPage?.(target);
+  armAttempt();
 }
 
-function dropped(what, fields) {
-  if (!chance('drop_click_prob')) return false;
-  log('sabotage_click_dropped', { ...fields, detail: { target: what } });
-  return true;
-}
-
-function bindMenu() {
-  const navEl = document.querySelector('.nav');
-  navEl.querySelectorAll('.nav-li[data-section]').forEach((li) => {
-    const sid = li.dataset.section;
-    const btn = li.querySelector('.nav-item');
-    btn.addEventListener('mouseenter', () => {
-      clearTimeout(timers.hover);
-      timers.hover = setTimeout(() => setOpen(sid, state.open ? 'hover-switch' : 'hover'), state.open ? 0 : HOVER_OPEN_MS);
-    });
-    btn.addEventListener('mouseleave', () => clearTimeout(timers.hover));
-    btn.addEventListener('click', () => {
-      if (dropped('section', { section: sid })) return;
-      setOpen(state.open === sid ? null : sid, state.open === sid ? 'toggle' : 'click');
-    });
-    li.addEventListener('mouseenter', () => clearTimeout(timers.leave));
-    li.addEventListener('mouseleave', () => {
-      clearTimeout(timers.leave);
-      timers.leave = setTimeout(() => state.open === sid && setOpen(null, 'leave'), LEAVE_CLOSE_MS);
-    });
-  });
-  navEl.querySelectorAll('.dd-item').forEach((item) => {
-    const fields = { section: item.dataset.section, page: item.dataset.page };
-    item.addEventListener('mouseenter', () => {
-      const key = `${fields.section}/${fields.page}`;
-      if (state.hovered !== key) {
-        state.hovered = key;
-        log('menu_hover', fields);
-      }
-    });
-    item.addEventListener('click', () => {
-      if (dropped('item', fields)) return;
-      log('menu_select', fields);
-      navigate(fields, 'menu');
-    });
-  });
-  navEl.querySelector('[data-home]').addEventListener('click', () => {
-    if (dropped('home', {})) return;
-    log('menu_select', { detail: { target: 'home' } });
-    navigate(null, 'home');
-  });
+function bindGlobal() {
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && state.open) setOpen(null, 'escape');
+    if (e.key === 'Escape' && state.open != null) state.ctrl.collapse('escape');
   });
   document.addEventListener('click', (e) => {
-    if (state.open && !e.target.closest('.nav')) setOpen(null, 'outside');
+    if (state.open != null && !e.target.closest('[data-menu-root]')) state.ctrl.collapse('outside');
   });
-}
-
-function bindLogging() {
   document.addEventListener('click', (e) => {
     const el = e.target.closest('[data-aoi]');
     log('click', { x: e.clientX, y: e.clientY, detail: { target: el ? el.dataset.aoi : e.target.tagName.toLowerCase() } });
@@ -298,12 +340,30 @@ function bindLogging() {
     scrollTimer = setTimeout(() => {
       log('scroll', { detail: { y: Math.round(scrollY) } });
       snapshotContent();
+      snapshotMenu();
     }, 200);
   }, { passive: true });
-  addEventListener('resize', () => { snapshotMenu(); snapshotContent(); });
+  addEventListener('resize', () => { snapshotMenu(true); snapshotContent(); });
 }
 
-// ------------------------------------------------------------------ API
+// ------------------------------------------------------------------ the object menus talk to
+const api = {
+  site: null,
+  params: {},
+  slots: {},
+  esc,
+  icon,
+  item,
+  select,
+  setOpen,
+  log,
+  /** key of whatever the menu has expanded, or null */
+  get open() { return state.open; },
+  /** true once the page is showing (menus may highlight the current location) */
+  get current() { return state.current; },
+};
+
+// ------------------------------------------------------------------ public API (shell + tests)
 let resolveReady;
 const ready = new Promise((r) => { resolveReady = r; });
 
@@ -311,40 +371,88 @@ window.SiteEngine = {
   ready,
   configure(opts = {}) {
     state.sabotage = opts.sabotage || null;
+    armAttempt();
   },
+  /** Start a task: home page, menu at rest, visit history cleared. */
   reset() {
     clearTimeout(timers.glitch);
+    timers.glitch = null;
     state.loading = false;
     document.body.classList.remove('loading');
+    state.ctrl.reset();
     setOpen(null, 'reset');
     state.current = null;
+    state.visited = new Set(['home']);
     window.scrollTo(0, 0);
     renderMain();
-    requestAnimationFrame(snapshotMenu);
+    armAttempt();
+    scheduleSnapshot();
   },
+  menu: () => ({ ...state.menu }),
+  /** Every on-screen menu item right now, as {id, x0, y0, x1, y1} in iframe pixels. */
+  menuRects: () => rects(MENU_AOI),
+  menuState: () => ({ open: state.open, current: state.current }),
+  /** Actions that reach (section, page) from the menu's current state; used by tests and dry runs. */
+  plan: (section, page) => state.ctrl.plan(section, page),
 };
 
 async function boot() {
   const site = await (await fetch(`/sites/${siteId}/site.json`)).json();
+  const menus = await (await fetch('/api/menus')).json();
   state.site = site;
+  state.menu = menus[menuId];
+  if (!state.menu) throw new Error(`Unknown menu ${menuId}`);
   document.title = `${site.name} · ${site.tagline}`;
   document.getElementById('theme').href = `/sites/${siteId}/theme.css`;
   document.documentElement.dataset.layout = site.layout;
+  document.body.dataset.menu = menuId;
+  document.body.dataset.menuType = state.menu.type;
   $app.innerHTML = `
-    <div class="top">${header(site)}${nav(site)}</div>
-    <div class="loader" aria-hidden="true"><div class="loader-bar"></div><div class="spinner"></div></div>
-    <main class="main"></main>
-    <footer class="footer">© ${new Date().getFullYear()} ${esc(site.name)} · Help · Privacy · Accessibility</footer>`;
+    <div class="top">${header(site)}<div class="nav-slot" id="nav-slot"></div></div>
+    <div class="body-wrap">
+      <aside class="side-slot" id="side-slot" hidden></aside>
+      <div class="content-col">
+        <div class="loader" aria-hidden="true"><div class="loader-bar"></div><div class="spinner"></div></div>
+        <main class="main"></main>
+        <footer class="footer">© ${new Date().getFullYear()} ${esc(site.name)} · Help · Privacy · Accessibility</footer>
+      </div>
+    </div>
+    <div class="overlay-slot" id="overlay-slot"></div>`;
   $app.removeAttribute('aria-busy');
-  bindMenu();
-  bindLogging();
-  if (!host && params.get('page')) {            // preview only: deep-link a page / open a menu
+  api.site = site;
+  api.params = state.menu.params || {};
+  api.slots = {
+    nav: document.getElementById('nav-slot'),
+    side: document.getElementById('side-slot'),
+    overlay: document.getElementById('overlay-slot'),
+  };
+
+  const top = document.querySelector('.top');
+  const syncTop = () => document.documentElement.style.setProperty('--top-h', `${top.offsetHeight}px`);
+  new ResizeObserver(syncTop).observe(top);
+  syncTop();
+
+  if (params.has('debug')) {
+    debugPanel = document.createElement('div');
+    debugPanel.className = 'debug-panel';
+    document.body.appendChild(debugPanel);
+  }
+
+  const { default: factory } = await loadMenu(state.menu.type);
+  state.ctrl = factory(api);
+  new MutationObserver(scheduleSnapshot).observe($app, {
+    subtree: true, childList: true, attributes: true, attributeFilter: ['class', 'hidden', 'style', 'aria-expanded'],
+  });
+  bindGlobal();
+  if (!host && params.get('page')) {            // preview only: deep-link a page
     const [section, page] = params.get('page').split('/');
     state.current = { section, page };
+    state.visited.add(`${section}/${page}`);
   }
   renderMain();
-  if (!host && params.get('open')) setOpen(params.get('open'), 'preview');
-  snapshotMenu();
+  if (!host && params.get('open')) state.ctrl.openSection?.(params.get('open'));
+  snapshotMenu(true);
+  armAttempt();
   resolveReady();
 }
 

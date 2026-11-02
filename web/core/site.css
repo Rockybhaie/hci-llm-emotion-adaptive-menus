@@ -99,9 +99,9 @@ h1, h2, h3 { margin: 0; line-height: 1.25; }
 .dd-item:hover { background: var(--brand-soft); color: var(--brand-strong); }
 
 /* ---------- loading (frustration lag) ---------- */
-.loader { position: fixed; inset: 112px 0 0 0; z-index: 15; display: none; place-items: center; background: rgba(244, 245, 247, .72); }
+.loader { position: fixed; inset: var(--top-h, 112px) 0 0 0; z-index: 15; display: none; place-items: center; background: rgba(244, 245, 247, .72); }
 .loading .loader { display: grid; }
-.loader-bar { position: fixed; top: 112px; left: 0; height: 3px; width: 30%; background: var(--brand); animation: bar 1.4s ease-in-out infinite; }
+.loader-bar { position: fixed; top: var(--top-h, 112px); left: 0; height: 3px; width: 30%; background: var(--brand); animation: bar 1.4s ease-in-out infinite; }
 @keyframes bar { 0% { left: -30%; } 100% { left: 100%; } }
 .spinner { width: 34px; height: 34px; border: 3px solid var(--line); border-top-color: var(--brand); border-radius: 50%; animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }

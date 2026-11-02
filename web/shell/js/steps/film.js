@@ -2,11 +2,11 @@
 import { HCI } from '../hci.js';
 import { clicked, esc, fmtClock, show, sleep } from '../ui.js';
 
-async function playClip(src, { maxDuration, placeholder, start = 0, end = null }) {
+export async function playClip(src, { maxDuration, placeholder, start = 0, end = null }) {
   const t0 = performance.now();
   if (!src) {
     // Dry runs without the video files: a neutral placeholder of the right length.
-    const el = await show(`<div class="placeholder"><div>Video placeholder</div><small id="pc"></small></div>`, 'dark');
+    const el = await show(`<div class="placeholder"><div class="ph-tag">PLACEHOLDER</div><div>The video for this part is not installed yet.</div><small id="pc"></small></div>`, 'dark');
     const end = performance.now() + placeholder * 1000;
     while (performance.now() < end) {
       el.querySelector('#pc').textContent = fmtClock((end - performance.now()) / 1000);

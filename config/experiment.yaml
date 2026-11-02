@@ -4,27 +4,26 @@
 study_title: Website Navigation Study     # shown to participants (deliberately neutral)
 
 timings:
-  baseline_rest: 180        # resting baseline for GSR / HR / pupil
+  baseline_rest: 180        # resting baseline
   induction: 180            # MIST, breathing, copying task
-  task_block: 360           # fixed length of every task block (balanced data per emotion)
-  task_timeout: 90          # max time per task
-  washout: 150              # neutral clip between the two blocks
-  film_reflection: 30       # quiet pause after the sadness clip
+  task_timeout: 40          # max time per task (an emotion's in_task.timeout overrides it)
+  practice_task_timeout: 120   # practice has no time pressure; this only prevents getting stuck
+  washout: 150              # neutral clip between the two emotion blocks
+  film_reflection: 30       # quiet pause after the sadness induction clip
   briefing_min_read: 12     # frustration briefing: Continue unlocks after this
+  booster_min_read: 8       # frustration booster: Continue unlocks after this
+
+session:
+  tasks_per_subblock: 4     # 4 tasks per sub-block, one sub-block per menu
+  practice_tasks_per_menu: 2
 
 fast_divisor: 12
 
 questionnaires:
-  # Asked after every induction and every task block, always all six, so the
+  # Asked after every induction and every sub-block, always all six, so the
   # target emotion is never revealed. Order is shuffled per participant.
   emotion_items: [stressed, calm, frustrated, bored, happy, sad]
   emotion_scale: 7
-
-calibration:
-  points: [[0.5, 0.5], [0.1, 0.1], [0.9, 0.1], [0.1, 0.9], [0.9, 0.9]]
-  validation_points: [[0.3, 0.3], [0.7, 0.3], [0.3, 0.7], [0.7, 0.7]]
-  max_error: 0.05           # mean validation error (fraction of screen) to accept
-  max_attempts: 2
 
 server:
   host: 127.0.0.1

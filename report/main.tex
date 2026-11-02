@@ -68,21 +68,23 @@
 \begin{center}
   {\sffamily\small\color{accent}\textbf{HCI PROJECT \textbullet{} LLM-BASED, EMOTION-ADAPTIVE MENUS}}\\[6pt]
   {\sffamily\huge\bfseries\color{ink} Experimental Trial Platform}\\[4pt]
-  {\sffamily\large\color{muted} Phase 1: emotion-labelled data collection}\\[10pt]
+  {\sffamily\large\color{muted} Phase 1: emotion-labelled data collection with nine menus}\\[10pt]
   {\small [Group members] \quad\textbullet\quad Prepared for [Instructor name] \quad\textbullet\quad \today}
 \end{center}
 \vspace{4pt}
 
 \begin{keybox}[At a glance]
 We have built a complete, automated platform for running our trials. With a single command, it
-\textbf{induces an emotion}, has the participant \textbf{complete navigation tasks on a website}, records
-\textbf{eye tracking, GSR, heart rate and behaviour} on one shared clock, and saves everything as
-\textbf{model-ready, labelled data}.
+\textbf{induces an emotion}, has the participant \textbf{complete navigation tasks on a website with three
+different menus}, records \textbf{behaviour} (clicks, hovers, mouse movement, delays, backtracking), task
+\textbf{performance} and \textbf{self-report} on one shared clock, and saves everything as
+\textbf{model-ready, labelled data}. Menu is now an experimental factor: every participant uses all three menus of
+their group under each of their two emotions. Sensors (GSR, EEG, eye tracking) are handled outside this app.
 
 \smallskip
 \begin{tabularx}{\linewidth}{@{}LLL@{}}
-\textbf{3} groups, \textbf{6} emotions & \textbf{3} purpose-built websites & \textbf{72} matched tasks\\
-$\approx$\textbf{40 min} per participant & \textbf{1 command} per session & \textbf{10} output files per participant
+\textbf{3} groups, \textbf{6} emotions, \textbf{9} menus & \textbf{3} purpose-built websites & \textbf{90} tasks (6 matched subsets $+$ practice per site)\\
+$\approx$\textbf{50 min} per participant & \textbf{1 command} per session & \textbf{11} output files per participant
 \end{tabularx}
 \end{keybox}
 
@@ -107,10 +109,54 @@ baseline. This matters for a sample of 5--6 participants per group.
 \caption{Groups, emotions and websites. Each group's two emotions were chosen so they are reliable to induce in a lab and clearly separable in the physiological signals.}
 \end{table}
 
-\textbf{Counterbalancing.} The participant number decides the order of the two emotions and of the two
-task sets (A/B), following a $2\times2$ Latin square, so every four consecutive participants are fully balanced.
-In this phase every participant uses one \textbf{standard drop-down menu}: we collect clean
-emotion-labelled data first, and build the adaptive menus from the trained model in phase 2.
+\textbf{Nine menus, three per group.} Menu is the second factor. Each group has three menus (a menu belongs to
+one group only), chosen to differ in whether items are hidden or visible, how many steps reach a page, and which input
+is used (hover, click, typing). All nine navigate the same $6\times6$ pages with the same content; only the way of
+navigating changes (Table~\ref{tab:menus}; full specification in \cmd{MENUS.md}).
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}l l L L@{}}
+\toprule
+\textbf{Group} & \textbf{ID} & \textbf{Menu} & \textbf{Fastest path}\\
+\midrule
+\textcolor{g1}{\textbf{G1}} & M1 & Hover drop-down (the phase-1 menu, unchanged) & 1 click (hover, click)\\
+ & M2 & Persistent left sidebar tree & 2 clicks, 1 if the section is already open\\
+ & M3 & Hub and spoke: top tabs open six large cards & 2 clicks\\
+\textcolor{g2}{\textbf{G2}} & M4 & Click drop-down with large targets (56\,px) & 2 clicks\\
+ & M5 & Mega-menu: one wide panel per section & 1 click (hover, click)\\
+ & M6 & Search-first: type-ahead over all 36 page titles, Browse as fallback & 1--2 clicks and typing\\
+\textcolor{g3}{\textbf{G3}} & M7 & Hamburger drawer with accordion sections & 3 clicks\\
+ & M8 & Radial (pie) menu: six sectors, then a ring of six pages & 2 clicks\\
+ & M9 & Always-visible two-row tab bar & 2 clicks, 1 if the section is already selected\\
+\bottomrule
+\end{tabularx}
+\caption{The nine menus. Every item is at least 40\,px tall unless a larger target is the design idea (M3, M4).}
+\label{tab:menus}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.32\linewidth}\shot[3.1cm]{menu_M1.png}\caption{M1 hover drop-down}\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\linewidth}\shot[3.1cm]{menu_M2.png}\caption{M2 sidebar tree}\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\linewidth}\shot[3.1cm]{menu_M3.png}\caption{M3 hub and spoke}\end{subfigure}\\[6pt]
+\begin{subfigure}[t]{0.32\linewidth}\shot[3.1cm]{menu_M4.png}\caption{M4 click drop-down}\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\linewidth}\shot[3.1cm]{menu_M5.png}\caption{M5 mega-menu}\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\linewidth}\shot[3.1cm]{menu_M6.png}\caption{M6 search-first}\end{subfigure}\\[6pt]
+\begin{subfigure}[t]{0.32\linewidth}\shot[3.1cm]{menu_M7.png}\caption{M7 hamburger drawer}\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\linewidth}\shot[3.1cm]{menu_M8.png}\caption{M8 radial menu}\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\linewidth}\shot[3.1cm]{menu_M9.png}\caption{M9 two-row tabs}\end{subfigure}
+\caption{The nine menus, each in an open state (screenshots from \cmd{python run.py preview}).}
+\end{figure}
+
+\textbf{Counterbalancing.} The participant number $n$ within a group decides everything. With $k=(n-1)\bmod 6$,
+the emotion order uses $k \bmod 2$ and the menu order uses row $k \bmod 3$ of a cyclic Latin square; because 2 and 3
+are coprime, \textbf{six participants (P01--P06) contain each of the six combinations exactly once}. Both emotion blocks of
+one participant use the same menu order. Each group has six matched task subsets (S1--S6); the cell
+(emotion, menu) gets subset $(c+k)\bmod 6$ with $c=3\cdot\text{emotion}+\text{menu}$, so every participant meets
+every subset once and, across six participants, every cell meets every subset once. Within a complete set each subset is therefore
+paired with each menu twice and each emotion three times. The plan is printed at the start of the session and saved
+with the data.
 
 % ================================================================ 2
 \section{Session procedure}
@@ -124,16 +170,16 @@ The session runs on its own. The participant follows on-screen instructions and 
   box/.style={draw=#1,fill=#1!10,rounded corners=2pt,minimum height=11mm,text width=19mm,align=center,font=\sffamily\scriptsize,line width=0.6pt},
   box/.default=accent,
   arr/.style={-{Latex[length=2mm]},line width=0.6pt,color=muted}]
-  \node[box=muted] (c) {Consent \&\\questions\\\textcolor{muted}{3 min}};
-  \node[box=muted,right=4mm of c] (k) {Eye-tracker\\calibration\\\textcolor{muted}{1 min}};
-  \node[box=muted,right=4mm of k] (b) {Resting\\baseline\\\textcolor{muted}{3 min}};
-  \node[box=accent,right=4mm of b] (i1) {Emotion 1\\induction\\\textcolor{muted}{3 min}};
-  \node[box=accent,right=4mm of i1] (t1) {Website\\tasks\\\textcolor{muted}{6 min}};
+  \node[box=muted] (c) {Consent \&\\questions\\\textcolor{muted}{4 min}};
+  \node[box=muted,right=4mm of c] (b) {Resting\\baseline\\\textcolor{muted}{3 min}};
+  \node[box=muted,right=4mm of b] (p) {Menu\\practice\\\textcolor{muted}{4 min}};
+  \node[box=accent,right=4mm of p] (i1) {Emotion 1\\induction\\\textcolor{muted}{3 min}};
+  \node[box=accent,right=4mm of i1] (t1) {3 sub-blocks\\menu A, B, C\\\textcolor{muted}{$\approx$10 min}};
   \node[box=muted,right=4mm of t1] (w) {Neutral\\video\\\textcolor{muted}{2.5 min}};
   \node[box=g3,right=4mm of w] (i2) {Emotion 2\\induction\\\textcolor{muted}{3 min}};
-  \node[box=g3,right=4mm of i2] (t2) {Website\\tasks\\\textcolor{muted}{6 min}};
+  \node[box=g3,right=4mm of i2] (t2) {3 sub-blocks\\menu A, B, C\\\textcolor{muted}{$\approx$10 min}};
   \node[box=muted,right=4mm of t2] (d) {Debrief\\\textcolor{muted}{2 min}};
-  \foreach \a/\b in {c/k,k/b,b/i1,i1/t1,t1/w,w/i2,i2/t2,t2/d} \draw[arr] (\a) -- (\b);
+  \foreach \a/\b in {c/b,b/p,p/i1,i1/t1,t1/w,w/i2,i2/t2,t2/d} \draw[arr] (\a) -- (\b);
   \foreach \n in {b,i1,t1,w,i2,t2}
     \node[font=\sffamily\tiny,color=accent,below=1mm of \n] {\textbullet{} mood rating};
   \begin{scope}[on background layer]
@@ -143,22 +189,29 @@ The session runs on its own. The participant follows on-screen instructions and 
           label={[font=\sffamily\scriptsize\bfseries,color=g3]above:Block 2}] {};
   \end{scope}
 \end{tikzpicture}}
-\caption{One session ($\approx$40 minutes). A mood rating follows the baseline, every induction, every task block and the neutral video. Task blocks also end with a workload rating (NASA-TLX).}
+\caption{One session ($\approx$50 minutes). A mood rating follows the baseline, every induction, every sub-block and the neutral video.
+Each sub-block is one menu with exactly four tasks, then a mood rating and a three-item workload rating; a 30--45\,s \emph{booster}
+re-cues the emotion before sub-blocks 2 and 3. After the three sub-blocks the participant ranks the three menus. Practice
+introduces each menu neutrally (two tasks each) before any emotion is induced. The menu order is the same in both blocks.}
 \end{figure}
 
 % ================================================================ 3
 \section{Emotion induction}
 
-Each emotion is induced with a published method \emph{before} the task block. Where the literature supports
+Each emotion is induced once, with a published method, at the start of its emotion block. Where the literature supports
 it, a manipulation \emph{during} the tasks keeps the state going, because film clips alone fade within minutes~\cite{westermann1996}.
+Because one emotion block now spans three menus ($\approx$14 minutes), a short \textbf{booster} re-cues the state before the second
+and third sub-block (Table~\ref{tab:boosters}). The in-task manipulations and the boosters are identical for the three menus; the induced faults are
+implemented once in the site engine and each has an equivalent in every menu (for example, ``the menu closes by itself'' collapses the sidebar tree, closes the drawer,
+or dismisses the radial menu).
 
 \begin{table}[H]
 \centering\small
 \begin{tabularx}{\linewidth}{@{}l L L l@{}}
 \toprule
-\textbf{Emotion} & \textbf{Before the tasks ($\approx$3 min)} & \textbf{During the tasks} & \textbf{Basis}\\
+\textbf{Emotion} & \textbf{Induction ($\approx$3 min, once per block)} & \textbf{During the tasks} & \textbf{Basis}\\
 \midrule
-Stress & Timed mental arithmetic (MIST), with a rigged ``you vs.\ average'' bar and negative feedback & Visible countdown, ``compared with other participants'' banner & \cite{dedovic2005,kirschbaum1993}\\
+Stress & Timed mental arithmetic (MIST), with a rigged ``you vs.\ average'' bar and negative feedback & Visible 30\,s countdown per task, ``compared with other participants'' banner & \cite{dedovic2005,kirschbaum1993}\\
 Calm & Nature video with paced breathing (6 breaths/min) & ``No rush'' instructions, no timer & \cite{ulrich1991,lehrer2014}\\
 Frustration & Goal and incentive framing (``fastest participants get a bonus'') & Deliberate faults: slow pages, ignored clicks, menus closing, ``session expired'' & \cite{scheirer2002,ceaparu2004}\\
 Boredom & Copying dull technical text & Every task uses the same repetitive template & \cite{vantilburg2012,markey2014}\\
@@ -167,6 +220,24 @@ Sadness & Sad film scene (\emph{Taare Zameen Par}), then quiet reflection & None
 \bottomrule
 \end{tabularx}
 \caption{Induction methods. The film clips follow Gross and Levenson's method~\cite{gross1995}, but use culturally familiar clips. All inductions are checked with the participant's own mood ratings.}
+\end{table}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}l L l@{}}
+\toprule
+\textbf{Emotion} & \textbf{Booster (before sub-blocks 2 and 3)} & \textbf{Length}\\
+\midrule
+Stress & One more MIST round & 30\,s\\
+Calm & Paced breathing over the nature clips & 40\,s\\
+Frustration & Speed-bonus reminder with a fixed, unfavourable ``current ranking'' (explained at the debrief) & up to 30\,s\\
+Boredom & More of the dull copying task & 30\,s\\
+Joy & Short amusing clip (to be supplied; a marked placeholder is shown until then) & up to 35\,s\\
+Sadness & Short sad clip (to be supplied), then quiet reflection & up to 45\,s\\
+\bottomrule
+\end{tabularx}
+\caption{Boosters. Only the two clips need media files; the other four are generated by the platform.}
+\label{tab:boosters}
 \end{table}
 
 \begin{figure}[H]
@@ -185,8 +256,10 @@ Sadness & Sad film scene (\emph{Taare Zameen Par}), then quiet reflection & None
 
 The three websites are our own builds on one shared engine, so menu behaviour, timing and logging are identical
 across groups. Their structure is modelled on the realistic sites of the WebArena benchmark~\cite{zhou2024}:
-\textbf{6 sections $\times$ 6 pages}, with the \textbf{drop-down menu as the only way to navigate}. Every page change in
-the data is therefore a menu interaction, which is exactly what phase 2 will adapt.
+\textbf{6 sections $\times$ 6 pages}, with the \textbf{menu as the only way to navigate}. Every page change in
+the data is therefore a menu interaction, which is exactly what phase 2 will adapt. The page content is identical in every menu.
+The menu is a plug-in: all nine log the same events (open, close, hover enter/exit, select, search query, backtrack, page view),
+expose the on-screen rectangle of every item, and are made faulty by one shared fault layer rather than by their own code.
 
 \begin{figure}[H]
 \centering
@@ -202,15 +275,18 @@ the data is therefore a menu interaction, which is exactly what phase 2 will ada
 \toprule
 \textbf{Task type} & \textbf{Example (G2 store)} & \textbf{What it measures}\\
 \midrule
-Look-up (8 per set) & ``Find the Trailblazer 2-Person Tent. What is its price?'' & Finding the right menu path from an item name\\
-Extreme (2 per set) & ``Find the cheapest vitamin or supplement.'' & Navigating, then scanning a page\\
-Compare (2 per set) & ``Which is cheaper: the Yoga Mat or the Vitamin C Serum?'' & Navigating across several pages\\
+Look-up (2 per subset) & ``Find the Trailblazer 2-Person Tent. What is its price?'' & Finding the right menu path from an item name\\
+Extreme (1 per subset) & ``Find the cheapest vitamin or supplement.'' & Navigating, then scanning a page\\
+Compare (1 per subset, two pages) & ``Which is cheaper: the Yoga Mat or the Vitamin C Serum?'' & Navigating across several pages\\
 \bottomrule
 \end{tabularx}
-\caption{Each website has two matched task sets (A and B) of 12 tasks. Answers are multiple choice and are computed automatically from the site content.}
+\caption{Each website has six task subsets (S1--S6) of four tasks in the same order, one per emotion $\times$ menu cell, plus a practice pool of six simple look-ups on pages no subset uses.
+Answers are multiple choice and are computed automatically from the site content. Of the 30 tasks per site, 14 experimental and 14 practice tasks across the three sites are new; the rest are the phase-1 tasks, re-split.}
 \end{table}
 
-Each task block lasts exactly \textbf{6 minutes}, so every emotion yields the same amount of data per person.
+Every sub-block has \textbf{exactly four tasks} with a per-task time limit (40\,s; 30\,s under stress), so a sub-block takes at most
+about 2.7 minutes and every emotion $\times$ menu cell yields the same amount of data. The subsets are matched for task types and
+for the number of target pages, so any subset can be used with any of the group's three menus; automated tests complete every task in every real menu.
 
 \begin{figure}[H]
 \centering
@@ -218,7 +294,7 @@ Each task block lasts exactly \textbf{6 minutes}, so every emotion yields the sa
 \begin{subfigure}[t]{0.49\linewidth}\shot[\maxdimen]{task_frustration.png}\caption{Frustration: page loading lag and a fake ``session expired'' error}\end{subfigure}\\[6pt]
 \begin{subfigure}[t]{0.49\linewidth}\shot[\maxdimen]{task_joy.png}\caption{Joy: surprise bonus reward}\end{subfigure}\hfill
 \begin{subfigure}[t]{0.49\linewidth}\shot[\maxdimen]{task_menu.png}\caption{The standard drop-down menu in use}\end{subfigure}
-\caption{The task screen: the task bar sits above the live website.}
+\caption{The task screen: the task bar sits above the live website. Panel (d) is a phase-1 screenshot of the drop-down (M1); the other eight menus are shown in the preview command and in \cmd{MENUS.md}.}
 \end{figure}
 
 % ================================================================ 5
@@ -230,32 +306,32 @@ Each task block lasts exactly \textbf{6 minutes}, so every emotion yields the sa
 \toprule
 \textbf{Source} & \textbf{What is recorded}\\
 \midrule
-Eye tracker (Tobii Pro) & Gaze position and pupil size (60--120 Hz), mapped to menu items and page content\\
-GSR & Skin conductance in microsiemens (supports Shimmer3, LSL devices, Arduino)\\
-Heart rate & BPM and RR intervals (supports Polar H10, LSL, serial)\\
-Behaviour & Every click, menu open/hover/close, page view, mouse movement (60 Hz), task outcome and time\\
-Self-report & SAM valence/arousal/dominance~\cite{bradley1994}, six emotion ratings, NASA-TLX~\cite{hart1988}\\
+Behaviour & Every click, menu open/close, item hover (with dwell time), item select, search query, page view, \emph{backtrack}, mouse movement (60 Hz), and the on-screen rectangle of every menu item\\
+Performance & Per task: outcome, time, clicks, wrong pages, backtracks, mouse path length, and the \emph{fewest clicks and steps} that menu needs; per sub-block: all of this summed\\
+Self-report & SAM valence/arousal/dominance~\cite{bradley1994}, six emotion ratings after every induction and sub-block, a three-item NASA-TLX~\cite{hart1988} (mental demand, effort, frustration) after every sub-block, and a menu preference ranking\\
 \bottomrule
 \end{tabularx}
-\caption{Measures. All streams share one master clock; the eye tracker's clock offset is re-measured every 30 s.}
+\caption{Measures. All streams share one master clock, so sensor recordings made elsewhere can be aligned with them. Sensors are not part of this app.}
 \end{table}
 
-Each participant gets one folder, for example \cmd{data/G2/P04/}, containing the raw streams (gaze, GSR, heart rate,
-events, mouse, tasks, questionnaires) and \textbf{\cmd{merged.csv}}: a 10 Hz timeline that combines every signal with
-its phase, emotion and task labels, ready for model training. Table~\ref{tab:merged} shows an excerpt.
+Each participant gets one folder, for example \cmd{data/G2/P04/}, containing the raw streams (events, mouse, aoi, tasks,
+questionnaires), the plan, a \textbf{per-sub-block summary} (\cmd{subblocks.csv}) and \textbf{\cmd{merged.csv}}: a 10 Hz behavioural timeline with
+the phase, emotion, menu, sub-block and task labels and the state of the menu, ready for model training. Every row carries the same six labels
+(phase, emotion block, emotion, sub-block, menu id, menu type); practice rows are labelled as such so they can be excluded.
+Table~\ref{tab:merged} shows an excerpt.
 
 \begin{table}[H]
 \centering\footnotesize
-\begin{tabularx}{\linewidth}{@{}r l l r r r L r r@{}}
+\begin{tabularx}{\linewidth}{@{}r l l r l l L r r r@{}}
 \toprule
-\textbf{t (s)} & \textbf{Emotion} & \textbf{Task} & \textbf{Gaze x} & \textbf{Gaze y} & \textbf{Pupil} & \textbf{Looking at} & \textbf{GSR} & \textbf{HR}\\
+\textbf{t (s)} & \textbf{Emotion} & \textbf{Menu} & \textbf{Sub} & \textbf{Task} & \textbf{Phase} & \textbf{Menu state} & \textbf{Clicks} & \textbf{Menu ev.} & \textbf{Views}\\
 \midrule
-143.6 & stress & B01 & 0.496 & 0.505 & 3.89 & content: Mr Tom Reyes & 7.46 & 77\\
-143.7 & stress & B01 & 0.494 & 0.499 & 3.90 & content: Mr Tom Reyes & 7.44 & 77\\
-143.8 & stress & B01 & 0.499 & 0.489 & 3.86 & content: Dr Helen Moore & 7.42 & 77\\
+70.0 & stress & M1 & 1 & S1-1 & tasks & open:campus-life & 0 & 0 & 0\\
+70.2 & stress & M1 & 1 & S1-1 & tasks & open:campus-life & 1 & 2 & 1\\
+70.3 & stress & M1 & 1 & S1-1 & tasks & closed & 0 & 0 & 0\\
 \bottomrule
 \end{tabularx}
-\caption{Excerpt of \texttt{merged.csv} from a dry run with simulated sensors (selected columns).}
+\caption{Excerpt of \texttt{merged.csv} from a dry run with a scripted participant (selected columns).}
 \label{tab:merged}
 \end{table}
 
@@ -264,21 +340,28 @@ its phase, emotion and task labels, ready for model training. Table~\ref{tab:mer
 
 \begin{keybox}[Researcher workflow]
 \begin{tabularx}{\linewidth}{@{}l L@{}}
-\cmd{python run.py check} & Checks sensors, videos, browser and task answers; must say ``Ready.''\\
+\cmd{python run.py check} & Checks every task answer in every menu, the videos, the browser and the planned session length; must say ``Ready.''\\
+\cmd{python run.py preview -{}-group G2 -{}-menu M5} & Opens a group's website with one menu and nothing recorded, to review any of the nine\\
 \cmd{python run.py session -{}-group G2 -{}-participant P04} & Runs the full session in a fullscreen browser\\
 \cmd{python run.py export} & Combines all participants into one dataset\\
 \end{tabularx}
 \end{keybox}
 
-\begin{figure}[H]
-\centering
-\begin{minipage}{0.82\linewidth}\shot{console.png}\end{minipage}
-\caption{The researcher's live terminal view during a session: current phase, emotion, task and sensor health. The participant never sees it.}
-\end{figure}
+The researcher's terminal shows the participant's plan at the start and the current phase, emotion block, sub-block and menu while the session runs
+(the participant never sees it):
+\begin{center}
+\begin{minipage}{0.86\linewidth}\footnotesize\ttfamily
+scheme 1 of 6: emotion order stress > calm, menu order M1 > M2 > M3\\
+\hspace*{1em}block 1 (stress): 1: M1/S1\ \ \ 2: M2/S2\ \ \ 3: M3/S3\\
+\hspace*{1em}block 2 (calm):\ \ 1: M1/S4\ \ \ 2: M2/S5\ \ \ 3: M3/S6
+\end{minipage}
+\end{center}
 
 Built-in safeguards:
 \begin{itemize}
-  \item A session will not start if a sensor sends no data or a video is missing.
+  \item A session will not start if a required video is missing (the two optional booster clips only warn).
+  \item An interrupted session resumes from the sub-block it was in; the interrupted attempt stays in the files, flagged, and only the last attempt is summarised.
+  \item Menu faults (slow pages, ignored clicks, collapsing menus) occur equally often in every menu.
   \item Every data row is saved immediately, and an interrupted session can be resumed.
   \item A participant ID can never be reused by accident.
   \item Participants never see emotion names or correct answers.
@@ -304,9 +387,12 @@ Built-in safeguards:
 \textbf{Item} & \textbf{Status}\\
 \midrule
 Websites, tasks, inductions, questionnaires, debrief (all three groups) & \textcolor{g1}{\textbf{Done}}\\
-Videos (nature, neutral, amusement, sadness) & \textcolor{g1}{\textbf{Done}}\\
-Full dry runs for all groups with simulated sensors; 17 automated tests & \textcolor{g1}{\textbf{Passed}}\\
-Set the GSR and heart-rate device models; one dry run on the real hardware & \textcolor{g2}{\textbf{Next}}\\
+Nine menus, practice, sub-blocks, boosters, menu ranking, per-sub-block summary & \textcolor{g1}{\textbf{Done}}\\
+Videos (nature, neutral, amusement, sadness: installed on the lab machine, not in the repository) & \textcolor{g1}{\textbf{Done}}\\
+Six full dry runs (3 groups $\times$ 2 participant numbers) with a scripted participant in a real browser; 145 automated tests, including every task in every real menu & \textcolor{g1}{\textbf{Passed}}\\
+Two optional booster clips for G3 (placeholders until supplied) & \textcolor{g2}{\textbf{Next}}\\
+Review the nine menus with the preview command; fill in consent-form details & \textcolor{g2}{\textbf{Next}}\\
+Sensors: recorded outside this app, aligned through the master clock & \textcolor{g2}{\textbf{Separate}}\\
 Ethics approval; recruit 5--6 participants per group (15--18 in total) & \textcolor{g2}{\textbf{Next}}\\
 Phase 2: train the emotion model and build the adaptive menus & \textcolor{muted}{\textbf{Later}}\\
 \bottomrule
@@ -349,11 +435,10 @@ Phase 2: train the emotion model and build the adaptive menus & \textcolor{muted
 \centering
 \begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{welcome.png}\caption{Welcome}\end{subfigure}\hfill
 \begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{consent.png}\caption{On-screen consent}\end{subfigure}\\[6pt]
-\begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{calibration.png}\caption{Eye-tracker calibration}\end{subfigure}\hfill
-\begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{rest.png}\caption{Resting baseline (fixation cross)}\end{subfigure}\\[6pt]
-\begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{sam.png}\caption{Mood rating: Self-Assessment Manikin}\end{subfigure}\hfill
-\begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{emotions.png}\caption{Mood rating: six emotions (order shuffled)}\end{subfigure}\\[6pt]
-\begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{tlx.png}\caption{Workload rating (NASA-TLX)}\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{rest.png}\caption{Resting baseline (fixation cross)}\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{sam.png}\caption{Mood rating: Self-Assessment Manikin}\end{subfigure}\\[6pt]
+\begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{emotions.png}\caption{Mood rating: six emotions (order shuffled)}\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{tlx.png}\caption{Workload rating (NASA-TLX; three items after each sub-block)}\end{subfigure}\\[6pt]
 \begin{subfigure}[t]{0.49\linewidth}\shot[4.5cm]{debrief.png}\caption{Debrief, with the option to withdraw}\end{subfigure}
 \caption{The remaining screens of a session.}
 \end{figure}

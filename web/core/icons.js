@@ -32,6 +32,10 @@ const PATHS = {
   check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   star: '<path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.3l-5.6 2.9 1.1-6.3-4.6-4.4 6.3-.9Z"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/>',
+  menu: '<path d="M4 6.5h16M4 12h16M4 17.5h16"/>',
+  x: '<path d="m6 6 12 12M18 6 6 18"/>',
+  grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
 };
 
 export function icon(name, cls = 'icon', fill = false) {

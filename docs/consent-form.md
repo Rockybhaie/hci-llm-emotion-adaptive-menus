@@ -11,10 +11,10 @@ We are studying how people find their way around websites, and how the body resp
 
 ## What will I do?
 
-The session takes about 40 minutes (about 1 hour including setup). You will:
+The session takes about 50 minutes (about 1 hour 15 minutes including setup). You will:
 
 - watch short videos or do short activities,
-- use a website to find information,
+- use a website to find information (the website's menu and layout will vary between parts),
 - answer brief questions about how you feel.
 
 Some parts are designed to influence how you feel, for example by being challenging, repetitive or emotional. Everything will be fully explained at the end.
@@ -24,7 +24,7 @@ Some parts are designed to influence how you feel, for example by being challeng
 - Where you look on the screen, and your pupil size (eye tracker under the monitor)
 - Skin conductance, from two small sensors on two fingers of one hand
 - Heart rate, from a chest strap or finger sensor
-- Your clicks, mouse movements and on-screen answers
+- Your clicks, mouse movements, on-screen answers and ratings, and which menu you were using
 
 **No video or audio of you is recorded.**
 

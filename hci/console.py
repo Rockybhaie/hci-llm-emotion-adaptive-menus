@@ -10,8 +10,8 @@ from rich.text import Text
 
 console = Console()
 
-PHASE_STYLE = {"baseline": "cyan", "induction": "magenta", "tasks": "green", "rating": "yellow",
-               "washout": "cyan", "calibration": "blue"}
+PHASE_STYLE = {"baseline": "cyan", "practice": "blue", "induction": "magenta", "booster": "magenta", "tasks": "green",
+               "rating": "yellow", "menu_rank": "yellow", "washout": "cyan"}
 
 
 def _clock(seconds):
@@ -29,31 +29,20 @@ def render(snap):
     label = f"[{PHASE_STYLE.get(phase, 'white')}]{phase}[/]"
     if snap["emotion"]:
         label += f"  ·  {snap['emotion']}"
-    if snap["block"]:
-        label += f"  ·  block {snap['block']}"
+    if snap["emotion_block"]:
+        label += f"  ·  block {snap['emotion_block']}"
+    if snap["sub_block"]:
+        label += f"  ·  sub-block {snap['sub_block']}"
+    if snap["menu_id"]:
+        label += f"  ·  {snap['menu_id']} {snap['menu_name']}"
     if snap["task"]:
         label += f"  ·  task {snap['task']}"
     head.add_row("Step", f"{snap['step'] + 1}/{snap['steps']}  {snap['type']}  ({label})")
     head.add_row("Elapsed", _clock(snap["elapsed"]))
     head.add_row("Saving to", snap["folder"])
+    head.add_row("Plan", snap["plan"])
 
-    sensors = Table(expand=True, show_edge=False, header_style="bold dim")
-    for col in ("Sensor", "Adapter", "Rate", "Samples", "Status"):
-        sensors.add_column(col)
-    for slot, s in snap["sensors"].items():
-        if s["error"]:
-            status = Text(s["error"], style="red")
-        elif s["last_age"] is None:
-            status = Text("waiting", style="yellow")
-        elif s["last_age"] > 3:
-            status = Text(f"no data for {s['last_age']:.0f}s", style="red")
-        else:
-            status = Text("ok", style="green")
-        sensors.add_row(slot, s["adapter"], f"{s['hz']:.0f} Hz", f"{s['samples']:,}", status)
-    if not snap["sensors"]:
-        sensors.add_row("-", "no sensors", "", "", "")
-
-    parts = [head, Text(""), sensors]
+    parts = [head]
     if snap["warnings"]:
         parts += [Text(""), Text("\n".join(f"{t}  {m}" for t, m in snap["warnings"]), style="yellow")]
     parts += [Text(""), Text("Ctrl+C here or Ctrl+Shift+Q in the browser stops and saves.", style="dim")]

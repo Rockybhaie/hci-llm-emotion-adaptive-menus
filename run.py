@@ -1,9 +1,9 @@
 """Entry point. Examples:
 
     python run.py check
+    python run.py preview --group G2 --menu M5
     python run.py session --group G2 --participant P04
-    python run.py session --group G1 --participant P99 --mock --fast --pilot
-    python run.py preview --group G3
+    python run.py session --group G1 --participant P99 --fast --pilot
     python run.py export
 """
 

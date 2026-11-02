@@ -1,60 +1,73 @@
-# Which emotions and website each group uses, and how each emotion is induced.
-# Rationale and references: docs/emotion-induction.md
+# Which emotions, website and menus each group uses, and how each emotion is induced.
+# Rationale and references: docs/emotion-induction.md   Menus: MENUS.md
 
 groups:
   G1:
     site: g1-portal          # Northfield University student portal
     tasks: g1.yaml
     emotions: [stress, calm]
+    menus: [M1, M2, M3]      # order here only fixes the identity of each menu in the counterbalancing
   G2:
     site: g2-store           # Everyday Market e-commerce store
     tasks: g2.yaml
     emotions: [frustration, boredom]
+    menus: [M4, M5, M6]
   G3:
     site: g3-forum           # Threadline discussion forum
     tasks: g3.yaml
     emotions: [joy, sadness]
+    menus: [M7, M8, M9]
 
-# `induction` runs before the task block; `in_task` changes the task block itself.
+# `induction` runs once before the first sub-block of an emotion block.
+# `booster` is a 30-45 s re-cue before sub-blocks 2 and 3 (not before sub-block 1: the induction just ran).
+# `in_task` changes the task screens and applies identically to every sub-block and every menu.
 # Film clips may set `start` / `end` (seconds) to play only part of the file.
+# A booster `video` is optional: if the file is missing a clearly marked placeholder screen is shown
+# (and `python run.py check` warns), so a session still runs.
 emotions:
   stress:
     arousal: high
     induction: {kind: mist}                     # Dedovic et al. (2005)
+    booster: {kind: mist, duration: 30}         # one more 30 s arithmetic round
     in_task:
       countdown: true                           # visible per-task timer
-      timeout: 60
+      timeout: 30                               # shorter than the other emotions: time pressure
       evaluation_banner: true                   # social-evaluative threat (TSST)
       negative_feedback: true
   calm:
     arousal: low
     induction: {kind: breathing, video: nature/}   # folder = playlist
+    booster: {kind: breathing, video: nature/, duration: 40}   # paced breathing over the nature clips
     in_task:
       reassurance: true                         # "there is no rush"
   frustration:
     arousal: high
     induction: {kind: briefing, message: speed_bonus}
+    booster: {kind: speed_reminder, duration: 30}   # speed-bonus reminder + (fixed, unfavourable) "current rank"
     in_task:
       sabotage:                                 # Scheirer et al. (2002)
         lag_prob: 0.6                           # chance a page load is delayed
         lag_min_ms: 2000
         lag_max_ms: 6000
-        drop_click_prob: 0.25                   # menu clicks silently ignored
-        menu_glitch_prob: 0.2                   # drop-down closes by itself
+        drop_click_prob: 0.25                   # chance the committing menu click is silently ignored
+        menu_glitch_prob: 0.2                   # chance the open menu collapses by itself
         answer_expire_prob: 0.35                # "session expired" on Submit
   boredom:
     arousal: low
     induction: {kind: copying}                  # van Tilburg & Igou (2012)
+    booster: {kind: copying, duration: 30}      # 30 s more dull copying
     in_task:
       task_variant: repetitive                  # same template, every task
   joy:
     arousal: high
     induction: {kind: film, video: amusement.mp4, end: 346}       # Mr. Bean, The Exam; cut before YouTube end card
+    booster: {kind: clip, video: boosters/g3_a.mp4, duration: 35}  # SUPPLY: short amusing clip (see stimuli/README.md)
     in_task:
       rewards: true                             # surprise bonus after correct answers
   sadness:
     arousal: low
     induction: {kind: film, video: sadness.mp4, end: 233, reflection: true}   # Taare Zameen Par; cut at scene fade-out
+    booster: {kind: clip, video: boosters/g3_b.mp4, duration: 35, reflection: 10}   # SUPPLY: short sad clip, then quiet reflection
     in_task: {}
 
 washout:

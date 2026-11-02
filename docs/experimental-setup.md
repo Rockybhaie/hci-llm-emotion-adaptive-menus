@@ -1,5 +1,7 @@
 # Experimental setup
 
+> **Scope.** This app records behaviour only. **Sensors are not part of it**: the app does not start, read or wait for any device. The room and PC settings below apply to every session. The sections on hardware placement, the adapter table and clock synchronisation describe the **separate sensor stage** (the adapter files in `hci/sensors/` are kept unchanged but unused) and are kept for reference. Keep the room identical across participants whatever the sensors are, because lighting and temperature affect eye and skin signals.
+
 Use the same room, PC, screen and settings for every participant in every group. Differences in light, temperature or screen setup show up directly in pupil size and GSR.
 
 ## Room
@@ -43,7 +45,7 @@ The Shimmer, Polar, LSL and serial adapters were written against the vendors' pu
 
 - Windows **Focus assist / Do not disturb** on. Close Teams, OneDrive, Windows Update and anything else that shows pop-ups.
 - Mains power, sleep and screensaver off.
-- The study opens in **Microsoft Edge kiosk mode** (fullscreen, no browser controls), with a fresh profile for every session.
+- The study opens in **Microsoft Edge kiosk mode** (fullscreen, no browser controls), with a fresh profile for every session. Use the same screen size and **Windows display scaling 100 %** for every participant: menu positions and sizes (and the AOI rectangles in `aoi.csv`) depend on the window size, and the app warns if the browser is not fullscreen.
 - One monitor only, or make the study screen the primary display. Gaze coordinates assume the browser fills the eye tracker's screen.
 
 ## Timing and synchronisation

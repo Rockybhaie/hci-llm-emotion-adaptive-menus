@@ -252,3 +252,31 @@ body[data-mode="rest"] { background: #d9dce1; }
 
 .done-mark { width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 50%; display: grid; place-items: center; background: #e7f6ef; color: var(--good); }
 .done-mark .icon { width: 36px; height: 36px; }
+
+/* ---------- menu introduction (practice and sub-block start) ---------- */
+.menu-card { margin: 18px 0; padding: 16px 20px; border-radius: 14px; background: var(--accent-soft); border: 1px solid #d6defb; }
+.menu-card p { margin: 6px 0 0; color: #2c3445; font-size: 16.5px; }
+.menu-card-label { display: flex; align-items: center; gap: 10px; color: var(--accent-strong); font-size: 18px; }
+.menu-card-label .icon { width: 22px; height: 22px; }
+
+/* ---------- frustration booster: the (fixed) ranking ---------- */
+.rank { display: flex; align-items: center; gap: 22px; margin: 22px 0 6px; padding: 18px 22px; border-radius: 14px; background: #fff4f4; border: 1px solid #f3c9c9; }
+.rank-place { font-size: 46px; font-weight: 800; color: var(--bad); line-height: 1; }
+.rank-place small { font-size: 20px; font-weight: 600; color: var(--muted); }
+.rank-text { color: #3a2b2b; font-size: 17px; }
+
+/* ---------- menu ranking ---------- */
+.rank-list { display: grid; gap: 12px; margin-top: 18px; }
+.rank-card {
+  display: grid; grid-template-columns: 44px 1fr 64px; align-items: center; gap: 14px; padding: 14px 18px;
+  border: 1px solid #cfd4dc; border-radius: 14px; background: #fff; text-align: left; cursor: pointer; transition: all .12s;
+}
+.rank-card:hover { border-color: var(--accent); }
+.rank-card.on { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); cursor: default; }
+.rank-pos { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #f1f3f7; color: var(--muted); font-weight: 700; }
+.rank-name { display: grid; line-height: 1.3; }
+.rank-name small { color: var(--muted); font-size: 14px; }
+.rank-badge { text-align: center; font-size: 20px; font-weight: 800; color: var(--accent-strong); }
+
+/* ---------- missing-video placeholder (clearly marked) ---------- */
+.ph-tag { display: inline-block; justify-self: center; padding: 4px 12px; border: 2px dashed #8a93a3; border-radius: 6px; font-weight: 800; letter-spacing: .14em; color: #b6bdca; }

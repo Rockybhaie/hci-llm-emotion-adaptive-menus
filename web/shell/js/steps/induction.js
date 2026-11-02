@@ -1,6 +1,6 @@
 // Emotion inductions that run before a task block. See docs/emotion-induction.md.
 import { HCI } from '../hci.js';
-import { clicked, esc, show, sleep, unlockAfter } from '../ui.js';
+import { clicked, esc, notice, show, sleep, unlockAfter } from '../ui.js';
 import { film } from './film.js';
 
 // ---------------------------------------------------------------- stress: MIST
@@ -21,14 +21,18 @@ function problem() {
   }
 }
 
-async function mist(p) {
-  const el = await show(`
-    <div class="eyebrow">Part ${p.part}</div>
-    <h1>Mental arithmetic</h1>
-    <p class="lead">Solve each sum in your head and click the answer (always a single digit, 0–9) before the time bar runs out.</p>
-    <p class="hint">Most people get at least 80% right. Your performance is shown at the top of the screen and will be reviewed by the researcher.</p>
-    <div class="actions"><button class="btn primary" id="go">Start</button></div>`);
-  await clicked(el, '#go');
+export async function mist(p) {
+  if (p.quick) {
+    await notice('Another round of mental arithmetic');
+  } else {
+    const el = await show(`
+      <div class="eyebrow">Part ${p.part}</div>
+      <h1>Mental arithmetic</h1>
+      <p class="lead">Solve each sum in your head and click the answer (always a single digit, 0–9) before the time bar runs out.</p>
+      <p class="hint">Most people get at least 80% right. Your performance is shown at the top of the screen and will be reviewed by the researcher.</p>
+      <div class="actions"><button class="btn primary" id="go">Start</button></div>`);
+    await clicked(el, '#go');
+  }
   const view = await show(`
     <div class="mist">
       <div class="perf">
@@ -98,14 +102,18 @@ async function mist(p) {
 }
 
 // ---------------------------------------------------------------- calm: breathing
-async function breathing(p) {
-  const el = await show(`
-    <div class="eyebrow">Part ${p.part}</div>
-    <h1>Relax and breathe</h1>
-    <p class="lead">Watch the scenery and breathe along with the circle: breathe in slowly as it grows, and out as it shrinks.</p>
-    <p class="hint">This lasts about ${Math.round(p.duration / 60) || 1} minutes and moves on by itself.</p>
-    <div class="actions"><button class="btn primary" id="go">Start</button></div>`);
-  await clicked(el, '#go');
+export async function breathing(p) {
+  if (p.quick) {
+    await notice('Take a moment to breathe along with the circle');
+  } else {
+    const el = await show(`
+      <div class="eyebrow">Part ${p.part}</div>
+      <h1>Relax and breathe</h1>
+      <p class="lead">Watch the scenery and breathe along with the circle: breathe in slowly as it grows, and out as it shrinks.</p>
+      <p class="hint">This lasts about ${Math.round(p.duration / 60) || 1} minutes and moves on by itself.</p>
+      <div class="actions"><button class="btn primary" id="go">Start</button></div>`);
+    await clicked(el, '#go');
+  }
   const view = await show(`
     <div class="breathe">
       <div class="calm-bg"></div>
@@ -181,14 +189,18 @@ const LINES = [
   'ASTM C511: mixing rooms, moist cabinets and water storage tanks, inspection 2.',
 ];
 
-async function copying(p) {
-  const el = await show(`
-    <div class="eyebrow">Part ${p.part}</div>
-    <h1>Copying task</h1>
-    <p class="lead">Copy each line of text into the box exactly as it appears, then press Enter for the next line.</p>
-    <p class="hint">Keep going until the task ends by itself.</p>
-    <div class="actions"><button class="btn primary" id="go">Start</button></div>`);
-  await clicked(el, '#go');
+export async function copying(p) {
+  if (p.quick) {
+    await notice('Please copy a few more lines');
+  } else {
+    const el = await show(`
+      <div class="eyebrow">Part ${p.part}</div>
+      <h1>Copying task</h1>
+      <p class="lead">Copy each line of text into the box exactly as it appears, then press Enter for the next line.</p>
+      <p class="hint">Keep going until the task ends by itself.</p>
+      <div class="actions"><button class="btn primary" id="go">Start</button></div>`);
+    await clicked(el, '#go');
+  }
   const view = await show(`
     <div class="copy">
       <div class="copy-count" id="n">Line 1</div>

@@ -1,0 +1,79 @@
+# The nine menus under test, three per group (a menu belongs to exactly one group).
+# Full specification: MENUS.md
+#
+#   type    : selects the click-cost model in hci/menus.py and the plug-in in web/core/menus/
+#   label   : what the participant sees (neutral, never says which design is expected to be better)
+#   how     : one or two plain sentences shown in practice and at the start of each sub-block
+#   params  : read by the menu plug-in at start-up (served at /api/menus)
+
+M1:
+  group: G1
+  type: hover-dropdown
+  name: Hover drop-down
+  label: Drop-down menu
+  how: Point at a section in the bar at the top of the page. A list of its pages opens. Click the page you want.
+  params: {hover_open_ms: 150, leave_close_ms: 400}
+
+M2:
+  group: G1
+  type: sidebar-tree
+  name: Persistent sidebar tree
+  label: Side list
+  how: The sections are listed on the left. Click a section to show its pages, then click the page you want.
+  params: {accordion: true}
+
+M3:
+  group: G1
+  type: hub-spoke
+  name: Hub and spoke
+  label: Section cards
+  how: Click a section in the bar at the top of the page. Large cards for its pages appear. Click the card you want.
+  params: {}
+
+M4:
+  group: G2
+  type: click-dropdown
+  name: Click drop-down with large targets
+  label: Click drop-down
+  how: Click a section in the bar at the top of the page. A list of its pages opens and stays open until you click away. Click the page you want.
+  params: {item_height_px: 56}
+
+M5:
+  group: G2
+  type: mega-menu
+  name: Mega-menu
+  label: Wide panel
+  how: Point at or click a section in the bar at the top of the page. A wide panel shows all of its pages. Click the page you want.
+  params: {hover_open_ms: 150, leave_close_ms: 400}
+
+M6:
+  group: G2
+  type: search-first
+  name: Search-first menu
+  label: Search box
+  how: Type the name of a page in the search box and choose it from the suggestions. Or press Browse and pick a section, then a page, from the list.
+  params: {max_results: 7, debounce_ms: 250}
+
+M7:
+  group: G3
+  type: drawer
+  name: Hamburger drawer
+  label: Drawer menu
+  how: Press the menu button (three lines) at the top left. Press a section to unfold its pages, then press the page you want.
+  params: {accordion: true}
+
+M8:
+  group: G3
+  type: radial
+  name: Radial (pie) menu
+  label: Circle menu
+  how: Press the round menu button. A circle of sections opens. Move to a section to see its pages in an outer ring, then click the page you want.
+  params: {inner_radius_px: 70, mid_radius_px: 150, outer_radius_px: 235}
+
+M9:
+  group: G3
+  type: two-row-tabs
+  name: Two-row tab bar
+  label: Two-row tabs
+  how: The sections are always shown in the top bar. Click a section and its pages appear in the second row. Click the page you want.
+  params: {}

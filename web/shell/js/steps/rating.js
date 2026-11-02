@@ -14,6 +14,8 @@ const TLX = [
   { key: 'frustration', title: 'Frustration', text: 'How insecure, discouraged, irritated, stressed or annoyed were you?', low: 'Very low', high: 'Very high' },
 ];
 
+const TLX_SHORT = TLX.filter((q) => ['mental', 'effort', 'frustration'].includes(q.key));
+
 /** Shows one page; resolves with {key: value} once every row has an answer and Continue is pressed. */
 async function page(html, rowSelector, buttonSelector, readValue) {
   const el = await show(html);
@@ -60,8 +62,8 @@ function emotionPage(items, scale) {
   '.likert', '.seg', (b) => Number(b.dataset.v));
 }
 
-function tlxPage() {
-  const rows = TLX.map((q) => `
+function tlxPage(items = TLX) {
+  const rows = items.map((q) => `
     <div class="tlx" data-key="${q.key}">
       <div class="tlx-title">${q.title}</div>
       <div class="tlx-text">${q.text}</div>
@@ -84,6 +86,7 @@ export async function rating(step) {
     if (inst === 'sam') out.sam = await samPage();
     if (inst === 'emotions') out.emotions = await emotionPage(p.emotion_items, p.scale);
     if (inst === 'tlx') out.tlx = await tlxPage();
+    if (inst === 'tlx_short') out.tlx_short = await tlxPage(TLX_SHORT);
   }
   return out;
 }

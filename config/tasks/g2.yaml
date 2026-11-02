@@ -1,34 +1,56 @@
-# Everyday Market (G2) — two parallel task sets, matched in type, depth and section spread.
+# Everyday Market (G2): six task subsets S1-S6 (one per emotion x menu cell) and a practice pool P.
+#
+# Every subset has the same four tasks in the same order: lookup, extreme, lookup, compare (a
+# two-page compare; in G1 the two items may use different money fields). Subsets are assigned to
+# cells by a 6 x 6 Latin square (hci/counterbalance.py). All target pages are 2 levels deep in every menu.
 #   lookup : find a named item, answer a question about one field
 #   extreme: find the item on a page with the max/min value of a field
-#   compare: two items (usually on different pages), pick the max/min
-# Answers and answer options are computed from web/sites/g2-store/site.json.
-# The boredom block replaces these with the site's repetitive template (same targets).
+#   compare: two items on different pages, pick the max/min (an item may name its own `field`)
+# P is the practice pool: simple lookups on pages that no S1-S6 task targets. Menu i of the group
+# practises on P[2i] and P[2i+1].
+# Answers and answer options are computed from web/sites/<site>/site.json. In the boredom block the
+# site's repetitive template replaces these (same target pages).
 
-A:
-  - {id: A01, type: lookup, page: sports/camping, item: "Trailblazer 2-Person Tent", field: Price, text: "You're planning a weekend camping trip. Find the Trailblazer 2-Person Tent."}
-  - {id: A02, type: lookup, page: electronics/headphones, item: "Aurora ANC Over-Ear Headphones", field: Rating, text: "A friend recommended the Aurora ANC Over-Ear Headphones. Find them."}
-  - {id: A03, type: lookup, page: home-kitchen/coffee-tea, item: "Burr Coffee Grinder", field: Price, text: "Find the Burr Coffee Grinder."}
-  - {id: A04, type: lookup, page: clothing/shoes, item: "Leather Chelsea Boots", field: Availability, text: "Find the Leather Chelsea Boots."}
-  - {id: A05, type: extreme, page: beauty-health/vitamins, field: Price, mode: min, text: "Find the cheapest vitamin or supplement in the store. Which one is it?"}
-  - {id: A06, type: lookup, page: grocery/breakfast, item: "Honey Oat Granola", field: Price, text: "Find the Honey Oat Granola."}
-  - {id: A07, type: lookup, page: electronics/chargers-cables, item: "10,000 mAh Power Bank", field: Rating, text: "Your phone keeps running out of battery. Find the 10,000 mAh Power Bank."}
-  - {id: A08, type: extreme, page: sports/running, field: Rating, mode: max, text: "Find the highest-rated running product. Which one is it?"}
-  - {id: A09, type: lookup, page: clothing/bags, item: "Carry-On Spinner Suitcase", field: Price, text: "Find the Carry-On Spinner Suitcase."}
-  - {id: A10, type: lookup, page: home-kitchen/lighting, item: "LED Desk Lamp", field: Availability, text: "Find the LED Desk Lamp."}
-  - {id: A11, type: compare, field: Price, mode: min, items: [{page: sports/fitness, item: "Yoga Mat 6 mm"}, {page: beauty-health/skincare, item: "Vitamin C Serum"}], text: "Which is cheaper: the Yoga Mat 6 mm or the Vitamin C Serum?"}
-  - {id: A12, type: compare, field: Rating, mode: max, items: [{page: grocery/beverages, item: "Cold Brew Coffee"}, {page: home-kitchen/coffee-tea, item: "French Press 1 L"}], text: "Which has the higher rating: the Cold Brew Coffee or the French Press 1 L?"}
+S1:
+  - {id: S1-1, type: lookup, page: grocery/breakfast, item: "Honey Oat Granola", field: Price, text: "Find the Honey Oat Granola."}
+  - {id: S1-2, type: extreme, page: beauty-health/vitamins, field: Price, mode: min, text: "Find the cheapest vitamin or supplement in the store. Which one is it?"}
+  - {id: S1-3, type: lookup, page: electronics/cameras, item: "Action Cam 4K", field: Rating, text: "You want to film your next holiday. Find the Action Cam 4K."}
+  - {id: S1-4, type: compare, field: Price, mode: max, items: [{page: home-kitchen/small-appliances, item: "Stand Mixer Classic"}, {page: clothing/bags, item: "Carry-On Spinner Suitcase"}], text: "Which costs more: the Stand Mixer Classic or the Carry-On Spinner Suitcase?"}
 
-B:
-  - {id: B01, type: lookup, page: sports/cycling, item: "Aero Cycling Helmet", field: Price, text: "You've started cycling to work. Find the Aero Cycling Helmet."}
-  - {id: B02, type: lookup, page: electronics/smart-home, item: "Halo Smart Speaker", field: Rating, text: "A friend recommended the Halo Smart Speaker. Find it."}
-  - {id: B03, type: lookup, page: home-kitchen/cookware, item: "Cast Iron Skillet 10\"", field: Price, text: "Find the Cast Iron Skillet 10\"."}
-  - {id: B04, type: lookup, page: clothing/womens, item: "Belted Trench Coat", field: Availability, text: "Find the Belted Trench Coat."}
-  - {id: B05, type: extreme, page: beauty-health/skincare, field: Price, mode: min, text: "Find the cheapest skincare product in the store. Which one is it?"}
-  - {id: B06, type: lookup, page: grocery/pantry, item: "Basmati Rice 2 kg", field: Price, text: "Find the Basmati Rice 2 kg."}
-  - {id: B07, type: lookup, page: electronics/cameras, item: "Action Cam 4K", field: Rating, text: "You want to film your next holiday. Find the Action Cam 4K."}
-  - {id: B08, type: extreme, page: sports/fitness, field: Rating, mode: max, text: "Find the highest-rated fitness product. Which one is it?"}
-  - {id: B09, type: lookup, page: clothing/watches-jewellery, item: "Minimalist Steel Watch", field: Price, text: "Find the Minimalist Steel Watch."}
-  - {id: B10, type: lookup, page: home-kitchen/bedding, item: "Memory Foam Pillow", field: Availability, text: "Find the Memory Foam Pillow."}
-  - {id: B11, type: compare, field: Price, mode: min, items: [{page: sports/team-sports, item: "Badminton Set"}, {page: beauty-health/hair-care, item: "Ionic Hair Dryer"}], text: "Which is cheaper: the Badminton Set or the Ionic Hair Dryer?"}
-  - {id: B12, type: compare, field: Rating, mode: max, items: [{page: grocery/snacks, item: "Dark Chocolate Almonds"}, {page: grocery/baking, item: "Dark Chocolate Chips"}], text: "Which has the higher rating: the Dark Chocolate Almonds or the Dark Chocolate Chips?"}
+S2:
+  - {id: S2-1, type: lookup, page: sports/cycling, item: "Aero Cycling Helmet", field: Price, text: "You've started cycling to work. Find the Aero Cycling Helmet."}
+  - {id: S2-2, type: extreme, page: beauty-health/skincare, field: Price, mode: min, text: "Find the cheapest skincare product in the store. Which one is it?"}
+  - {id: S2-3, type: lookup, page: clothing/shoes, item: "Leather Chelsea Boots", field: Availability, text: "Find the Leather Chelsea Boots."}
+  - {id: S2-4, type: compare, field: Rating, mode: max, items: [{page: grocery/beverages, item: "Cold Brew Coffee"}, {page: home-kitchen/coffee-tea, item: "French Press 1 L"}], text: "Which has the higher rating: the Cold Brew Coffee or the French Press 1 L?"}
+
+S3:
+  - {id: S3-1, type: lookup, page: electronics/headphones, item: "Aurora ANC Over-Ear Headphones", field: Rating, text: "A friend recommended the Aurora ANC Over-Ear Headphones. Find them."}
+  - {id: S3-2, type: extreme, page: clothing/watches-jewellery, field: Rating, mode: min, text: "Find the lowest-rated watch or piece of jewellery in the store. Which one is it?"}
+  - {id: S3-3, type: lookup, page: home-kitchen/lighting, item: "LED Desk Lamp", field: Availability, text: "Find the LED Desk Lamp."}
+  - {id: S3-4, type: compare, field: Price, mode: min, items: [{page: sports/fitness, item: "Yoga Mat 6 mm"}, {page: beauty-health/skincare, item: "Vitamin C Serum"}], text: "Which is cheaper: the Yoga Mat 6 mm or the Vitamin C Serum?"}
+
+S4:
+  - {id: S4-1, type: lookup, page: home-kitchen/cookware, item: "Cast Iron Skillet 10\"", field: Price, text: "Find the Cast Iron Skillet 10\"."}
+  - {id: S4-2, type: extreme, page: sports/running, field: Rating, mode: max, text: "Find the highest-rated running product. Which one is it?"}
+  - {id: S4-3, type: lookup, page: electronics/smart-home, item: "Halo Smart Speaker", field: Rating, text: "A friend recommended the Halo Smart Speaker. Find it."}
+  - {id: S4-4, type: compare, field: Price, mode: min, items: [{page: clothing/kids, item: "Kids' Denim Overalls"}, {page: beauty-health/oral-care, item: "Whitening Toothpaste"}], text: "Which is cheaper: the Kids' Denim Overalls or the Whitening Toothpaste?"}
+
+S5:
+  - {id: S5-1, type: lookup, page: electronics/chargers-cables, item: "10,000 mAh Power Bank", field: Rating, text: "Your phone keeps running out of battery. Find the 10,000 mAh Power Bank."}
+  - {id: S5-2, type: extreme, page: sports/fitness, field: Rating, mode: max, text: "Find the highest-rated fitness product. Which one is it?"}
+  - {id: S5-3, type: lookup, page: home-kitchen/bedding, item: "Memory Foam Pillow", field: Availability, text: "Find the Memory Foam Pillow."}
+  - {id: S5-4, type: compare, field: Rating, mode: max, items: [{page: grocery/snacks, item: "Dark Chocolate Almonds"}, {page: grocery/baking, item: "Dark Chocolate Chips"}], text: "Which has the higher rating: the Dark Chocolate Almonds or the Dark Chocolate Chips?"}
+
+S6:
+  - {id: S6-1, type: lookup, page: clothing/womens, item: "Belted Trench Coat", field: Availability, text: "Find the Belted Trench Coat."}
+  - {id: S6-2, type: extreme, page: electronics/phones-tablets, field: Price, mode: max, text: "Find the most expensive phone or tablet in the store. Which one is it?"}
+  - {id: S6-3, type: lookup, page: grocery/pantry, item: "Basmati Rice 2 kg", field: Price, text: "Find the Basmati Rice 2 kg."}
+  - {id: S6-4, type: compare, field: Price, mode: min, items: [{page: sports/team-sports, item: "Badminton Set"}, {page: beauty-health/hair-care, item: "Ionic Hair Dryer"}], text: "Which is cheaper: the Badminton Set or the Ionic Hair Dryer?"}
+
+P:
+  - {id: P1, type: lookup, page: sports/camping, item: "Trailblazer 2-Person Tent", field: Price, text: "Find the Trailblazer 2-Person Tent."}
+  - {id: P2, type: lookup, page: electronics/laptops, item: "Vertex 14\" Ultrabook", field: Rating, text: "Find the Vertex 14\" Ultrabook."}
+  - {id: P3, type: lookup, page: home-kitchen/storage, item: "Stackable Pantry Bins", field: Price, text: "Find the Stackable Pantry Bins."}
+  - {id: P4, type: lookup, page: clothing/mens, item: "Oxford Button-Down Shirt", field: Price, text: "Find the Oxford Button-Down Shirt."}
+  - {id: P5, type: lookup, page: beauty-health/fragrance, item: "Citrus Bloom Eau de Toilette", field: Rating, text: "Find the Citrus Bloom Eau de Toilette."}
+  - {id: P6, type: lookup, page: grocery/world-foods, item: "Thai Green Curry Paste", field: Price, text: "Find the Thai Green Curry Paste."}

@@ -9,18 +9,23 @@ from fastapi import Body, FastAPI, Request
 from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from . import paths
+from . import config, paths
 from .clock import now
 
 
-def create_app(session=None, preview_site=None):
+def create_app(session=None, preview_site=None, preview_menu=None, cfg=None):
     app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
+    menus = (cfg or (session.cfg if session else config.load())).menus
 
     @app.get("/")
     def root():
         if session is None:
-            return RedirectResponse(f"/core/site.html?site={preview_site}")
+            return RedirectResponse(f"/core/site.html?site={preview_site}&menu={preview_menu or 'M1'}")
         return RedirectResponse("/shell/")
+
+    @app.get("/api/menus")
+    def get_menus():
+        return menus
 
     @app.get("/api/clock")
     def clock():
@@ -65,10 +70,6 @@ def create_app(session=None, preview_site=None):
     @app.post("/api/task/close")
     def task_close(payload: dict = Body(...)):
         return need_session() or session.task_close(payload["task_id"], payload["outcome"], payload.get("t"))
-
-    @app.post("/api/calibration/{action}")
-    def calibration(action: str, payload: dict = Body(default={})):
-        return need_session() or session.calibrate(action, payload)
 
     @app.post("/api/warn")
     def warn(payload: dict = Body(...)):

@@ -1,30 +1,56 @@
-# Northfield University Student Portal (G1) — two parallel task sets.
-# Same structure as g2.yaml; answers are computed from web/sites/g1-portal/site.json.
+# Northfield University Student Portal (G1): six task subsets S1-S6 (one per emotion x menu cell) and a practice pool P.
+#
+# Every subset has the same four tasks in the same order: lookup, extreme, lookup, compare (a
+# two-page compare; in G1 the two items may use different money fields). Subsets are assigned to
+# cells by a 6 x 6 Latin square (hci/counterbalance.py). All target pages are 2 levels deep in every menu.
+#   lookup : find a named item, answer a question about one field
+#   extreme: find the item on a page with the max/min value of a field
+#   compare: two items on different pages, pick the max/min (an item may name its own `field`)
+# P is the practice pool: simple lookups on pages that no S1-S6 task targets. Menu i of the group
+# practises on P[2i] and P[2i+1].
+# Answers and answer options are computed from web/sites/<site>/site.json. In the boredom block the
+# site's repetitive template replaces these (same target pages).
 
-A:
-  - {id: A01, type: lookup, page: academics/my-courses, item: "Statistics for Science", field: Instructor, question: "Who is the instructor?", text: "Find your Statistics for Science course."}
-  - {id: A02, type: lookup, page: finance/tuition, item: "Lab materials fee", field: Due, question: "When is it due?", text: "Find the lab materials fee on your account."}
-  - {id: A03, type: lookup, page: campus-life/clubs, item: "Robotics Society", field: Meets, question: "When does it meet?", text: "You want to join the Robotics Society."}
-  - {id: A04, type: lookup, page: services/library, item: "Short loan books", field: Loan period, question: "What is the loan period?", text: "Find the rules for short loan books."}
-  - {id: A05, type: extreme, page: campus-life/housing, field: Monthly rent, mode: min, text: "Which university residence has the lowest monthly rent?"}
-  - {id: A06, type: lookup, page: registration/transcripts, item: "Electronic transcript", field: Fee, question: "How much does it cost?", text: "You need an electronic transcript for a job application."}
-  - {id: A07, type: lookup, page: account/inbox, item: "Scholarship results", field: Received, question: "When was it received?", text: "Find the message about scholarship results."}
-  - {id: A08, type: lookup, page: academics/exams, item: "HCI Final", field: Venue, question: "Where is it held?", text: "Find your HCI final exam."}
-  - {id: A09, type: extreme, page: finance/scholarships, field: Value, mode: max, text: "Which open scholarship is worth the most?"}
-  - {id: A10, type: lookup, page: services/it-help, item: "Wi-Fi problems", field: Contact, question: "How do you contact them?", text: "Your Wi-Fi isn't working. Find out how to get IT help."}
-  - {id: A11, type: compare, field: Amount, mode: max, items: [{page: finance/tuition, item: "Field trip deposit"}, {page: finance/refunds, item: "Accommodation deposit"}], text: "Which is more: the field trip deposit you owe, or the accommodation deposit being refunded to you?"}
-  - {id: A12, type: compare, field: Capacity, mode: max, items: [{page: campus-life/events, item: "Careers Fair"}, {page: campus-life/events, item: "Winter Concert"}], text: "Which event can hold more people: the Careers Fair or the Winter Concert?"}
+S1:
+  - {id: S1-1, type: lookup, page: campus-life/dining, item: "Noodle Bar", field: Opening hours, question: "What are its opening hours?", text: "You want dinner at the Noodle Bar."}
+  - {id: S1-2, type: extreme, page: academics/grades, field: Weight, mode: min, text: "Which assessment has the lowest weighting in your grade breakdown?"}
+  - {id: S1-3, type: lookup, page: services/counselling, item: "Drop-in wellbeing chat", field: Availability, question: "When is it available?", text: "Find the drop-in wellbeing chat."}
+  - {id: S1-4, type: compare, field: Fee, mode: max, items: [{page: registration/transcripts, item: "International transcript", field: Fee}, {page: finance/refunds, item: "Accommodation deposit", field: Amount}], text: "Which is more: the fee for an international transcript, or the accommodation deposit being refunded to you?"}
 
-B:
-  - {id: B01, type: lookup, page: academics/advising, item: "Dr. Grace Liu", field: Office, question: "Which office is it?", text: "Find the office of advisor Dr. Grace Liu."}
-  - {id: B02, type: lookup, page: finance/payments, item: "Library fine", field: Date, question: "When was it paid?", text: "Find the payment for your library fine."}
-  - {id: B03, type: lookup, page: campus-life/dining, item: "Noodle Bar", field: Opening hours, question: "What are its opening hours?", text: "You want dinner at the Noodle Bar."}
-  - {id: B04, type: lookup, page: services/health, item: "Physiotherapy", field: Booking, question: "How do you book it?", text: "Find out about physiotherapy at the Health Centre."}
-  - {id: B05, type: extreme, page: registration/course-catalog, field: Seats left, mode: max, text: "Which spring course has the most seats left?"}
-  - {id: B06, type: lookup, page: registration/academic-calendar, item: "Reading week", field: Date, question: "When does it start?", text: "Find when reading week is."}
-  - {id: B07, type: lookup, page: account/notifications, item: "Password expires soon", field: Priority, question: "What priority does it have?", text: "Find the notification about your password expiring."}
-  - {id: B08, type: lookup, page: academics/timetable, item: "Statistics Tutorial", field: Room, question: "Which room is it in?", text: "Find your Statistics Tutorial."}
-  - {id: B09, type: extreme, page: finance/statements, field: Balance, mode: max, text: "Which statement shows the largest balance owed?"}
-  - {id: B10, type: lookup, page: services/counselling, item: "Drop-in wellbeing chat", field: Availability, question: "When is it available?", text: "Find the drop-in wellbeing chat."}
-  - {id: B11, type: compare, field: Amount, mode: max, items: [{page: finance/tuition, item: "Student union fee"}, {page: finance/refunds, item: "Parking permit"}], text: "Which is more: the student union fee you owe, or the parking permit refund?"}
-  - {id: B12, type: compare, field: Members, mode: max, items: [{page: campus-life/clubs, item: "Film Club"}, {page: campus-life/clubs, item: "Hiking Club"}], text: "Which club has more members: the Film Club or the Hiking Club?"}
+S2:
+  - {id: S2-1, type: lookup, page: academics/advising, item: "Dr. Grace Liu", field: Office, question: "Which office is it?", text: "Find the office of advisor Dr. Grace Liu."}
+  - {id: S2-2, type: extreme, page: finance/scholarships, field: Value, mode: max, text: "Which open scholarship is worth the most?"}
+  - {id: S2-3, type: lookup, page: services/library, item: "Short loan books", field: Loan period, question: "What is the loan period?", text: "Find the rules for short loan books."}
+  - {id: S2-4, type: compare, field: Balance, mode: min, items: [{page: finance/statements, item: "Statement 0921", field: Balance}, {page: campus-life/housing, item: "The Quarry", field: Monthly rent}], text: "Which is less: the balance owed on Statement 0921, or the monthly rent at The Quarry?"}
+
+S3:
+  - {id: S3-1, type: lookup, page: services/health, item: "Physiotherapy", field: Booking, question: "How do you book it?", text: "Find out about physiotherapy at the Health Centre."}
+  - {id: S3-2, type: extreme, page: campus-life/events, field: Capacity, mode: min, text: "Which campus event has the smallest capacity?"}
+  - {id: S3-3, type: lookup, page: account/notifications, item: "Password expires soon", field: Priority, question: "What priority does it have?", text: "Find the notification about your password expiring."}
+  - {id: S3-4, type: compare, field: Fee, mode: min, items: [{page: registration/transcripts, item: "Electronic transcript", field: Fee}, {page: finance/payments, item: "Library fine", field: Amount}], text: "Which costs less: an electronic transcript, or the library fine you paid?"}
+
+S4:
+  - {id: S4-1, type: lookup, page: academics/my-courses, item: "Statistics for Science", field: Instructor, question: "Who is the instructor?", text: "Find your Statistics for Science course."}
+  - {id: S4-2, type: extreme, page: registration/course-catalog, field: Seats left, mode: max, text: "Which spring course has the most seats left?"}
+  - {id: S4-3, type: lookup, page: campus-life/clubs, item: "Robotics Society", field: Meets, question: "When does it meet?", text: "You want to join the Robotics Society."}
+  - {id: S4-4, type: compare, field: Amount, mode: max, items: [{page: finance/tuition, item: "Student union fee"}, {page: finance/refunds, item: "Parking permit"}], text: "Which is more: the student union fee you owe, or the parking permit refund?"}
+
+S5:
+  - {id: S5-1, type: lookup, page: academics/timetable, item: "Statistics Tutorial", field: Room, question: "Which room is it in?", text: "Find your Statistics Tutorial."}
+  - {id: S5-2, type: extreme, page: campus-life/housing, field: Monthly rent, mode: min, text: "Which university residence has the lowest monthly rent?"}
+  - {id: S5-3, type: lookup, page: account/inbox, item: "Scholarship results", field: Received, question: "When was it received?", text: "Find the message about scholarship results."}
+  - {id: S5-4, type: compare, field: Fee, mode: max, items: [{page: registration/transcripts, item: "Certified copy", field: Fee}, {page: finance/tuition, item: "Student union fee", field: Amount}], text: "Which costs more: a certified copy of your transcript, or the student union fee?"}
+
+S6:
+  - {id: S6-1, type: lookup, page: registration/academic-calendar, item: "Reading week", field: Date, question: "When does it start?", text: "Find when reading week is."}
+  - {id: S6-2, type: extreme, page: finance/statements, field: Balance, mode: max, text: "Which statement shows the largest balance owed?"}
+  - {id: S6-3, type: lookup, page: services/it-help, item: "Wi-Fi problems", field: Contact, question: "How do you contact them?", text: "Your Wi-Fi isn't working. Find out how to get IT help."}
+  - {id: S6-4, type: compare, field: Amount, mode: max, items: [{page: finance/tuition, item: "Field trip deposit"}, {page: finance/refunds, item: "Accommodation deposit"}], text: "Which is more: the field trip deposit you owe, or the accommodation deposit being refunded to you?"}
+
+P:
+  - {id: P1, type: lookup, page: academics/exams, item: "HCI Final", field: Venue, question: "Where is it held?", text: "Find your HCI final exam."}
+  - {id: P2, type: lookup, page: finance/financial-aid, item: "Hardship Fund", field: Max amount, question: "What is the most it can give?", text: "Find the Hardship Fund."}
+  - {id: P3, type: lookup, page: registration/waitlists, item: "Interaction Design Studio", field: Position, question: "What is your position?", text: "Find your waitlist place for Interaction Design Studio."}
+  - {id: P4, type: lookup, page: campus-life/sports, item: "Swimming pool", field: Booking, question: "How do you book it?", text: "You want to go swimming. Find the swimming pool."}
+  - {id: P5, type: lookup, page: services/careers, item: "CV review", field: Location, question: "Where does it take place?", text: "You want your CV checked. Find the CV review service."}
+  - {id: P6, type: lookup, page: account/documents, item: "Enrolment certificate", field: Size, question: "How large is the file?", text: "Find your enrolment certificate."}
