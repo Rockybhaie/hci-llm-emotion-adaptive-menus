@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Experimental Trial Platform: Emotion-Adaptive Menus (draft)</title>
+<style>
+  @page { size: A4; margin: 18mm 17mm 18mm 17mm; }
+  :root { --accent:#2F4FB8; --soft:#EEF2FE; --ink:#1C2230; --muted:#5B6476; --g1:#1F4E8C; --g2:#E07A1F; --g3:#6D4CE0; --line:#d5d9e3; }
+  * { box-sizing: border-box; }
+  body { font: 10.4pt/1.45 "Segoe UI", Calibri, Arial, sans-serif; color: var(--ink); margin: 0; }
+  h1, h2, h3 { font-family: "Segoe UI", Calibri, Arial, sans-serif; color: var(--ink); break-after: avoid; }
+  h2 { font-size: 16pt; margin: 20pt 0 6pt; counter-increment: sec; counter-reset: sub; }
+  h2::before { content: counter(sec) "  "; color: var(--accent); }
+  h2.nonum { counter-increment: none; } h2.nonum::before { content: ''; }
+  h3 { font-size: 12pt; margin: 12pt 0 4pt; counter-increment: sub; }
+  h3::before { content: counter(sec) "." counter(sub) "  "; color: var(--accent); }
+  body { counter-reset: sec; }
+  p { margin: 4pt 0 6pt; }
+  .kicker { text-align: center; color: var(--accent); font-weight: 700; font-size: 9pt; letter-spacing: .06em; }
+  .title { text-align: center; font-size: 25pt; font-weight: 700; margin: 4pt 0 2pt; }
+  .subtitle { text-align: center; color: var(--muted); font-size: 12.5pt; margin: 0 0 8pt; }
+  .byline { text-align: center; font-size: 9.5pt; margin-bottom: 10pt; }
+  .draft { display: inline-block; background: #fff4d6; border: 1px solid #e8c766; color: #7a5b00; font-size: 8.5pt; padding: 1pt 7pt; border-radius: 9pt; margin-left: 6pt; }
+  .box { background: var(--soft); border: 1px solid var(--accent); border-radius: 6pt; padding: 8pt 11pt; margin: 8pt 0; break-inside: avoid; }
+  .box > b.t { display: block; color: var(--accent); margin-bottom: 3pt; }
+  table { border-collapse: collapse; width: 100%; font-size: 9.2pt; margin: 6pt 0 4pt; }
+  th, td { text-align: left; padding: 3.5pt 6pt; vertical-align: top; }
+  thead th { border-top: 1.4pt solid var(--ink); border-bottom: .7pt solid var(--ink); }
+  tbody tr:last-child td { border-bottom: 1.4pt solid var(--ink); }
+  tbody tr:nth-child(even) td { background: #f6f7fb; }
+  table, figure { break-inside: avoid; }
+  caption, figcaption { color: var(--muted); font-size: 8.8pt; text-align: left; margin: 3pt 0 8pt; }
+  figcaption b, caption b { color: var(--accent); }
+  code, .cmd { font-family: Consolas, "Cascadia Mono", monospace; font-size: 9pt; background: #f1f3f8; padding: 0 3pt; border-radius: 3pt; }
+  pre { font: 8.8pt/1.45 Consolas, "Cascadia Mono", monospace; background: #f1f3f8; border-left: 3pt solid var(--accent); padding: 7pt 10pt; margin: 6pt 0; white-space: pre-wrap; break-inside: avoid; }
+  .g1 { color: var(--g1); font-weight: 700; } .g2 { color: var(--g2); font-weight: 700; } .g3 { color: var(--g3); font-weight: 700; }
+  .grid { display: grid; gap: 6pt; }
+  .grid.c3 { grid-template-columns: repeat(3, 1fr); } .grid.c2 { grid-template-columns: repeat(2, 1fr); }
+  .shot { border: .5pt solid #bbb; width: 100%; display: block; }
+  .shot.h { max-height: 3.3cm; object-fit: cover; object-position: top left; }
+  .sub { font-size: 8.3pt; color: var(--muted); margin-top: 2pt; }
+  ul, ol { margin: 3pt 0 6pt; padding-left: 16pt; } li { margin: 1.5pt 0; }
+  .flow { display: flex; align-items: stretch; gap: 0; margin: 8pt 0; break-inside: avoid; }
+  .flow .n { flex: 1; border: 1pt solid var(--accent); background: var(--soft); border-radius: 4pt; padding: 5pt 5pt; font-size: 8.3pt; text-align: center; }
+  .flow .n small { display: block; color: var(--muted); font-size: 7.4pt; }
+  .flow .n.gray { border-color: #8a93a6; background: #f2f3f6; }
+  .flow .n.v { border-color: var(--g3); background: #f1edfd; }
+  .flow .a { align-self: center; color: var(--muted); padding: 0 2pt; font-size: 9pt; }
+  .layer { border: 1pt solid var(--accent); border-radius: 5pt; margin: 5pt 0; padding: 6pt 9pt; background: #fff; break-inside: avoid; }
+  .layer h4 { margin: 0 0 3pt; font-size: 10pt; color: var(--accent); }
+  .layer .row { display: flex; gap: 5pt; flex-wrap: wrap; }
+  .layer .chip { border: .7pt solid var(--line); background: #f6f7fb; border-radius: 4pt; padding: 2.5pt 7pt; font-size: 8.5pt; }
+  .arrow { text-align: center; color: var(--muted); font-size: 11pt; line-height: 1; }
+  .page-break { break-before: page; }
+  .cols2 { column-count: 2; column-gap: 14pt; font-size: 8pt; }
+  .cols2 p { break-inside: avoid; margin: 0 0 3pt; text-indent: -10pt; padding-left: 10pt; }
+</style>
+</head>
+<body>
+
+<div class="kicker">HCI PROJECT &bull; LLM-BASED, EMOTION-ADAPTIVE MENUS</div>
+<div class="title">Experimental Trial Platform</div>
+<div class="subtitle">Phase 1: emotion-labelled data collection with nine menus <span class="draft">DRAFT</span></div>
+<div class="byline">[Group members] &nbsp;&bull;&nbsp; Prepared for [Instructor name] &nbsp;&bull;&nbsp; November 2026</div>
+
+<div class="box"><b class="t">At a glance</b>
+We have built a complete, automated platform for running our trials. With one command it <b>induces an emotion</b>, has the
+participant <b>complete navigation tasks on a website using three different menus</b>, records <b>behaviour</b> (clicks, hovers,
+mouse movement, delays, backtracking), task <b>performance</b> and <b>self-report</b> on one shared clock, and saves everything as
+<b>model-ready, labelled data</b>. Menu is an experimental factor: every participant uses all three menus of their group under each of
+their two emotions. Sensors (GSR, EEG, eye tracking) are handled outside this app.
+<table style="margin-top:6pt"><tbody>
+<tr><td><b>3</b> groups, <b>6</b> emotions, <b>9</b> menus</td><td><b>3</b> purpose-built websites</td><td><b>90</b> tasks (6 matched subsets + practice, per site)</td></tr>
+<tr><td>&asymp; <b>50 min</b> per participant</td><td><b>1 command</b> per session</td><td><b>11</b> output files per participant</td></tr>
+</tbody></table></div>
+
+<h2>Study design</h2>
+<p>Each group has two contrasting emotions and its own website. Every participant experiences <b>both</b> emotions of their group
+(within-subjects), so each person serves as their own baseline. This matters for a sample of 5&ndash;6 participants per group.</p>
+
+<table><thead><tr><th>Group</th><th>Emotions</th><th>Contrast in the signals</th><th>Website (our own build)</th></tr></thead><tbody>
+<tr><td class="g1">G1</td><td>Stress vs. Calm</td><td>high vs. low arousal, negative vs. positive</td><td>University student portal</td></tr>
+<tr><td class="g2">G2</td><td>Frustration vs. Boredom</td><td>high vs. low arousal</td><td>Online store</td></tr>
+<tr><td class="g3">G3</td><td>Joy vs. Sadness</td><td>positive vs. negative valence</td><td>Discussion forum</td></tr>
+</tbody></table>
+<caption><b>Table 1.</b> Groups, emotions and websites. The two emotions of each group are reliable to induce in a lab and clearly separable in physiological signals.</caption>
+
+<h3>Nine menus, three per group</h3>
+<p>Menu is the second factor. A menu belongs to one group only. The three menus per group differ in whether items are hidden or visible,
+how many steps reach a page, and which input is used (hover, click, typing). All nine navigate the same 6&times;6 pages with the same content;
+only the way of navigating changes. The full specification is in <span class="cmd">MENUS.md</span>.</p>
+
+<table><thead><tr><th>Group</th><th>ID</th><th>Menu</th><th>Fastest path</th></tr></thead><tbody>
+<tr><td class="g1">G1</td><td>M1</td><td>Hover drop-down: point at a section, a list of its pages opens (the phase-1 menu, unchanged)</td><td>1 click (hover, click)</td></tr>
+<tr><td></td><td>M2</td><td>Persistent sidebar tree: sections always on the left, pages unfold in place</td><td>2 clicks; 1 if the section is already open</td></tr>
+<tr><td></td><td>M3</td><td>Hub and spoke: a hub of six large section cards, then the section's pages</td><td>2 clicks</td></tr>
+<tr><td class="g2">G2</td><td>M4</td><td>Click drop-down with large (56&nbsp;px) targets; no hover</td><td>2 clicks</td></tr>
+<tr><td></td><td>M5</td><td>Mega-menu: one &ldquo;All pages&rdquo; button opens a full-width panel showing every section as a column</td><td>2 clicks</td></tr>
+<tr><td></td><td>M6</td><td>Search-first: type-ahead over all 36 page titles, Browse as a fallback</td><td>1&ndash;2 clicks and typing</td></tr>
+<tr><td class="g3">G3</td><td>M7</td><td>Hamburger drawer with drill-down: a section list, then that section's pages with a Back button</td><td>3 clicks</td></tr>
+<tr><td></td><td>M8</td><td>Radial (pie) menu: six sectors, then a ring of six pages</td><td>2 clicks</td></tr>
+<tr><td></td><td>M9</td><td>Always-visible two-row tab bar: sections on top, pages below</td><td>2 clicks; 1 if the section is already selected</td></tr>
+</tbody></table>
+<caption><b>Table 2.</b> The nine menus. Every item is at least 40&nbsp;px tall unless a larger target is the design idea (M3, M4).</caption>
+
+<figure><div class="grid c3">
+  <div><img class="shot h" src="figures/menu_M1.png"><div class="sub">M1 hover drop-down</div></div>
+  <div><img class="shot h" src="figures/menu_M2.png"><div class="sub">M2 sidebar tree</div></div>
+  <div><img class="shot h" src="figures/menu_M3.png"><div class="sub">M3 hub and spoke</div></div>
+  <div><img class="shot h" src="figures/menu_M4.png"><div class="sub">M4 click drop-down</div></div>
+  <div><img class="shot h" src="figures/menu_M5.png"><div class="sub">M5 mega-menu</div></div>
+  <div><img class="shot h" src="figures/menu_M6.png"><div class="sub">M6 search-first</div></div>
+  <div><img class="shot h" src="figures/menu_M7.png"><div class="sub">M7 hamburger drawer</div></div>
+  <div><img class="shot h" src="figures/menu_M8.png"><div class="sub">M8 radial menu</div></div>
+  <div><img class="shot h" src="figures/menu_M9.png"><div class="sub">M9 two-row tabs</div></div>
+</div><figcaption><b>Figure 1.</b> The nine menus, each in an open state (screenshots from <span class="cmd">python run.py preview</span>).</figcaption></figure>
+
+<h3>Counterbalancing</h3>
+<p>The participant number <i>n</i> within a group decides everything. With <i>k</i> = (<i>n</i>&minus;1) mod 6, the emotion order uses
+<i>k</i> mod 2 and the menu order uses row <i>k</i> mod 3 of a cyclic Latin square. Because 2 and 3 are coprime,
+<b>six participants (P01&ndash;P06) contain each of the six combinations exactly once</b>. Both emotion blocks of one participant use the same menu order.
+Each group has six matched task subsets (S1&ndash;S6); the cell (emotion, menu) with index <i>c</i> = 3&middot;emotion + menu gets subset
+(<i>c</i> + <i>k</i>) mod 6, so every participant meets every subset once and, across six participants, every cell meets every subset once.
+The plan is printed when the session starts and saved with the data.</p>
+
+<h2>How the app works: the frame</h2>
+<p>The app runs on the researcher's PC. A small local web server holds the session state and writes the data; the participant sees only a
+fullscreen browser. The browser has two layers: a <b>shell</b> (consent, inductions, ratings, ranking) and, inside it, the <b>site engine</b>
+(one of the three websites with one of the nine menus). Menus are plug-ins; the induced faults and the logging are written once in the engine.</p>
+
+<div class="layer"><h4>Researcher: terminal</h4><div class="row"><span class="chip">python run.py &hellip;</span><span class="chip">plan + live status (phase, emotion, sub-block, menu)</span><span class="chip">warnings</span></div></div>
+<div class="arrow">&darr;</div>
+<div class="layer"><h4>Python back end (hci/)</h4><div class="row">
+  <span class="chip"><b>cli.py</b> commands</span><span class="chip"><b>config.py</b> loads YAML</span><span class="chip"><b>counterbalance.py</b> plan from participant no.</span>
+  <span class="chip"><b>session.py</b> step model, timing, resume</span><span class="chip"><b>tasks.py</b> subsets, computed answers</span><span class="chip"><b>menus.py</b> click models</span>
+  <span class="chip"><b>server.py</b> local API</span><span class="chip"><b>storage.py</b> row-by-row CSV</span><span class="chip"><b>export.py</b> merged.csv, summaries</span><span class="chip"><b>preflight.py</b> checks</span></div></div>
+<div class="arrow">&darr; &uarr; &nbsp;(local HTTP, one master clock)</div>
+<div class="layer"><h4>Participant browser (fullscreen)</h4>
+  <div class="row"><span class="chip"><b>Shell</b> web/shell: consent &bull; demographics &bull; rest &bull; inductions &bull; boosters &bull; ratings &bull; menu ranking &bull; task screen &bull; debrief</span></div>
+  <div style="margin-top:4pt" class="layer"><h4>Site engine (web/core), inside the task screen</h4><div class="row">
+    <span class="chip">3 websites (6&times;6 pages)</span><span class="chip">event logging (click, hover, select, backtrack, &hellip;)</span><span class="chip">on-screen rectangles of every menu item</span>
+    <span class="chip">fault layer (lag, ignored click, menu closes, session expired)</span></div>
+    <div style="margin-top:4pt" class="row"><span class="chip"><b>Menu plug-ins</b> M1 &middot; M2 &middot; M3 &middot; M4 &middot; M5 &middot; M6 &middot; M7 &middot; M8 &middot; M9</span></div></div></div>
+<div class="arrow">&darr;</div>
+<div class="layer"><h4>Output: data/&lt;group&gt;/&lt;participant&gt;/</h4><div class="row">
+  <span class="chip">markers</span><span class="chip">events</span><span class="chip">mouse</span><span class="chip">aoi</span><span class="chip">tasks</span><span class="chip">subblocks</span><span class="chip">questionnaires</span><span class="chip">merged (10 Hz)</span><span class="chip">plan, session</span></div></div>
+<caption><b>Figure 2.</b> The structure of the app. The sensor adapter code in <span class="cmd">hci/sensors/</span> is kept in the repository but is unused: sensors are out of scope for this app.</caption>
+
+<h3>The menu plug-in</h3>
+<p>Every menu implements the same small interface and is looked up by its ID in a registry. The engine gives each menu the same tools, so all nine
+log <b>identical events</b>: <i>menu_open, menu_close, item_hover_enter, item_hover_exit, item_select</i>, <i>search_query</i> (M6 only), <i>backtrack</i>
+(navigating to a page already visited in the same task, Home included) and page change. Every menu item exposes its bounding rectangle, so gaze
+recorded elsewhere can later be mapped to items. All menus are fully usable with the mouse alone. The faults that induce frustration are not
+implemented per menu; the engine applies them identically, and every fault has an equivalent in each menu (for example &ldquo;the menu closes by itself&rdquo;
+collapses the tree, closes the drawer or dismisses the radial menu).</p>
+
+<h2>The session: parts and sub-parts</h2>
+<p>One session is about 50 minutes and runs by itself. The participant follows on-screen instructions; the researcher only watches.</p>
+
+<div class="flow">
+  <div class="n gray">Consent &amp; demographics<small>4 min</small></div><div class="a">&rsaquo;</div>
+  <div class="n gray">Resting baseline<small>3 min</small></div><div class="a">&rsaquo;</div>
+  <div class="n gray">Menu practice<small>4 min</small></div><div class="a">&rsaquo;</div>
+  <div class="n">Emotion block 1<small>&asymp; 14 min</small></div><div class="a">&rsaquo;</div>
+  <div class="n gray">Neutral video<small>2.5 min</small></div><div class="a">&rsaquo;</div>
+  <div class="n v">Emotion block 2<small>&asymp; 14 min</small></div><div class="a">&rsaquo;</div>
+  <div class="n gray">Debrief<small>2 min</small></div>
+</div>
+<caption><b>Figure 3.</b> One session. A mood rating follows the baseline, every induction, every sub-block and the neutral video.</caption>
+
+<table><thead><tr><th style="width:21%">Part</th><th>Sub-parts and what the participant does</th><th style="width:19%">Why it is there</th></tr></thead><tbody>
+<tr><td><b>1. Welcome and consent</b></td><td>Welcome screen, consent (tells them layouts will vary and some activities may affect how they feel; emotions are not named), demographics, comfort questions.</td><td>Ethics; covariates (age, handedness, caffeine, site familiarity).</td></tr>
+<tr><td><b>2. Baseline</b></td><td>3 minutes of rest on a fixation cross, then the first mood rating.</td><td>The neutral reference for every later comparison.</td></tr>
+<tr><td><b>3. Menu practice</b></td><td>For each of the three menus: a short neutral introduction and two practice tasks (from a separate pool). Rows are labelled <i>practice</i> and excluded from analysis.</td><td>Learning a menu is not measured as emotion-related behaviour.</td></tr>
+<tr><td><b>4. Emotion block</b> (twice)</td>
+ <td><ol style="margin:0">
+  <li><b>Induction</b> (&asymp; 3 min) puts the participant in the emotion (Section 5), then a mood rating.</li>
+  <li><b>Sub-block 1</b>: menu A, exactly 4 tasks (per-task limit 40&nbsp;s; 30&nbsp;s with a visible countdown under stress), then a mood rating and a 3-item workload rating.</li>
+  <li><b>Booster</b> (30&ndash;45&nbsp;s) re-cues the emotion; <b>sub-block 2</b>: menu B, 4 tasks, ratings.</li>
+  <li><b>Booster</b>; <b>sub-block 3</b>: menu C, 4 tasks, ratings.</li>
+  <li><b>Menu ranking</b>: the participant ranks the three menus they just used.</li></ol></td>
+ <td>The induction fades over the tasks, so boosters renew it. The same three menus appear under each emotion for within-person comparison.</td></tr>
+<tr><td><b>5. Neutral video</b></td><td>2.5 minutes of a neutral video, then a mood rating.</td><td>Resets the mood before the second emotion.</td></tr>
+<tr><td><b>6. Second emotion block</b></td><td>The same as part 4 with the group's other emotion and the same menu order; a different task subset in each cell.</td><td>Within-subjects design.</td></tr>
+<tr><td><b>7. Debrief</b></td><td>Explains every manipulation, including the deliberate faults and the fixed &ldquo;ranking&rdquo;; asks again for permission to use the data (declining deletes it). Verbal wellbeing check by the researcher.</td><td>Ethics.</td></tr>
+</tbody></table>
+<caption><b>Table 3.</b> Parts of a session. 34 steps in total, each saved with its start and end marker.</caption>
+
+<h3>Why the participant is asked how they feel</h3>
+<p>Sensors measure physiology (arousal, attention), not named emotions, and several emotions look alike in the signals. The ratings therefore serve as
+<b>labels</b> for training the model, as a <b>manipulation check</b> that each induction worked, and as a way to <b>validate the sensors</b>. After training,
+the adaptive system uses only behaviour, so ratings are needed only during data collection.</p>
+
+<h2>Emotion induction</h2>
+<p>Each emotion is induced once at the start of its block with a published method. Where the literature supports it, a manipulation <i>during</i> the tasks keeps the
+state going, because film clips alone fade within minutes [11]. Because one block now spans three menus (about 14 minutes), a short <b>booster</b> re-cues the state before
+sub-blocks 2 and 3. In-task manipulations and boosters are identical for all three menus.</p>
+
+<table><thead><tr><th>Emotion</th><th>Induction (&asymp; 3 min, once per block)</th><th>During the tasks</th><th>Basis</th></tr></thead><tbody>
+<tr><td>Stress</td><td>Timed mental arithmetic (MIST) with a rigged &ldquo;you vs. average&rdquo; bar and negative feedback</td><td>Visible 30&nbsp;s countdown per task; &ldquo;compared with other participants&rdquo; banner</td><td>[3], [8]</td></tr>
+<tr><td>Calm</td><td>Nature video with paced breathing (6 breaths/min)</td><td>&ldquo;No rush&rdquo; instructions, no timer</td><td>[10], [9]</td></tr>
+<tr><td>Frustration</td><td>Goal and incentive framing (&ldquo;fastest participants get a bonus&rdquo;)</td><td>Deliberate faults: slow pages, ignored clicks, menus closing, &ldquo;session expired&rdquo;</td><td>[1], [2]</td></tr>
+<tr><td>Boredom</td><td>Copying dull technical text</td><td>Every task uses the same repetitive template</td><td>[12], [4]</td></tr>
+<tr><td>Joy</td><td>Wordless comedy clip (<i>Mr. Bean</i>, &ldquo;The Exam&rdquo;)</td><td>Surprise &ldquo;Bonus unlocked!&rdquo; rewards</td><td>[5], [6]</td></tr>
+<tr><td>Sadness</td><td>Sad film scene (<i>Taare Zameen Par</i>), then quiet reflection</td><td>None</td><td>[5]</td></tr>
+</tbody></table>
+<caption><b>Table 4.</b> Induction methods. The film clips follow Gross and Levenson's method [5] with culturally familiar clips. Every induction is checked against the participant's own mood ratings.</caption>
+
+<table><thead><tr><th>Emotion</th><th>Booster (before sub-blocks 2 and 3)</th><th>Length</th></tr></thead><tbody>
+<tr><td>Stress</td><td>One more arithmetic round</td><td>30 s</td></tr>
+<tr><td>Calm</td><td>Paced breathing over the nature clips</td><td>40 s</td></tr>
+<tr><td>Frustration</td><td>Speed-bonus reminder with a fixed, unfavourable &ldquo;current ranking&rdquo; (15th of 18, then 16th; revealed as fixed at the debrief)</td><td>up to 30 s</td></tr>
+<tr><td>Boredom</td><td>More of the dull copying task</td><td>30 s</td></tr>
+<tr><td>Joy</td><td>Short amusing clip (to be supplied; a marked placeholder is shown until then)</td><td>up to 35 s</td></tr>
+<tr><td>Sadness</td><td>Short sad clip (to be supplied), then quiet reflection</td><td>up to 45 s</td></tr>
+</tbody></table>
+<caption><b>Table 5.</b> Boosters. This is also the source of the &ldquo;bonus for speed&rdquo; message participants see between menus in the frustration block. Only the two clips need media files.</caption>
+
+<figure><div class="grid c3">
+  <div><img class="shot h" src="figures/mist.png"><div class="sub">Stress: MIST arithmetic</div></div>
+  <div><img class="shot h" src="figures/breathing.jpg"><div class="sub">Calm: nature and breathing</div></div>
+  <div><img class="shot h" src="figures/copying.png"><div class="sub">Boredom: copying task</div></div>
+  <div><img class="shot h" src="figures/briefing.png"><div class="sub">Frustration: speed-bonus framing</div></div>
+  <div><img class="shot h" src="figures/film.png"><div class="sub">Joy and sadness: film clip</div></div>
+  <div><img class="shot h" src="figures/neutral.png"><div class="sub">Neutral video between blocks</div></div>
+</div><figcaption><b>Figure 4.</b> Induction screens as the participant sees them.</figcaption></figure>
+
+<h2>Websites and tasks</h2>
+<p>The three websites are our own builds on one shared engine, so menu behaviour, timing and logging are identical across groups. Their structure is modelled on the
+realistic sites of the WebArena benchmark [14]: <b>6 sections &times; 6 pages</b>, with the <b>menu as the only way to navigate</b>. Every page change in the data is therefore a menu
+interaction, which is what phase 2 will adapt. Page content is identical in every menu.</p>
+
+<figure><div class="grid c3">
+  <div><img class="shot" src="figures/site_portal.png"><div class="sub">G1: student portal</div></div>
+  <div><img class="shot" src="figures/site_store.png"><div class="sub">G2: online store</div></div>
+  <div><img class="shot" src="figures/site_forum.png"><div class="sub">G3: discussion forum</div></div>
+</div><figcaption><b>Figure 5.</b> The three websites (fictional brands; no internet needed).</figcaption></figure>
+
+<table><thead><tr><th>Task type</th><th>Example (G2 store)</th><th>What it measures</th></tr></thead><tbody>
+<tr><td>Look-up (2 per subset)</td><td>&ldquo;Find the Trailblazer 2-Person Tent. What is its price?&rdquo;</td><td>Finding the right menu path from an item name</td></tr>
+<tr><td>Extreme (1 per subset)</td><td>&ldquo;Find the cheapest vitamin or supplement.&rdquo;</td><td>Navigating, then scanning a page</td></tr>
+<tr><td>Compare (1 per subset, two pages)</td><td>&ldquo;Which is cheaper: the Yoga Mat or the Vitamin C Serum?&rdquo;</td><td>Navigating across several pages</td></tr>
+</tbody></table>
+<caption><b>Table 6.</b> Each website has six task subsets (S1&ndash;S6) of four tasks, one per emotion &times; menu cell, plus a practice pool of six look-ups on pages no subset uses. Answers are multiple choice and are computed from the site content. 28 tasks are new (14 experimental, 14 practice); the rest are the phase-1 tasks, re-split.</caption>
+<p>Every sub-block has <b>exactly four tasks</b> with a per-task time limit, so a sub-block takes at most about 2.7 minutes and each emotion &times; menu cell yields the same amount of data. Subsets are matched for task type and number of target pages, so any subset can be used with any of the group's menus; automated tests complete every task in every real menu.</p>
+
+<figure><div class="grid c2">
+  <div><img class="shot" src="figures/task_stress.png"><div class="sub">Stress: countdown, recording banner, answer panel</div></div>
+  <div><img class="shot" src="figures/task_frustration.png"><div class="sub">Frustration: page lag and a fake &ldquo;session expired&rdquo;</div></div>
+</div><figcaption><b>Figure 6.</b> The task screen: the task bar sits above the live website.</figcaption></figure>
+
+<h2>Measures and data</h2>
+<table><thead><tr><th>Source</th><th>What is recorded</th></tr></thead><tbody>
+<tr><td>Behaviour</td><td>Every click, menu open/close, item hover (with dwell time), item select, search query, page view, backtrack, mouse movement (up to 60 Hz), and the on-screen rectangle of every menu item</td></tr>
+<tr><td>Performance</td><td>Per task: outcome, time, clicks, wrong pages, backtracks, mouse path length, and the fewest clicks and steps that menu needs; per sub-block: all of this aggregated</td></tr>
+<tr><td>Self-report</td><td>SAM valence/arousal/dominance [13], six emotion ratings after every induction and sub-block, a three-item NASA-TLX [7] (mental demand, effort, frustration) after every sub-block, and a menu preference ranking</td></tr>
+</tbody></table>
+<caption><b>Table 7.</b> Measures. All streams share one master clock so recordings made elsewhere can be aligned.</caption>
+
+<p>Each participant gets one folder, for example <span class="cmd">data/G2/P04/</span>. Every row of markers, events, tasks, questionnaires and merged carries the same six labels
+(<i>phase, emotion_block, emotion, sub_block, menu_id, menu_type</i>); practice rows are labelled so they can be excluded.</p>
+<table><thead><tr><th>File</th><th>Contents</th></tr></thead><tbody>
+<tr><td>session.json, plan.json, plan.txt</td><td>Group, counterbalancing plan, screen, progress, status</td></tr>
+<tr><td>markers.csv</td><td>Start and end of every step; the labels</td></tr>
+<tr><td>events.csv, mouse.csv, aoi.csv</td><td>Raw behaviour: events, cursor positions, menu-item rectangles</td></tr>
+<tr><td>tasks.csv</td><td>One row per task with outcome and the measures above</td></tr>
+<tr><td><b>subblocks.csv</b></td><td>One row per sub-block: aggregated task measures, six mood ratings, workload, menu preference</td></tr>
+<tr><td>questionnaires.csv</td><td>Consent, demographics, SAM, mood, workload, ranking, debrief choice</td></tr>
+<tr><td><b>merged.csv</b></td><td>The model-ready 10 Hz behavioural timeline: phase, emotion, menu, sub-block, task, mouse position, menu state, event counts</td></tr>
+</tbody></table>
+<caption><b>Table 8.</b> Output per participant. <span class="cmd">python run.py export</span> stacks all sessions into <span class="cmd">data/exports/</span>.</caption>
+
+<h2>How to run the app</h2>
+
+<h3>Set up (once)</h3>
+<pre>cd "C:\Users\A-ONE LAPTOP\HCI\hci-llm-emotion-adaptive-menus"
+pip install -r requirements.txt</pre>
+<p>Requirements: Python, Microsoft Edge, and the stimulus videos for a real session (see below).</p>
+
+<h3>Commands</h3>
+<table><thead><tr><th style="width:46%">Command</th><th>What it does</th></tr></thead><tbody>
+<tr><td><span class="cmd">python run.py preview --group G2 --menu M5</span></td><td>Opens a group's website with one menu, nothing recorded. Use G1 for M1&ndash;M3, G2 for M4&ndash;M6, G3 for M7&ndash;M9. Add <span class="cmd">--debug</span> to show the logged events.</td></tr>
+<tr><td><span class="cmd">python run.py check</span></td><td>Checks config, every task answer in every menu, videos, browser and the planned session length; must say &ldquo;Ready.&rdquo; (<span class="cmd">--dry-run</span> turns missing videos into warnings)</td></tr>
+<tr><td><span class="cmd">python run.py session --group G2 --participant P04</span></td><td>Runs a real session (about 50 min) in a fullscreen browser and saves to <span class="cmd">data/G2/P04/</span></td></tr>
+<tr><td><span class="cmd">&hellip; --fast --pilot --windowed</span></td><td>Demo run: timings about 12&times; shorter, saved in <span class="cmd">data/_pilot/</span>, missing videos shown as placeholders</td></tr>
+<tr><td><span class="cmd">&hellip; --resume</span></td><td>Continues an interrupted session from the sub-block it was in</td></tr>
+<tr><td><span class="cmd">python tools/participant_bot.py --group G2 --participant P03 --headed</span></td><td>A scripted participant completes a whole session in a visible Edge window (hands-off demo)</td></tr>
+<tr><td><span class="cmd">python run.py export</span></td><td>Combines all participants into <span class="cmd">data/exports/</span></td></tr>
+<tr><td><span class="cmd">python run.py clean-pilot</span></td><td>Deletes the demo data</td></tr>
+<tr><td><span class="cmd">python -m pytest</span></td><td>All 145 automated tests (about 13 minutes; 6 skipped by default)</td></tr>
+</tbody></table>
+<caption><b>Table 9.</b> Commands. To stop a session press Ctrl+C in the terminal or Ctrl+Shift+Q in the browser; both save what was recorded.</caption>
+
+<div class="box"><b class="t">To demonstrate the app (no videos needed)</b>
+<ol style="margin:0">
+<li><span class="cmd">python run.py preview --group G1 --menu M1</span> &hellip; repeat for any of the nine menus, to show how each one works.</li>
+<li><span class="cmd">python run.py session --group G2 --participant P99 --fast --pilot --windowed</span> shows a whole session in about 5 minutes.</li>
+<li><span class="cmd">python run.py export</span>, then open <span class="cmd">data/_pilot/G2/P99/tasks.csv</span>, <span class="cmd">subblocks.csv</span> and <span class="cmd">merged.csv</span> to show the data.</li>
+<li><span class="cmd">python run.py clean-pilot</span> to clear the demo data.</li>
+</ol></div>
+
+<h3>Researcher workflow for a real participant</h3>
+<ol>
+<li><b>Before (10 min):</b> check the room, run <span class="cmd">python run.py check</span>, preview the group's three menus if anything changed, prepare the paper consent form.</li>
+<li><b>Arrival (10 min):</b> welcome, consent, seat them 60&ndash;65&nbsp;cm from the screen, attach any sensors (separate protocol). Do not mention the specific emotions.</li>
+<li><b>Session (about 50 min):</b> run the session command; the terminal shows the plan and the current step. Sit out of view, note any warnings.</li>
+<li><b>Afterwards (5&ndash;10 min):</b> verbal debrief and wellbeing check; fill in the session sheet; run <span class="cmd">python run.py export</span> at the end of the day.</li>
+</ol>
+<p>The terminal shows the plan at the start, for example:</p>
+<pre>scheme 1 of 6: emotion order stress &gt; calm, menu order M1 &gt; M2 &gt; M3
+  block 1 (stress): 1: M1/S1   2: M2/S2   3: M3/S3
+  block 2 (calm):   1: M1/S4   2: M2/S5   3: M3/S6</pre>
+<p><b>Built-in safeguards:</b> a session will not start if a required video is missing (the two optional booster clips only warn); every data row is saved immediately; an interrupted session resumes at sub-block level, with the interrupted attempt kept and flagged; a participant ID can never be reused; participants never see emotion names or correct answers; faults occur equally often in every menu.</p>
+
+<h3>Planned session length</h3>
+<table><thead><tr><th>Group</th><th>Typical</th><th>Worst case (every task times out)</th></tr></thead><tbody>
+<tr><td class="g1">G1</td><td>about 45 min</td><td>about 48 min</td></tr>
+<tr><td class="g2">G2</td><td>about 42 min</td><td>about 47 min</td></tr>
+<tr><td class="g3">G3</td><td>about 49 min</td><td>about 54 min (the two film clips are long)</td></tr>
+</tbody></table>
+<caption><b>Table 10.</b> Planned from the configured timings and assumed reading speeds. No group exceeds 55 minutes in the model, but the human-paced parts are modelled, not measured: time one real participant in the pilot.</caption>
+
+<h2>Ethics</h2>
+<ul>
+<li>Participants sign a consent form that says, in general terms, that some activities are designed to influence how they feel, and that the layouts vary.</li>
+<li>The on-screen debrief explains exactly which manipulations they experienced (for example that the lag was deliberate and that the &ldquo;ranking&rdquo; was fixed) and asks again for permission to use their data.</li>
+<li>If the participant declines, at the start or at the debrief, <b>their data is deleted automatically</b>.</li>
+<li>Inductions are brief and mild, and the researcher gives a verbal wellbeing check at the end.</li>
+</ul>
+
+<h2>Status and next steps</h2>
+<table><thead><tr><th>Item</th><th>Status</th></tr></thead><tbody>
+<tr><td>Websites, tasks, inductions, questionnaires, debrief (all three groups)</td><td class="g1">Done</td></tr>
+<tr><td>Nine menus, practice, sub-blocks, boosters, menu ranking, per-sub-block summary</td><td class="g1">Done</td></tr>
+<tr><td>Six full dry runs (3 groups &times; 2 participant numbers) with a scripted participant in a real browser; 145 automated tests including every task in every real menu</td><td class="g1">Passed</td></tr>
+<tr><td>Videos: nature, neutral, amusement, sadness (installed on the lab machine, not in the repository)</td><td class="g2">Check on the lab PC</td></tr>
+<tr><td>Two optional booster clips for G3 (joy and sadness; placeholders until supplied)</td><td class="g2">Next</td></tr>
+<tr><td>Consent-form details (contacts, ethics number); review the nine menus with the preview command</td><td class="g2">Next</td></tr>
+<tr><td>Ethics approval; recruit 5&ndash;6 participants per group (15&ndash;18 in total)</td><td class="g2">Next</td></tr>
+<tr><td>Sensors (GSR, EEG, eye tracking): recorded outside this app, aligned through the master clock</td><td class="g2">Separate</td></tr>
+<tr><td>Phase 2: train the emotion model (transformer) and build the adaptive menus</td><td style="color:var(--muted);font-weight:700">Later</td></tr>
+</tbody></table>
+
+<h2 class="nonum">References</h2>
+<div class="cols2">
+<p>[1] I. Ceaparu, J. Lazar, K. Bessiere, J. Robinson, B. Shneiderman. Determining causes and severity of end-user frustration. <i>Int. J. Human-Computer Interaction</i>, 17(3):333&ndash;356, 2004.</p>
+<p>[2] J. Scheirer, R. Fernandez, J. Klein, R. W. Picard. Frustrating the user on purpose. <i>Interacting with Computers</i>, 14(2):93&ndash;118, 2002.</p>
+<p>[3] K. Dedovic et al. The Montreal Imaging Stress Task. <i>J. Psychiatry &amp; Neuroscience</i>, 30(5):319&ndash;325, 2005.</p>
+<p>[4] A. Markey, A. Chin, E. M. Vanepps, G. Loewenstein. Identifying a reliable boredom induction. <i>Perceptual and Motor Skills</i>, 119(1):237&ndash;253, 2014.</p>
+<p>[5] J. J. Gross, R. W. Levenson. Emotion elicitation using films. <i>Cognition and Emotion</i>, 9(1):87&ndash;108, 1995.</p>
+<p>[6] A. M. Isen, P. F. Levin. Effect of feeling good on helping: Cookies and kindness. <i>J. Pers. Soc. Psychology</i>, 21(3):384&ndash;388, 1972.</p>
+<p>[7] S. G. Hart, L. E. Staveland. Development of NASA-TLX. <i>Advances in Psychology</i>, 52:139&ndash;183, 1988.</p>
+<p>[8] C. Kirschbaum, K. M. Pirke, D. H. Hellhammer. The &ldquo;Trier Social Stress Test&rdquo;. <i>Neuropsychobiology</i>, 28(1&ndash;2):76&ndash;81, 1993.</p>
+<p>[9] P. M. Lehrer, R. Gevirtz. Heart rate variability biofeedback: How and why does it work? <i>Frontiers in Psychology</i>, 5:756, 2014.</p>
+<p>[10] R. S. Ulrich et al. Stress recovery during exposure to natural and urban environments. <i>J. Environmental Psychology</i>, 11(3):201&ndash;230, 1991.</p>
+<p>[11] R. Westermann, K. Spies, G. Stahl, F. W. Hesse. Relative effectiveness and validity of mood induction procedures: A meta-analysis. <i>European J. Social Psychology</i>, 26(4):557&ndash;580, 1996.</p>
+<p>[12] W. A. P. van Tilburg, E. R. Igou. On boredom: Lack of challenge and meaning as distinct boredom experiences. <i>Motivation and Emotion</i>, 36(2):181&ndash;194, 2012.</p>
+<p>[13] M. M. Bradley, P. J. Lang. Measuring emotion: The Self-Assessment Manikin and the semantic differential. <i>J. Behav. Ther. Exp. Psychiatry</i>, 25(1):49&ndash;59, 1994.</p>
+<p>[14] S. Zhou et al. WebArena: A realistic web environment for building autonomous agents. In <i>Proc. ICLR</i>, 2024.</p>
+</div>
+
+<div class="page-break"></div>
+<h2 class="nonum">Appendix: participant screens</h2>
+<figure><div class="grid c2">
+  <div><img class="shot" src="figures/welcome.png"><div class="sub">Welcome</div></div>
+  <div><img class="shot" src="figures/consent.png"><div class="sub">On-screen consent</div></div>
+  <div><img class="shot" src="figures/rest.png"><div class="sub">Resting baseline (fixation cross)</div></div>
+  <div><img class="shot" src="figures/sam.png"><div class="sub">Mood rating: Self-Assessment Manikin</div></div>
+  <div><img class="shot" src="figures/emotions.png"><div class="sub">Mood rating: six emotions (order shuffled)</div></div>
+  <div><img class="shot" src="figures/tlx.png"><div class="sub">Workload rating (three items after each sub-block)</div></div>
+  <div><img class="shot" src="figures/debrief.png"><div class="sub">Debrief, with the option to withdraw</div></div>
+</div><figcaption><b>Figure 7.</b> The remaining screens of a session.</figcaption></figure>
+
+</body>
+</html>
