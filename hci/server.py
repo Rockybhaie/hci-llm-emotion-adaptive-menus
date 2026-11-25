@@ -141,7 +141,7 @@ def create_app(session=None, cfg=None):
         if session is not None:
             return JSONResponse({"error": "not available during a session"}, status_code=404)
         c = cfg
-        return {"looks": [{"id": k, **v} for k, v in c.study["looks"].items()], "portal": c.study["portal"],
+        return {"looks": [{"id": k, **v} for k, v in c.study["looks"].items()], "app": c.study["app"],
                 "queries": [content.validate(q, c.looks) for q in c.queries]}
 
     # -- misc --------------------------------------------------------------------------------------

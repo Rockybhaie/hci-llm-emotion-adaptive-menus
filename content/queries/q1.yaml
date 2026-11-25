@@ -1,6 +1,6 @@
 id: q1
 type: comparison
-subject: Computer Science
+subject: Machine learning
 query: List the different machine learning models used for data analysis.
 provenance:
   generated_by: Claude (Anthropic), model claude-opus-5-5, from the study plan in this repository

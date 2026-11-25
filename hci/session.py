@@ -90,7 +90,7 @@ class Session:
         st = self.cfg.study
         t = lambda key: self.cfg.timing(key, self.fast)
         steps = [
-            dict(type="consent", phase="consent", params={"title": st["study_title"], "portal": st["portal"]}),
+            dict(type="consent", phase="consent", params={"title": st["study_title"], "app": st["app"]}),
             dict(type="demographics", phase="demographics", params={}),
         ]
         if "eye_tracker" in self.sensor_plan:
@@ -101,7 +101,7 @@ class Session:
             steps.append(dict(type="query", phase="query", query_id=q, params={
                 "position": i + 1, "total": len(order), "first": i == 0,
                 "query": content.client_view(q, self.cfg.looks), "start_look": self.plan["start_looks"][q],
-                "looks": self._looks_meta(), "portal": st["portal"], "pilot": self.pilot,
+                "looks": self._looks_meta(), "app": st["app"], "pilot": self.pilot,
                 "read_min": t("read_min"), "generating": t("generating"), "first_tip": t("first_tip"),
                 "prompt": self.cfg.adaptation["prompt"], "poll_ms": self.cfg.adaptation["poll_ms"]}))
         steps += [dict(type="final", phase="final", params={"looks": self._looks_meta()}),

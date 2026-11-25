@@ -1,18 +1,19 @@
 # The five study queries
 
-A student asks the AI study assistant in the Northfield University student portal five questions. They come from
-**five different subjects** and are **five different kinds of question**, so the data shows how people react to different
-presentations across topics, not just to one subject.
+A student asks **Arrow**, an AI chat-assistant app (sidebar with chats, a conversation thread and a message box), five
+questions. Each is a **different kind of question** on a light, everyday topic, so the data shows how people react to
+different presentations, not just to one kind of answer.
 
-| # | Subject | Query | Kind of question | What the answer naturally contains |
+| # | Topic | Query | Kind of question | What the answer naturally contains |
 |---|---|---|---|---|
-| Q1 | Computer Science | *List the different machine learning models used for data analysis.* (the instructor's example) | **Comparison** | decision tree, table, cards |
-| Q2 | Biology | *How does the human heart pump blood?* | **Concept** (how something works) | cycle diagram, steps, analogy |
-| Q3 | Economics | *Why do prices go up when demand rises?* | **Cause and effect** | supply and demand chart, flow, worked example |
+| Q1 | Machine learning | *List the different machine learning models used for data analysis.* (the instructor's example) | **Comparison** | decision tree, table, cards |
+| Q2 | Web & networks | *What happens when I type a website address into my browser?* | **Concept** (how something works) | flow diagram, steps, timing chart, analogy |
+| Q3 | Computer systems | *Why does my computer slow down when I open too many apps?* | **Cause and effect** | memory chart, cause-effect flow, worked example |
 | Q4 | Study skills | *How should I prepare for my final exams in 2 weeks?* | **Plan** | timeline, steps, schedule table |
 | Q5 | Grades | *How do I calculate my GPA?* | **Calculation** | formula, worked example table, bar chart |
 
-Q4 and Q5 are real worries for most students, so they are also likely to produce genuine emotional reactions.
+Q2 and Q3 are light computing questions everyone meets in daily life; Q4 and Q5 are real student worries, so they are
+also likely to produce genuine emotional reactions.
 
 ## Six looks per answer
 

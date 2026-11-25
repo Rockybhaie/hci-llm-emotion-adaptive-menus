@@ -1,7 +1,7 @@
 id: q2
 type: concept
-subject: Biology
-query: How does the human heart pump blood?
+subject: Web & networks
+query: What happens when I type a website address into my browser?
 provenance:
   generated_by: Claude (Anthropic), model claude-opus-5-5, from the study plan in this repository
   generated_on: "2026-11-25"
@@ -9,82 +9,78 @@ provenance:
   status: draft
 
 quiz:
-  question: Which chamber of the heart pumps oxygen-rich blood out to the whole body?
-  options: [Right atrium, Right ventricle, Left atrium, Left ventricle]
-  answer: Left ventricle
+  question: What does DNS do when you type a website address?
+  options: [Finds the IP address of the website's server, Stores your passwords, Makes your Wi-Fi faster, Draws the page on your screen]
+  answer: Finds the IP address of the website's server
 
 looks:
   text:
-    - {type: heading, text: How the heart pumps blood}
-    - {type: paragraph, text: "The heart is a muscle about the size of a fist with **four chambers**: two upper chambers (the **atria**) that receive blood, and two lower chambers (the **ventricles**) that pump it out."}
-    - {type: paragraph, text: "It is really **two pumps side by side**. The right side receives used, oxygen-poor blood from the body and pumps it to the **lungs**, where it picks up oxygen. The left side receives this oxygen-rich blood from the lungs and pumps it out to the **whole body**."}
-    - {type: paragraph, text: "Each heartbeat starts with an electrical signal from the heart's natural pacemaker (the **SA node**). The atria squeeze first and fill the ventricles; then the ventricles squeeze hard and push blood out. **Valves** between the chambers work like one-way doors, so blood never flows backwards."}
-    - {type: paragraph, text: "At rest the heart beats about **70 times a minute** and pumps about **5 litres** of blood per minute. The **left ventricle** has the thickest wall because it has to push blood all the way around the body."}
+    - {type: heading, text: From a web address to a web page}
+    - {type: paragraph, text: "Computers on the internet find each other with numbers called **IP addresses** (for example 142.250.180.14), not with names like example.com. So the first thing your browser does is ask a **DNS server**, the internet's address book, which IP address belongs to that name."}
+    - {type: paragraph, text: "With the IP address, the browser **connects** to the website's server. With https, the two also agree on a secret key so that nobody in between can read what they send."}
+    - {type: paragraph, text: "The browser then sends a **request** (\"please send me this page\") and the server sends back a **response**: the page's HTML, plus a status code such as 200 (OK) or 404 (not found)."}
+    - {type: paragraph, text: "Finally the browser **renders** the page. It reads the HTML, fetches the images, styles (CSS) and scripts it mentions, and draws everything on your screen. All of this usually takes less than a second."}
 
   visual:
-    - {type: heading, text: One full trip through the heart}
+    - {type: heading, text: The journey of one web page}
     - type: diagram
-      kind: cycle
-      center: Blood's loop
-      nodes: [Body, Right atrium, Right ventricle, Lungs, Left atrium, Left ventricle]
-      caption: "Right side → lungs to pick up oxygen. Left side → body to deliver it. Then the loop starts again."
+      kind: flow
+      nodes: [You type the address, DNS finds the IP address, Browser connects to the server, Server sends the page, Browser draws it]
     - type: chart
       kind: bar
-      title: Blood pumped per minute
-      categories: [Resting, Walking, Running]
-      values: [5, 10, 20]
-      y_label: Litres per minute
-      highlight: 0
-    - {type: callout, tone: note, title: Valves, text: "Four valves act as one-way doors, so blood only ever moves forward around this loop."}
-
-  steps:
-    - {type: heading, text: One heartbeat, step by step}
-    - type: steps
-      items:
-        - {title: Blood comes back from the body, text: "Oxygen-poor blood enters the **right atrium**."}
-        - {title: To the lungs, text: "The **right ventricle** pumps it to the lungs, where it drops carbon dioxide and picks up **oxygen**."}
-        - {title: Back to the heart, text: "Oxygen-rich blood returns to the **left atrium**."}
-        - {title: Out to the body, text: "The **left ventricle**, the strongest chamber, pumps it out through the aorta to the whole body."}
-        - {title: Repeat, text: "An electrical signal from the **SA node** starts every beat, about 70 times a minute at rest. **Valves** stop blood flowing backwards."}
-
-  example:
-    - {type: heading, text: Follow one red blood cell}
-    - type: example
-      title: "A blood cell starts in your toe, low on oxygen"
-      setup: "It has just delivered its oxygen to the muscles in your foot."
-      steps:
-        - "It travels up a vein and enters the **right atrium**, then drops into the **right ventricle**."
-        - "One squeeze sends it to the **lungs**. There it releases carbon dioxide and picks up fresh **oxygen**."
-        - "It flows back into the **left atrium**, then the **left ventricle**."
-        - "A powerful squeeze pushes it into the aorta and back out to the body, maybe to your brain this time."
-      result: "The whole trip takes about **one minute**."
-    - type: example
-      title: "How much blood is that?"
-      steps:
-        - "Each beat pushes out about **70 ml** of blood."
-        - "At **70 beats** a minute: 70 × 70 ml = 4,900 ml."
-      result: "About **5 litres per minute**, roughly all the blood in your body, every minute."
-
-  summary:
-    - {type: heading, text: The heart at a glance}
-    - type: table
-      columns: [Part, Side, What it does]
-      rows:
-        - [Right atrium, Right, Receives oxygen-poor blood from the body]
-        - [Right ventricle, Right, Pumps that blood to the lungs]
-        - [Left atrium, Left, Receives oxygen-rich blood from the lungs]
-        - [Left ventricle, Left, "Pumps blood to the whole body (thickest wall)"]
-        - [Valves, Both, "One-way doors: stop blood flowing backwards"]
-        - [SA node, Right atrium, "Natural pacemaker: starts every beat"]
-    - {type: callout, tone: tip, title: In one sentence, text: "Right side to the lungs, left side to the body, about 70 beats and 5 litres a minute at rest."}
-
-  simple:
-    - {type: heading, text: "The heart is a delivery hub"}
-    - {type: callout, tone: analogy, title: Two delivery vans, text: "Picture a delivery hub with two vans. One van takes empty boxes to the warehouse (the lungs) to be filled with oxygen. The other van takes the full boxes out to every house in town (your body)."}
+      title: "Where the time goes (example page, milliseconds)"
+      categories: [DNS lookup, Connect, Request + response, Drawing the page]
+      values: [20, 40, 120, 200]
+      y_label: Milliseconds
     - type: cards
       items:
-        - {title: The hub, text: "= your heart"}
-        - {title: The warehouse, text: "= your lungs, where blood is filled with oxygen"}
-        - {title: The houses, text: "= the rest of your body, which uses the oxygen"}
-        - {title: One-way doors, text: "= valves, so nothing goes back the wrong way"}
-    - {type: paragraph, text: "The hub never closes: it sends out both vans about 70 times every minute, your whole life."}
+        - {title: DNS, text: "The internet's address book: name → IP address"}
+        - {title: Server, text: "The computer that stores the website"}
+        - {title: HTTP(S), text: "The language for asking for and sending pages"}
+
+  steps:
+    - {type: heading, text: What happens in 5 steps}
+    - type: steps
+      items:
+        - {title: You type the address, text: "For example **example.com**, and press Enter."}
+        - {title: DNS lookup, text: "The browser asks a **DNS server** for the site's **IP address**, the number computers use to find each other."}
+        - {title: Connect, text: "The browser connects to the server at that IP address. With **https** the connection is encrypted."}
+        - {title: Request and response, text: "The browser asks for the page; the server replies with the **HTML** and a status code (200 = OK, 404 = not found)."}
+        - {title: Render, text: "The browser fetches the images, CSS and scripts and **draws** the page."}
+
+  example:
+    - {type: heading, text: "Example: opening www.example.com"}
+    - type: example
+      title: "What your browser does, in order"
+      steps:
+        - "DNS: \"Where is www.example.com?\" → an IP address, for example **93.184.215.14**."
+        - "Connect: the browser opens a secure connection to 93.184.215.14."
+        - "Request: \"GET / please\" → Response: **200 OK** + the HTML page."
+        - "The HTML mentions a logo and a style sheet, so the browser asks for those too."
+        - "The browser puts it all together and shows the page."
+      result: "Total time: about **0.4 seconds**, and most of it is spent sending the page and drawing it."
+    - {type: callout, tone: note, title: "And a 404?", text: "If you mistype the page name, DNS still finds the server, but the server answers **404 Not Found**."}
+
+  summary:
+    - {type: heading, text: Loading a web page at a glance}
+    - type: table
+      columns: [Step, Who does it, What happens]
+      rows:
+        - [DNS lookup, Browser + DNS server, The website's name is turned into an IP address]
+        - [Connect, Browser + web server, "A (secure, with https) connection is opened"]
+        - [Request, Browser, Asks for the page]
+        - [Response, Web server, "Sends the HTML and a status code (200, 404, ...)"]
+        - [Render, Browser, "Fetches images, CSS and scripts and draws the page"]
+    - {type: callout, tone: tip, title: In one sentence, text: "Name → IP address → connect → ask for the page → draw it."}
+
+  simple:
+    - {type: heading, text: "Like ordering food from a restaurant"}
+    - {type: callout, tone: analogy, title: The phone book and the restaurant, text: "You know the restaurant's name but not its number, so you look it up in a phone book. Then you call, place your order, the food is delivered, and you put it on the table."}
+    - type: cards
+      items:
+        - {title: Looking up the number, text: "= DNS finding the IP address"}
+        - {title: Calling the restaurant, text: "= connecting to the server"}
+        - {title: Placing your order, text: "= the browser's request"}
+        - {title: The delivery, text: "= the server's response"}
+        - {title: Setting the table, text: "= the browser drawing the page"}
+    - {type: paragraph, text: "Your browser does all of this for you, usually in less than a second."}

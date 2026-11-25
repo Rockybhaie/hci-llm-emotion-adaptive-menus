@@ -19,7 +19,7 @@ numbers keep the design balanced. The plan is printed in the terminal when the s
 
 1. Seat the participant about an arm's length from the laptop, face centred in the webcam, light on their face.
 2. Optional: sign the paper consent form ([consent-form.md](consent-form.md)). The on-screen consent is the minimum.
-3. Do not explain that answers change with their expression; say: *"You'll use a study assistant in a university portal.
+3. Do not explain that answers change with their expression; say: *"You'll use an AI chat assistant called Arrow.
    Everything is explained on screen."*
 
 ## Run the session (~14 min)

@@ -1,7 +1,7 @@
 # Emotion-Adaptive Generative UI: Study App
 
-The data-collection app for **runtime emotion-adaptive Generative UI**. A student asks a study assistant in a university
-learning portal five questions. Each answer is shown in one of six "looks" (paragraphs, visual, step by step, worked example,
+The data-collection app for **runtime emotion-adaptive Generative UI**. A student asks an AI chat assistant ("Arrow") five
+questions. Each answer is shown in one of six "looks" (paragraphs, visual, step by step, worked example,
 summary, simple). While the student reads, a webcam model estimates their facial emotion; when they look confused or unhappy
 for a few seconds, **the answer switches to another look by itself** and asks *"Keep this view or go back?"*. The student can
 also press **Show this differently** at any time. After each answer they rate it and answer one quiz question.
@@ -11,7 +11,7 @@ Everything is saved on one clock as model-ready data: **which look, under which 
 
 | | |
 |---|---|
-| Website | Northfield University student portal (5 courses) with a built-in AI study assistant |
+| Website | **Arrow**, an AI chat-assistant app (chat thread, sidebar, message box) |
 | Queries | 5 from 5 subjects, one per question type: comparison · concept · cause and effect · plan · calculation ([docs/queries.md](docs/queries.md)) |
 | Looks | 6 per answer, AI-generated once and frozen ([content/queries/](content/queries/)) |
 | Sensors | laptop webcam only: facial emotion (our YOLO11n model) + gaze (EyeTrax) |
@@ -87,7 +87,7 @@ config/             genui.yaml (study, looks, switch rule, timings) · devices.y
 content/queries/    the 5 answers × 6 looks (block format) + quiz questions
 hci/                Python: session, adaptation rule, content, server, sensors (hci/sensors/webcam.py), export
 web/shell/          participant screens (consent, calibration, query, ratings, debrief)
-web/portal/         the learning-portal page · web/genui/ the block renderer · web/review/ the content review page
+web/app/            the Arrow chat app · web/genui/ the block renderer · web/review/ the content review page
 models/             the emotion model (ONNX) and the MediaPipe face model
 docs/               queries, protocol, setup, data dictionary, consent, debrief
 tests/              automated tests

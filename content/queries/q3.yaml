@@ -1,7 +1,7 @@
 id: q3
 type: cause-effect
-subject: Economics
-query: Why do prices go up when demand rises?
+subject: Computer systems
+query: Why does my computer slow down when I open too many apps?
 provenance:
   generated_by: Claude (Anthropic), model claude-opus-5-5, from the study plan in this repository
   generated_on: "2026-11-25"
@@ -9,83 +9,77 @@ provenance:
   status: draft
 
 quiz:
-  question: "Demand for a product rises, but the amount for sale stays the same. At the old price, what appears?"
-  options: [A shortage, A surplus, A lower price, No change at all]
-  answer: A shortage
+  question: "When your computer's RAM is full, where does it move data, making everything slower?"
+  options: [To the storage drive (SSD or hard disk), To the internet, To the graphics card, It deletes the data]
+  answer: To the storage drive (SSD or hard disk)
 
 looks:
   text:
-    - {type: heading, text: Why prices rise when demand rises}
-    - {type: paragraph, text: "A price comes from two sides. **Demand** is how much buyers want to buy at each price: the cheaper it is, the more they want. **Supply** is how much sellers are willing to sell: the higher the price, the more they offer."}
-    - {type: paragraph, text: "The market settles where the two meet, the **equilibrium price**. At that price, the amount buyers want equals the amount sellers offer."}
-    - {type: paragraph, text: "When demand rises (more people want the product), buyers now want more than sellers are offering at the old price. This gap is a **shortage**. Buyers compete for the limited goods, and sellers notice they can charge more."}
-    - {type: paragraph, text: "As the price rises, some buyers drop out and sellers are encouraged to supply more. The shortage closes at a **new, higher equilibrium price**, where slightly more is sold than before."}
+    - {type: heading, text: Why too many apps slow your computer down}
+    - {type: paragraph, text: "Apps that are open keep their data in **RAM** (memory), the computer's very fast short-term workspace. Every app and every browser tab takes some of it, and a typical laptop has only 8 or 16 GB."}
+    - {type: paragraph, text: "When RAM is full, the computer does not stop. It moves data that has not been used for a while to the **storage drive** (SSD or hard disk). This is called **swapping** (or using virtual memory / the page file)."}
+    - {type: paragraph, text: "The problem is that the drive is **much slower than RAM**. When you switch back to an app whose data was moved out, the computer first has to bring it back from the drive. That waiting is the lag and freezing you notice."}
+    - {type: paragraph, text: "The fix is to keep RAM from filling up: close apps and tabs you are not using, restart now and then, or add more RAM."}
 
   visual:
-    - {type: heading, text: Supply and demand on one chart}
+    - {type: heading, text: When memory runs out}
     - type: chart
       kind: line
-      title: "Umbrellas: a rainy day pushes demand to the right"
-      x_label: Umbrellas sold per day
-      y_label: Price ($)
+      title: "Example: a laptop with 8 GB of RAM"
+      x_label: Apps and tabs open
+      y_label: Memory needed (GB)
       series:
-        - name: Supply
-          points: [[10, 1], [20, 2], [30, 3], [40, 4], [50, 5], [60, 6], [70, 7], [80, 8], [90, 9]]
-        - name: Demand before
+        - name: Memory the apps need
+          points: [[1, 1.5], [2, 2.8], [3, 4.0], [4, 5.3], [5, 6.5], [6, 7.8], [7, 9.0], [8, 10.2]]
+        - name: RAM in the laptop (8 GB)
           dashed: true
-          points: [[10, 9], [20, 8], [30, 7], [40, 6], [50, 5], [60, 4], [70, 3], [80, 2], [90, 1]]
-        - name: Demand after rain
-          points: [[10, 11], [20, 10], [30, 9], [40, 8], [50, 7], [60, 6], [70, 5], [80, 4], [90, 3]]
+          points: [[1, 8], [8, 8]]
     - type: diagram
       kind: flow
-      nodes: [Demand rises, Shortage at the old price, Buyers compete, Price rises, New balance]
-    - {type: callout, tone: note, title: Reading the chart, text: "Lines cross at the price where buyers and sellers agree: **$5** before the rain, **$6** after."}
+      nodes: [Many apps open, RAM is full, Data moved to the drive, Switching apps waits for it, Computer feels slow]
+    - {type: callout, tone: note, title: Reading the chart, text: "Once the blue line passes the 8 GB line (about 6 apps here), data starts moving to the slow drive."}
 
   steps:
-    - {type: heading, text: What happens when demand rises}
+    - {type: heading, text: How the slowdown happens}
     - type: steps
       items:
-        - {title: The market is balanced, text: "At the **equilibrium price**, buyers want exactly as much as sellers offer."}
-        - {title: Demand rises, text: "Something makes more people want the product: rain, a trend, a holiday."}
-        - {title: A shortage appears, text: "At the old price, buyers now want **more** than is available."}
-        - {title: The price goes up, text: "Buyers compete for the limited stock, so sellers can charge more."}
-        - {title: A new balance, text: "The higher price makes some buyers drop out and sellers supply more, until the two match at a **higher equilibrium price**."}
+        - {title: Each app uses memory, text: "Every open app and browser tab keeps its data in **RAM**, the fast workspace."}
+        - {title: RAM fills up, text: "With many apps open, together they need more memory than the laptop has."}
+        - {title: Data is moved to the drive, text: "The computer moves less-used data to the **SSD or hard disk** (**swapping**)."}
+        - {title: Waiting to bring it back, text: "When you switch to that app, its data must come back from the much slower drive."}
+        - {title: You notice lag, text: "Apps freeze or respond slowly. Fix: **close unused apps and tabs**, restart, or add RAM."}
 
   example:
-    - {type: heading, text: The umbrella stall on a rainy day}
+    - {type: heading, text: "Sara's 8 GB laptop during exam week"}
     - type: example
-      title: "A normal sunny day"
-      setup: "At **$5**, shoppers want 50 umbrellas and the stall is happy to sell 50."
-      steps: ["Buyers want 50 = sellers offer 50"]
-      result: "The market is balanced at **$5**."
-    - type: example
-      title: "It starts to rain"
-      setup: "Suddenly, at $5, shoppers want **70** umbrellas. The stall still offers only 50 at that price."
+      title: "Adding up the memory"
+      setup: "The system itself uses about 2 GB. Sara has a browser with 20 tabs open (about 4 GB), a video call (1.5 GB), a music app (0.5 GB) and a code editor (1.5 GB)."
       steps:
-        - "Shortage = 70 − 50 = **20 umbrellas**."
-        - "Umbrellas sell out fast, so the stall raises the price."
-        - "At **$6**, shoppers want 60 and the stall is willing to sell 60."
-      result: "New balance: **$6**, with **60** umbrellas sold. Higher demand → higher price and more sold."
+        - "Total needed: 2 + 4 + 1.5 + 0.5 + 1.5 = **9.5 GB**."
+        - "Her laptop has **8 GB** of RAM, so 1.5 GB does not fit."
+        - "That 1.5 GB is moved to the SSD. Switching back to the code editor now takes a few seconds."
+        - "She closes 15 tabs she is not using: about **3 GB** freed, so the total is 6.5 GB."
+      result: "Everything fits in RAM again (6.5 GB < 8 GB), and switching between apps is instant."
 
   summary:
-    - {type: heading, text: Demand and price in one table}
+    - {type: heading, text: Slowdown cheat sheet}
     - type: table
       columns: [Term, Meaning]
       rows:
-        - [Demand, How much buyers want at each price (more when cheaper)]
-        - [Supply, How much sellers offer at each price (more when pricier)]
-        - [Equilibrium price, The price where demand equals supply]
-        - [Shortage, Buyers want more than is available at the current price]
-        - [Surplus, More is available than buyers want at the current price]
-    - {type: callout, tone: tip, title: In one sentence, text: "More demand → shortage at the old price → price rises until supply and demand match again."}
+        - [RAM, "Fast short-term memory where open apps keep their data (often 8-16 GB)"]
+        - [Storage drive, "SSD or hard disk: big and permanent, but much slower than RAM"]
+        - [Swapping, "Moving data from full RAM to the drive (virtual memory / page file)"]
+        - [The slowdown, Waiting for swapped data to come back from the drive]
+        - [The fix, "Close unused apps and tabs, restart, or add more RAM"]
+    - {type: callout, tone: tip, title: In one sentence, text: "Too many apps → RAM full → data pushed to the slow drive → waiting → lag."}
 
   simple:
-    - {type: heading, text: "Like the last slice of pizza"}
-    - {type: callout, tone: analogy, title: The pizza party, text: "Two slices of pizza are left. If only one friend is hungry, nobody cares about them. If five friends are hungry, those slices suddenly become very valuable, and someone might even offer to pay for one."}
+    - {type: heading, text: "Like a small desk"}
+    - {type: callout, tone: analogy, title: The desk and the cupboard, text: "You are working at a small desk. Each project you open takes up space. When the desk is full, you put some papers in a cupboard across the room, and every time you need them you have to walk over and get them."}
     - type: cards
       items:
-        - {title: Hungry friends, text: "= demand"}
-        - {title: Slices left, text: "= supply"}
-        - {title: More hungry friends, text: "= demand rises"}
-        - {title: People offering more, text: "= the price goes up"}
-    - {type: paragraph, text: "When many people want something and there is not enough of it, its price goes up. That is all it is."}
+        - {title: The desk, text: "= RAM: small but fast"}
+        - {title: Each project, text: "= an open app or tab"}
+        - {title: The cupboard, text: "= the storage drive: big but slow"}
+        - {title: Walking to the cupboard, text: "= the lag you notice"}
+    - {type: paragraph, text: "Close what you are not using and your desk has room again."}

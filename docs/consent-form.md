@@ -1,18 +1,18 @@
 # Participant information and consent form
 
-**Study:** Learning Portal Study
+**Study:** AI Assistant Study
 **Researchers:** [names, programme, university]
 **Supervisor:** [name, email]
 **Ethics approval:** [committee, reference number]
 
 ## What is this study about?
 
-We are studying how students use an AI study assistant in a university learning portal, and how the way an answer is
+We are studying how students use an AI chat assistant, and how the way an answer is
 presented affects understanding. The results will help design learning tools that adapt to the people using them.
 
 ## What will I do?
 
-About 15 minutes. You will ask the study assistant five questions on different subjects (for example biology or economics) and read its answers. After each answer
+About 15 minutes. You will ask the assistant five questions about computing and studying (for example how web pages load, or how to calculate a GPA) and read its answers. After each answer
 you rate it and answer one short question about it. The way an answer is shown may change while you read it.
 
 ## What is recorded?

@@ -1,19 +1,20 @@
 # Emotion-adaptive Generative UI study: everything a session needs except the sensors (devices.yaml)
 # and the answer content (content/queries/*.yaml). All durations are in seconds.
 
-study_title: Learning Portal Study        # shown to participants (deliberately neutral)
+study_title: AI Assistant Study           # shown to participants (deliberately neutral)
 
-portal:                                    # decorative: the student portal the assistant lives in
-  university: Northfield University
-  student_name: Alex Morgan
-  programme: BSc, Year 2
-  term: Autumn term
-  courses:                                 # shown in the sidebar; `subject` links a query to its course
-    - {code: CS 120,   title: Intro to Data Science,    subject: Computer Science}
-    - {code: BIO 110,  title: Human Biology,            subject: Biology}
-    - {code: ECON 101, title: Principles of Economics,  subject: Economics}
-    - {code: MATH 140, title: Statistics I,             subject: Maths}
-    - {code: ENG 105,  title: Academic Writing,         subject: Writing}
+app:                                       # decorative: the chat-assistant app the answers appear in
+  name: Arrow
+  model: Arrow 2                           # shown in the model picker in the header
+  user_name: Alex Morgan
+  plan: Student plan
+  recent_chats:                            # sidebar history (never the study queries themselves)
+    - Outline for my history essay
+    - Python list vs tuple
+    - Summarise my lecture notes
+    - Weekend trip budget
+    - Fix my CSS grid layout
+    - Email to my professor
 
 # The five queries in their canonical order (content/queries/<id>.yaml). The order a participant
 # meets them in is counterbalanced (hci/counterbalance.py).

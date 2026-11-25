@@ -1,0 +1,126 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=1.8cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage[table]{xcolor}
+\usepackage{titlesec}
+
+\definecolor{accent}{HTML}{2B4FA3}
+\definecolor{soft}{HTML}{EEF1F9}
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlist{nosep, leftmargin=1.2em}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\renewcommand{\arraystretch}{1.3}
+\pagestyle{empty}
+
+\begin{document}
+
+{\LARGE\bfseries Emotion-Adaptive Generative UI}\\[2pt]
+{\large Study queries and participant output}\\[-4pt]
+{\color{accent}\rule{\linewidth}{0.8pt}}
+
+\textbf{Setup.} A student uses \textbf{Arrow}, an AI chat-assistant app (sidebar, conversation thread, message box), and asks it
+five fixed questions. Each answer was generated once by an LLM, reviewed by the team and frozen, so every participant
+sees the same content. Every answer exists in \textbf{six looks}. A laptop webcam estimates facial emotion (our YOLO11n
+model) and gaze (EyeTrax). When the student looks negative (confused or unhappy) for 4 seconds, the answer switches to
+another look and asks \emph{``Keep this view / Go back''}. The student can also press \emph{``Show this differently''} at
+any time. One session takes about 13--15 minutes.
+
+\section{The five queries}
+The queries are five different kinds of question on light, everyday topics (mostly computing), so the data covers
+different kinds of generated UI and not just one kind of answer.
+
+\begin{center}
+\small
+\rowcolors{2}{soft}{white}
+\begin{tabularx}{\linewidth}{@{}c p{2.1cm} L p{1.9cm} L p{2.5cm}@{}}
+\toprule
+\textbf{\#} & \textbf{Topic} & \textbf{Query} & \textbf{Kind} & \textbf{What the answer contains} & \textbf{Quiz answer} \\
+\midrule
+Q1 & Machine learning & List the different machine learning models used for data analysis. \emph{(instructor's example)}
+   & Comparison & model-choice tree, comparison table, model cards & k-means clustering \\
+Q2 & Web \& networks & What happens when I type a website address into my browser?
+   & Concept & flow diagram, steps, timing chart, ``ordering food'' analogy & Finds the IP address of the website's server \\
+Q3 & Computer systems & Why does my computer slow down when I open too many apps?
+   & Cause and effect & memory (RAM) chart, cause-effect flow, worked laptop example & To the storage drive (SSD or hard disk) \\
+Q4 & Study skills & How should I prepare for my final exams in 2 weeks?
+   & Plan & 14-day timeline, steps, evidence chart (testing beats re-reading) & Testing yourself with practice questions \\
+Q5 & Grades & How do I calculate my GPA?
+   & Calculation & formula, worked semester table, quality-points chart & 3.33 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{The six looks} (the same facts, presented differently):
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}p{2.6cm} L p{2.6cm} L@{}}
+\toprule
+\textbf{Look} & \textbf{Shows} & \textbf{Look} & \textbf{Shows} \\
+\midrule
+Paragraphs & a written explanation & Worked example & a concrete example with numbers \\
+Visual & charts and diagrams & Summary & a short table or cheat sheet \\
+Step by step & numbered steps & Simple & plain words and an everyday analogy \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{Counterbalancing.} Query order follows a $5\times5$ Latin square across participants. The starting look is rotated,
+so each look starts equally often.
+
+\section{What happens in one query (about 2 minutes)}
+\begin{enumerate}
+  \item The question is pre-filled in the assistant box. The student presses \textbf{Ask} and the answer appears in its starting look.
+  \item The student reads it. If the face is negative for 4\,s, the look switches automatically (at most 2 times per
+        query, with a 15\,s gap) and the student chooses \emph{Keep} or \emph{Go back}. They can also switch it themselves.
+  \item The student presses \textbf{I'm done}, then answers: satisfaction (1--7), which look helped most (if they saw
+        more than one) and one quiz question.
+\end{enumerate}
+
+\section{Output for each participant}
+Each participant gets one folder, \texttt{data/P01/}, with these files. All files share one clock.
+
+\begin{center}
+\small
+\rowcolors{2}{soft}{white}
+\begin{tabularx}{\linewidth}{@{}p{3.6cm} L@{}}
+\toprule
+\textbf{File} & \textbf{Contents} \\
+\midrule
+\texttt{interactions.csv} & \textbf{Main result: 5 rows, one per query.} Starting look, looks seen, final look,
+   automatic and manual switches, kept/back counts, reading time and time per look, satisfaction, preferred look,
+   quiz answer and correct (0/1), and emotion during the query (mean valence and arousal, dominant emotion,
+   share of negative samples, emotion per look). \\
+\texttt{adaptations.csv} & \textbf{One row per look switch} (training data for the future agent): trigger
+   (auto/manual), emotion snapshot just \emph{before} the switch (valence, arousal, 8 emotion probabilities), from
+   look $\rightarrow$ to look, response (keep / back / no answer), response time, and that query's
+   satisfaction and quiz result. \\
+\texttt{emotion.csv} & Facial emotion about 10 times a second: 8 class probabilities, valence and arousal. \\
+\texttt{gaze.csv} & Where on the screen the student looked (webcam gaze). \\
+\texttt{aoi.csv} & On-screen rectangle of every answer block (chart, table, text\ldots), used to tell what was looked at. \\
+\texttt{looks.csv} & Every look change with its time and reason (initial, auto, manual, back). \\
+\texttt{events.csv}, \texttt{mouse.csv} & Clicks, scrolling, button presses and mouse movement. \\
+\texttt{questionnaires.csv} & Consent, age, programme, study confidence, all ratings and quiz answers, favourite
+   look and comment. \\
+\texttt{markers.csv} & Start and end time of every step and query. \\
+\texttt{merged.csv} & Everything above on one 10\,Hz timeline (query, look, emotion, gaze block, mouse). \\
+\texttt{session.json} & Session details: order, starting looks, settings, content version. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+No video is saved, only numbers. \texttt{python run.py export} combines all participants into
+\texttt{interactions\_all.csv}, \texttt{adaptations\_all.csv} and \texttt{dataset\_all.csv}.
+
+\textbf{In total:} 9 participants $\times$ 5 queries = \textbf{45 interaction rows} in the first round (later about 125
+students), plus one adaptation row for every switch. This tells us \emph{which look, under which emotion, helped the
+student or not}, which is what the Generative-UI agent will be trained on.
+
+\end{document}

@@ -1,66 +1,72 @@
-// One query in the learning portal: Ask -> answer in its starting look -> read (the look may switch when the
-// server's adaptation rule fires, or on request) -> Done -> two ratings + one quiz question.
+// One query in the "Arrow" AI chat app: the question is pre-filled in the composer -> send -> the answer appears
+// in its starting look -> read (the look may switch when the server's adaptation rule fires, or on request) ->
+// Done -> two ratings + one quiz question.
 import { renderLook } from '/genui/render.js';
 import { HCI } from '../hci.js';
 import { esc, h, icon, show, sleep } from '../ui.js';
 
-const SWATCH = ['#2b4fa3', '#2e7d5b', '#c4563e', '#a86f0a', '#7a5ba8', '#3f7f9f'];
-const MENU = [['Dashboard', 'home'], ['Calendar', 'calendar'], ['Grades', 'chart'], ['Library', 'book']];
+/** The Arrow wordmark (the team's logo): a brush stroke, "ARROW", and an arrow. Drawn in currentColor. */
+export const WORDMARK = `<svg class="ar-wordmark" viewBox="0 22 800 76" role="img" aria-label="Arrow">
+  <path d="M4 61.5C40 60 92 62.5 150 60.5" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+  <path d="M10 60C52 59.5 98 61 146 59.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".35"/>
+  <text x="166" y="88" textLength="276" lengthAdjust="spacingAndGlyphs" fill="currentColor"
+    font-family="'Segoe UI Variable Display','Segoe UI',Arial,sans-serif" font-size="84" font-weight="800">ARROW</text>
+  <path d="M462 60H736" stroke="currentColor" stroke-width="4"/>
+  <path d="M724 44 794 60 724 76 736 60Z" fill="currentColor"/></svg>`;
 
-function portal(p) {
-  const po = p.portal;
-  const courses = po.courses || [];
-  const initials = po.student_name.split(' ').map((s) => s[0]).join('');
-  const ci = courses.findIndex((c) => c.subject === p.query.subject);
-  const subjectColor = ci >= 0 ? SWATCH[ci % SWATCH.length] : '#a3a7b0';
-  const li = (label, ic, on = false) => `<li class="${on ? 'on' : ''}">${icon(ic)}${esc(label)}</li>`;
+/** The arrow on its own, for the assistant's avatar. */
+const GLYPH = '<svg class="ar-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13.5 7 21.5 12l-8 5 2.2-5Z" fill="currentColor"/></svg>';
+
+function chatApp(p) {
+  const app = p.app;
+  const initials = app.user_name.split(' ').map((s) => s[0]).join('');
+  const first = app.user_name.split(' ')[0];
   return `
-  <div class="portal">
-    <header class="pt-top">
-      <div class="pt-brand"><span class="pt-crest">${esc(po.university[0])}</span><span class="pt-wordmark">${esc(po.university)}</span></div>
-      <span class="pt-sep"></span><span class="pt-area">Student Portal</span>
-      <div class="pt-search">${icon('search')}<span>Search courses, people, pages</span><kbd>Ctrl K</kbd></div>
-      <div class="pt-user">${icon('bell')}
-        <div class="pt-me"><span class="pt-avatar">${esc(initials)}</span><span><b>${esc(po.student_name)}</b><small>${esc(po.programme || '')}</small></span></div>
-      </div>
-    </header>
-    <div class="pt-body">
-      <aside class="pt-side">
-        <div class="pt-group"><div class="pt-group-t">Menu</div><ul class="pt-nav">${MENU.map(([t, ic]) => li(t, ic)).join('')}</ul></div>
-        <div class="pt-group"><div class="pt-group-t">My courses</div><ul class="pt-nav">${courses.map((c, i) => `
-          <li><span class="pt-swatch" style="background:${SWATCH[i % SWATCH.length]}"></span><span class="pt-course-row"><b>${esc(c.code)}</b><span>${esc(c.title)}</span></span></li>`).join('')}</ul></div>
-        <div class="pt-group"><div class="pt-group-t">Tools</div><ul class="pt-nav">${li('Study assistant', 'sparkles', true)}</ul></div>
-        ${po.term ? `<div class="pt-term">${esc(po.term)}</div>` : ''}
-      </aside>
-      <main class="pt-main" id="main">
-        <section class="pt-assistant">
-          <div class="pt-crumbs">Tools ${icon('chevron')} Study assistant</div>
-          <div class="pt-head">
-            <div><h1>Study assistant</h1><p>Ask about anything in your courses or studies.</p></div>
-            <div class="pt-progress">Question <b>${p.position}</b> of ${p.total}
-              <div class="pt-pips">${Array.from({ length: p.total }, (_, i) => `<i class="${i + 1 < p.position ? 'done' : i + 1 === p.position ? 'now' : ''}"></i>`).join('')}</div></div>
-          </div>
-          <div class="pt-ask" data-aoi="ui:ask">
-            ${p.query.subject ? `<span class="pt-subject"><i style="background:${subjectColor}"></i>${esc(p.query.subject)}</span>` : ''}
-            <div class="pt-input">${esc(p.query.query)}</div>
-            <button class="btn primary" id="ask" data-log="ask">Ask</button>
-          </div>
-          <div class="pt-answer" id="answer-card" hidden>
-            <div class="pt-toolbar" id="toolbar">
-              <span class="pt-from"><span class="pt-from-i">${icon('sparkles')}</span>Assistant</span>
-              <span class="pt-look" id="look-chip"></span>
-              <span class="pt-spacer"></span>
+  <div class="ar">
+    <aside class="ar-side">
+      <div class="ar-brand">${WORDMARK}<span class="ar-side-i">${icon('sidebar')}</span></div>
+      <button class="ar-new" tabindex="-1">${icon('compose')}New chat</button>
+      <div class="ar-search">${icon('search')}Search chats</div>
+      <div class="ar-group">Today</div>
+      <ul class="ar-chats"><li class="on" id="chat-title">New chat</li></ul>
+      <div class="ar-group">Previous 7 days</div>
+      <ul class="ar-chats">${(app.recent_chats || []).map((c) => `<li>${esc(c)}</li>`).join('')}</ul>
+      <div class="ar-me"><span class="ar-avatar">${esc(initials)}</span><span><b>${esc(app.user_name)}</b><small>${esc(app.plan || '')}</small></span></div>
+    </aside>
+    <section class="ar-main">
+      <header class="ar-top">
+        <span class="ar-model">${esc(app.model || app.name)}${icon('chevron')}</span>
+        <span class="ar-progress"><span>Question <b>${p.position}</b> of ${p.total}</span>
+          <span class="ar-pips">${Array.from({ length: p.total }, (_, i) => `<i class="${i + 1 < p.position ? 'done' : i + 1 === p.position ? 'now' : ''}"></i>`).join('')}</span></span>
+      </header>
+      <main class="ar-scroll" id="main">
+        <div class="ar-thread" id="thread">
+          <div class="ar-hello" id="hello">${WORDMARK}<h1>Good to see you, ${esc(first)}</h1><p>What would you like to learn today?</p></div>
+          <div class="ar-turn" id="answer-card" hidden>
+            <div class="ar-toolbar" id="toolbar">
+              <span class="ar-who"><span class="ar-bot">${GLYPH}</span>${esc(app.name)}</span>
+              <span class="ar-look" id="look-chip"></span>
+              <span class="ar-spacer"></span>
               <button class="btn ghost" id="diff" data-log="show differently" data-aoi="ui:show-differently">${icon('refresh')}Show this differently</button>
               <button class="btn primary" id="done" data-log="done" data-aoi="ui:done" disabled>${icon('check')}I'm done</button>
             </div>
-            <div class="pt-answer-body">
-              <div id="prompt-slot"></div>
-              <div id="answer"></div>
-            </div>
+            <div id="prompt-slot"></div>
+            <div id="answer"></div>
           </div>
-        </section>
+        </div>
       </main>
-    </div>
+      <footer class="ar-dock">
+        <div class="ar-composer" data-aoi="ui:ask">
+          <div class="ar-input" id="input">${esc(p.query.query)}</div>
+          <div class="ar-composer-row">
+            ${p.query.subject ? `<span class="ar-topic">${icon('book')}${esc(p.query.subject)}</span>` : ''}
+            <span class="ar-spacer"></span>
+            <button class="ar-send" id="ask" data-log="ask" aria-label="Send">${icon('arrowUp')}</button>
+          </div>
+        </div>
+        <div class="ar-note">${esc(app.name)} gives AI-generated answers.</div>
+      </footer>
+    </section>
   </div>`;
 }
 
@@ -71,35 +77,42 @@ function lookMeta(p, id) {
 export async function query(step) {
   const p = step.params;
   const q = p.query;
-  const el = await show(portal(p), 'full');
+  const el = await show(chatApp(p), 'full');
   const $ = (s) => el.querySelector(s);
   const main = $('#main');
   HCI.ctx.look = '';
 
   const asked = new Promise((res) => $('#ask').addEventListener('click', res, { once: true }));
 
-  // ---- first-query tip ---------------------------------------------------------------------------------
+  // ---- first-query tip (above the send button) ---------------------------------------------------------
   if (p.first) {
     const r = $('#ask').getBoundingClientRect();
-    const tip = h(`<div class="pt-tip" style="width:300px;left:${Math.max(16, r.right + 12 - 300)}px;top:${r.bottom + 14}px">
-      Ask the assistant with this button. Read the answer, use <b>Show this differently</b> any time, and press <b>I'm done</b> when you have read it.</div>`);
+    const tip = h(`<div class="ar-tip" style="width:300px;left:${Math.max(16, r.right + 14 - 300)}px">
+      Send the question with this button. Read the answer, use <b>Show this differently</b> any time, and press <b>I'm done</b> when you have read it.</div>`);
     document.body.appendChild(tip);
+    tip.style.top = `${r.top - tip.offsetHeight - 14}px`;
     HCI.log({ event: 'tip_shown' });
     await Promise.race([sleep(p.first_tip * 1000), asked]);
     tip.remove();
   }
 
-  // ---- Ask -------------------------------------------------------------------------------------------
+  // ---- Ask: the question becomes a user message, the composer empties ---------------------------------
   await asked;
   $('#ask').disabled = true;
   HCI.log({ event: 'ask' });
+  $('#hello').remove();
+  $('#chat-title').textContent = q.query.length > 30 ? `${q.query.slice(0, 28)}…` : q.query;
+  const input = $('#input');
+  input.textContent = `Message ${p.app.name}`;
+  input.classList.add('empty');
   const card = $('#answer-card');
+  card.before(h(`<div class="ar-user" data-aoi="ui:question"><div class="ar-bubble">${esc(q.query)}</div></div>`));
   card.hidden = false;
-  $('#answer').innerHTML = `<div class="pt-generating"><div class="pt-generating-t"><span class="spinner"></span>Writing an answer for you…</div>
-    <div class="pt-skel w1"></div><div class="pt-skel w2"></div><div class="pt-skel w3"></div><div class="pt-skel w4"></div></div>`;
-  $('#toolbar').style.visibility = 'hidden';
+  $('#answer').innerHTML = `<div class="ar-thinking"><div class="ar-thinking-t"><span class="ar-pulse"></span>Thinking…</div>
+    <div class="ar-skel w1"></div><div class="ar-skel w2"></div><div class="ar-skel w3"></div><div class="ar-skel w4"></div></div>`;
+  $('#toolbar').classList.add('pending');
   await sleep(p.generating * 1000);
-  $('#toolbar').style.visibility = '';
+  $('#toolbar').classList.remove('pending');
 
   // ---- looks -----------------------------------------------------------------------------------------
   let current = null;
@@ -127,7 +140,7 @@ export async function query(step) {
     const ans = $('#answer');
     ans.innerHTML = '';
     ans.appendChild(renderLook(q.looks[look], look));
-    if (reason !== 'initial') main.scrollTo({ top: 0, behavior: 'smooth' });
+    if (reason !== 'initial') main.scrollTo({ top: Math.max(0, card.offsetTop - 12), behavior: 'smooth' });
     HCI.log({ event: reason === 'initial' ? 'answer_shown' : `look_${reason}`, item: look, detail: adaptationId ? { id: adaptationId } : undefined });
     HCI.post('/api/query/look', { query_id: q.id, look, reason, adaptation_id: adaptationId, t: HCI.now() });
     requestAnimationFrame(() => requestAnimationFrame(snapAoi));
