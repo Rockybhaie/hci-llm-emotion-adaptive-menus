@@ -1,70 +1,79 @@
-"""One participant's session: the step plan, live state, and everything written to disk.
+"""One participant's Generative-UI session: the step plan, live state, adaptation and everything written to disk.
 
-The browser only renders steps; the server is the source of truth for which step
-is current, what each block's condition is, and what the correct answers are.
+The browser only renders steps. The server decides which step is current, keeps the correct quiz answers,
+runs the adaptation rule on the emotion stream and writes every file.
 """
 
 import collections
+import csv
 import datetime as dt
+import hashlib
 import json
 import platform
 import random
 import shutil
 import threading
 
-from . import __version__, counterbalance, paths, sensors, tasks
+from . import __version__, adapt, content, counterbalance, paths
 from .clock import SOURCE as CLOCK_SOURCE
 from .clock import now
-from .config import ConfigError, load_site, load_tasks
-from .storage import SessionStore
+from .config import ConfigError
+from .storage import SNAPSHOT, SessionStore
 
-AROUSAL = {"high": 0.85, "low": 0.15}
-NEUTRAL_AROUSAL = 0.3
-SENSOR_SLOTS = ("eye_tracker", "gsr", "hr")
-VIDEO_EXTENSIONS = (".mp4", ".webm")
+DEFAULT_VIEWPORT = (1920, 1080)
 
 
 class SessionExists(Exception):
     pass
 
 
+class QueryState:
+    """Everything that happens while one answer is on screen."""
+
+    def __init__(self, step, adapter, attempt):
+        self.step = step
+        self.query_id = step["query_id"]
+        self.adapter = adapter
+        self.attempt = attempt
+        self.t_answer = None          # first answer shown
+        self.looks = []               # [look, t_start, reason, adaptation_id]
+        self.adaptations = []         # dicts, see storage.SCHEMAS["adaptations"]
+        self.pending = None           # adaptation id awaiting Keep / Go back
+
+
 class Session:
-    def __init__(self, cfg, group_id, participant, *, mock=False, fast=False, pilot=False,
-                 resume=False, data_root=None):
+    def __init__(self, cfg, participant, *, fast=False, pilot=False, resume=False, data_root=None,
+                 sensor_plan=None):
         self.cfg = cfg
-        self.group_id = group_id
         self.participant = participant
-        self.mock, self.fast, self.pilot = mock, fast, pilot
-        self.group = cfg.group(group_id)
-        self.site = load_site(self.group["site"])
-        self.task_cfg = load_tasks(self.group["tasks"])
+        self.fast, self.pilot = fast, pilot
+        self.sensor_plan = dict(sensor_plan or {})
         self.number = counterbalance.participant_number(participant)
-        self.plan = counterbalance.assign(participant, self.group["emotions"])
+        self.plan = counterbalance.assign(participant, cfg.queries, cfg.looks)
+        self.queries = {q: content.validate(q, cfg.looks) for q in cfg.queries}
 
         root = data_root or (paths.PILOT if pilot else paths.DATA)
-        self.folder = root / group_id / participant
+        self.folder = root / participant
         previous = None
         if (self.folder / "session.json").exists():
             if not resume:
-                raise SessionExists(
-                    f"{paths.rel(self.folder)} already exists. Use another participant ID, "
-                    f"or --resume to continue an interrupted session.")
+                raise SessionExists(f"{paths.rel(self.folder)} already exists. Use another participant ID, "
+                                    f"or --resume to continue an interrupted session.")
             previous = json.loads((self.folder / "session.json").read_text(encoding="utf-8"))
 
         self.warnings = collections.deque(maxlen=8)
-        self.rng = random.Random(self.number * 7919 + sum(map(ord, group_id)))
-        self.blocks = self._build_blocks()
+        self.rng = random.Random(self.number * 7919)
         self.steps = self._build_steps()
         self.store = SessionStore(self.folder)
-        self.context = sensors.SensorContext()
-        self.sensors = {}
+        self.sensing = None
         self.done = threading.Event()
         self._lock = threading.RLock()
-        self.active_task = None
         self.client_info = {}
         self.calibration = {}
-        self.induction_results = {}
         self.completed = set()
+        self.attempts = collections.Counter()
+        self.active = None            # QueryState of the query on screen
+        self.adapt_seq = 0
         self.withdrawn = False
         self.current = 0
         self.status = "created"
@@ -74,153 +83,65 @@ class Session:
             self._restore(previous)
 
     # ------------------------------------------------------------------ plan
-    def _build_blocks(self):
-        blocks = []
-        for i, b in enumerate(self.plan["blocks"], start=1):
-            emo = self.cfg.emotions[b["emotion"]]
-            in_task = emo.get("in_task") or {}
-            variant = in_task.get("task_variant")
-            resolved = tasks.build_block(self.site, self.task_cfg, b["task_set"], variant,
-                                         seed=self.number * 100 + i)
-            blocks.append({"no": i, "emotion": b["emotion"], "task_set": b["task_set"], "variant": variant or "",
-                           "arousal": AROUSAL[emo["arousal"]], "induction": emo["induction"],
-                           "in_task": in_task, "tasks": resolved})
-        return blocks
-
-    def _video(self, name):
-        """URL of a clip, or a list of URLs when `name` is a folder (played as a playlist)."""
-        path = paths.VIDEOS / name
-        if path.is_dir():
-            clips = sorted(p for p in path.iterdir() if p.suffix.lower() in VIDEO_EXTENSIONS)
-            if clips:
-                return [f"/stimuli/{name.rstrip('/')}/{p.name}" for p in clips]
-        elif path.exists():
-            return f"/stimuli/{name}"
-        if not (self.mock or self.pilot):
-            raise ConfigError(f"Missing stimulus video stimuli/videos/{name} (see stimuli/README.md)")
-        self.warn(f"stimuli/videos/{name} missing, showing a placeholder")
-        return None
-
-    def _rating(self, tag, block=None, tlx=False):
-        q = self.cfg.experiment["questionnaires"]
-        items = list(q["emotion_items"])
-        self.rng.shuffle(items)
-        instruments = ["sam", "emotions"] + (["tlx"] if tlx else [])
-        return dict(type="rating", phase="rating", block=block,
-                    params={"tag": tag, "instruments": instruments, "emotion_items": items,
-                            "scale": q["emotion_scale"]})
-
-    def _induction(self, block):
-        ind = block["induction"]
-        kind = ind["kind"]
-        t = lambda key: self.cfg.timing(key, self.fast)
-        params = {"kind": kind, "part": block["no"] * 2 - 1}
-        if kind in ("mist", "copying"):
-            params["duration"] = t("induction")
-        elif kind == "breathing":
-            params.update(duration=t("induction"), video=self._video(ind["video"]))
-        elif kind == "film":
-            params.update(video=self._video(ind["video"]), start=ind.get("start", 0), end=ind.get("end"),
-                          reflection=t("film_reflection") if ind.get("reflection") else 0,
-                          max_duration=t("induction") if self.fast else None,
-                          placeholder=t("induction"))
-        elif kind == "briefing":
-            params.update(message=ind["message"], min_read=t("briefing_min_read"))
-        else:
-            raise ConfigError(f"Unknown induction kind '{kind}'")
-        return dict(type="induction", phase="induction", block=block["no"], params=params)
-
-    def _tasks_step(self, block):
-        in_task = block["in_task"]
-        timeout = in_task.get("timeout", self.cfg.experiment["timings"]["task_timeout"])
-        if self.fast:
-            timeout = max(10, round(timeout / self.cfg.experiment["fast_divisor"] * 2))
-        flags = {k: in_task.get(k, False) for k in
-                 ("countdown", "evaluation_banner", "negative_feedback", "reassurance", "rewards")}
-        flags["sabotage"] = in_task.get("sabotage") or None
-        return dict(type="tasks", phase="tasks", block=block["no"], params={
-            "block": block["no"], "part": block["no"] * 2, "site": self.site["id"], "site_name": self.site["name"],
-            "duration": self.cfg.timing("task_block", self.fast), "timeout": timeout,
-            "flags": flags, "tasks": [tasks.client_view(x) for x in block["tasks"]]})
+    def _looks_meta(self):
+        return [{"id": k, **v} for k, v in self.cfg.study["looks"].items()]
 
     def _build_steps(self):
-        exp = self.cfg.experiment
+        st = self.cfg.study
         t = lambda key: self.cfg.timing(key, self.fast)
-        eye_enabled = self._adapter("eye_tracker") != "none"
         steps = [
-            dict(type="welcome", phase="welcome", params={"title": exp["study_title"]}),
-            dict(type="consent", phase="consent", params={}),
+            dict(type="consent", phase="consent", params={"title": st["study_title"], "portal": st["portal"]}),
             dict(type="demographics", phase="demographics", params={}),
         ]
-        if eye_enabled:
-            c = exp["calibration"]
-            steps.append(dict(type="calibration", phase="calibration", params={
-                "points": c["points"], "validation_points": c["validation_points"],
-                "max_error": c["max_error"], "max_attempts": c["max_attempts"]}))
-        steps += [
-            dict(type="rest", phase="baseline", params={"duration": t("baseline_rest")}),
-            self._rating("baseline"),
-        ]
-        for i, block in enumerate(self.blocks):
-            if i:
-                steps += [dict(type="washout", phase="washout", params={
-                              "video": self._video(self.cfg.washout["video"]), "duration": t("washout")}),
-                          self._rating("post_washout")]
-            n = block["no"]
-            steps += [self._induction(block), self._rating(f"post_induction_{n}", n),
-                      self._tasks_step(block), self._rating(f"post_tasks_{n}", n, tlx=True)]
-        manipulations = sorted({b["induction"]["kind"] for b in self.blocks} |
-                               {"sabotage" for b in self.blocks if b["in_task"].get("sabotage")} |
-                               {"evaluation" for b in self.blocks if b["in_task"].get("evaluation_banner")} |
-                               {"rewards" for b in self.blocks if b["in_task"].get("rewards")})
-        steps += [dict(type="debrief", phase="debrief", params={"manipulations": manipulations}),
+        if "eye_tracker" in self.sensor_plan:
+            steps.append(dict(type="calibration", phase="calibration", params=st["calibration"]))
+        steps.append(dict(type="rest", phase="baseline", params={"duration": t("baseline")}))
+        order = self.plan["order"]
+        for i, q in enumerate(order):
+            steps.append(dict(type="query", phase="query", query_id=q, params={
+                "position": i + 1, "total": len(order), "first": i == 0,
+                "query": content.client_view(q, self.cfg.looks), "start_look": self.plan["start_looks"][q],
+                "looks": self._looks_meta(), "portal": st["portal"], "pilot": self.pilot,
+                "read_min": t("read_min"), "generating": t("generating"), "first_tip": t("first_tip"),
+                "prompt": self.cfg.adaptation["prompt"], "poll_ms": self.cfg.adaptation["poll_ms"]}))
+        steps += [dict(type="final", phase="final", params={"looks": self._looks_meta()}),
+                  dict(type="debrief", phase="debrief", params={}),
                   dict(type="end", phase="end", params={})]
         for i, s in enumerate(steps):
             s["index"] = i
-            s.setdefault("block", None)
+            s.setdefault("query_id", "")
         return steps
 
-    def _adapter(self, slot):
-        return "mock" if self.mock and self.cfg.devices[slot]["adapter"] != "none" else \
-            self.cfg.devices[slot]["adapter"]
+    def step(self):
+        return self.steps[self.current]
 
-    def emotion_of(self, step):
-        if step["phase"] in ("baseline", "washout") or (step["phase"] == "rating" and not step["block"]):
-            return "neutral"
-        if step["block"]:
-            return self.blocks[step["block"] - 1]["emotion"]
-        return ""
+    # ------------------------------------------------------------------ sensors
+    def attach_sensing(self, sensing):
+        self.sensing = sensing
 
-    # --------------------------------------------------------------- sensors
-    def start_sensors(self):
-        sync = _LazyStream(self.store, "clock_sync", ["t", "stream", "adapter", "offset_s"])
-        for slot in SENSOR_SLOTS:
-            adapter = self._adapter(slot)
-            options = self.cfg.devices[slot].get(adapter) or {}
-            sensor = sensors.create(slot, adapter, options, self.store, self.context, sync)
-            if sensor is None:
-                continue
-            sensor.start()
-            self.sensors[slot] = sensor
+    def emotion_sensor(self):
+        return self.sensing.emotion if self.sensing is not None else None
 
-    def wait_for_samples(self, timeout):
-        """Raise if any sensor has produced nothing after `timeout` seconds."""
-        deadline = now() + timeout
-        while now() < deadline:
-            if all(s.samples > 0 for s in self.sensors.values()):
-                return
-            threading.Event().wait(0.2)
-        silent = [f"{slot} ({s.adapter})" for slot, s in self.sensors.items() if s.samples == 0]
-        raise sensors.SensorError(f"No data from: {', '.join(silent)}")
+    def _emotion_recent(self, since):
+        s = self.emotion_sensor()
+        if s is None or not s.columns:
+            return []
+        return adapt.rows_as_dicts(s.columns, s.recent(since))
 
-    def stop_sensors(self):
-        for s in self.sensors.values():
-            s.stop()
+    def _emotion_between(self, t0, t1):
+        """Emotion rows from emotion.csv (complete history, unlike the in-memory buffer)."""
+        path = self.folder / "emotion.csv"
+        s = self.emotion_sensor()
+        if s is not None and s.stream is not None:
+            with s.stream._lock:
+                if not s.stream._file.closed:
+                    s.stream._file.flush()
+        if not path.exists():
+            return []
+        with open(path, encoding="utf-8", newline="") as f:
+            return [r for r in csv.DictReader(f) if r.get("t") and t0 <= float(r["t"]) <= t1]
 
-    def eye(self):
-        return self.sensors.get("eye_tracker")
-
-    # --------------------------------------------------------------- helpers
+    # ------------------------------------------------------------------ helpers
     def warn(self, msg):
         self.warnings.append((dt.datetime.now().strftime("%H:%M:%S"), msg))
 
@@ -228,21 +149,20 @@ class Session:
         return float(value) if isinstance(value, (int, float)) else now()
 
     def _marker(self, step, event, t):
-        self.store.write("markers", [f"{t:.4f}", step["index"], step["type"], step["phase"],
-                                     step["block"] or "", self.emotion_of(step), event])
+        self.store.write("markers", [f"{t:.4f}", step["index"], step["type"], step["phase"], step["query_id"], event])
 
-    def _q(self, t, tag, step, instrument, item, value):
-        self.store.write("questionnaires", [f"{t:.4f}", tag, step["block"] or "", self.emotion_of(step),
-                                            instrument, item, value])
+    def _q(self, t, tag, query_id, instrument, item, value):
+        self.store.write("questionnaires", [f"{t:.4f}", tag, query_id, instrument, item, value])
 
-    def step(self):
-        return self.steps[self.current]
+    def _viewport(self):
+        return (self.client_info.get("innerWidth") or DEFAULT_VIEWPORT[0],
+                self.client_info.get("innerHeight") or DEFAULT_VIEWPORT[1])
 
-    # ------------------------------------------------------------------- API
+    # ------------------------------------------------------------------ API: session flow
     def client_session(self):
         public = [{"index": s["index"], "type": s["type"], "params": s["params"]} for s in self.steps]
-        return {"steps": public, "current": self.current, "fast": self.fast, "mock": self.mock,
-                "title": self.cfg.experiment["study_title"]}
+        return {"steps": public, "current": self.current, "fast": self.fast, "pilot": self.pilot,
+                "title": self.cfg.study["study_title"]}
 
     def set_client_info(self, info):
         self.client_info = info
@@ -258,12 +178,15 @@ class Session:
             step = self.step()
             t = self._t(t)
             self._marker(step, "start", t)
-            if step["phase"] in ("induction", "tasks", "rating") and step["block"]:
-                self.context.arousal = self.blocks[step["block"] - 1]["arousal"]
-            elif step["phase"] in ("baseline", "washout"):
-                self.context.arousal = NEUTRAL_AROUSAL
             if self.status == "created":
                 self.status = "running"
+            if step["type"] == "query":
+                self.attempts[index] += 1
+                adapter = adapt.QueryAdapter(self.cfg.adaptation, self.cfg.looks, step["params"]["start_look"],
+                                             random.Random(self.number * 1000 + index * 10 + self.attempts[index]))
+                self.active = QueryState(step, adapter, self.attempts[index])
+                if self.attempts[index] > 1:
+                    self.warn(f"Query {step['query_id']} restarted (attempt {self.attempts[index]})")
             if step["type"] == "end":
                 self.completed.add(index)
                 self._marker(step, "end", t)
@@ -286,124 +209,186 @@ class Session:
     def _record(self, step, data, t):
         kind = step["type"]
         if kind == "consent":
-            self._q(t, "consent", step, "consent", "agreed", int(bool(data.get("agreed"))))
-            if not data.get("agreed"):
-                self.warn("Participant declined consent")
+            self._q(t, "consent", "", "consent", "agreed", int(bool(data.get("agreed"))))
         elif kind == "demographics":
             for k, v in data.items():
-                self._q(t, "demographics", step, "demographics", k, v)
-        elif kind == "rating":
-            tag = step["params"]["tag"]
-            for instrument in ("sam", "emotions", "tlx"):
-                for item, value in (data.get(instrument) or {}).items():
-                    self._q(t, tag, step, instrument, item, value)
+                self._q(t, "demographics", "", "demographics", k, v)
         elif kind == "calibration":
             self.calibration = data
             if data.get("status") != "success":
-                self.warn(f"Eye-tracker calibration weak (error {data.get('error')})")
+                self.warn(f"Gaze calibration weak (error {data.get('error')})")
+        elif kind == "query":
+            self._finish_query(step, data, t)
+        elif kind == "final":
+            for k in ("favourite_look", "comment"):
+                if data.get(k) not in (None, ""):
+                    self._q(t, "final", "", "final", k, str(data[k])[:500])
         elif kind == "debrief":
             retain = data.get("retain_data") or ""
-            self._q(t, "debrief", step, "debrief", "retain_data", retain)
+            self._q(t, "debrief", "", "debrief", "retain_data", retain)
             if retain == "withdraw":
                 self.withdrawn = True
                 self.warn("Participant withdrew: their data will be deleted at the end")
-        elif kind == "induction":
-            self.induction_results[f"block_{step['block']}"] = {"kind": step["params"]["kind"], **data}
-        elif kind == "tasks":
-            self._close_active("time_up", t)
-            block = self.blocks[step["block"] - 1]
-            started = set(data.get("started", []))
-            for task in block["tasks"]:
-                if task["id"] not in started:
-                    self._task_row(block, task, None, None, "not_reached", "", {})
 
-    # tasks -------------------------------------------------------------
-    def _find_task(self, task_id):
-        block = self.blocks[self.step()["block"] - 1]
-        for task in block["tasks"]:
-            if task["id"] == task_id:
-                return block, task
-        raise KeyError(task_id)
+    # ------------------------------------------------------------------ API: inside a query
+    def _query(self, query_id):
+        a = self.active
+        return a if a is not None and a.query_id == query_id else None
 
-    def task_start(self, task_id, t=None):
+    def query_look(self, query_id, look, reason, adaptation_id="", t=None):
+        """The browser reports every look it puts on screen (initial, auto, manual, back)."""
         with self._lock:
-            self._close_active("abandoned", self._t(t))
-            block, task = self._find_task(task_id)
-            self.active_task = {"block": block, "task": task, "t_start": self._t(t),
-                                "counts": collections.Counter(), "pages": []}
-            return {"ok": True}
-
-    def task_answer(self, task_id, answer, t=None):
-        with self._lock:
-            a = self.active_task
-            if not a or a["task"]["id"] != task_id:
+            a = self._query(query_id)
+            if a is None or look not in self.cfg.looks:
                 return {"ok": False}
-            correct = answer == a["task"]["answer"]
-            a["counts"]["answer_attempts"] += 1
-            self._close_active("correct" if correct else "incorrect", self._t(t), answer)
-            return {"ok": True, "correct": correct}
-
-    def task_close(self, task_id, outcome, t=None):
-        with self._lock:
-            if self.active_task and self.active_task["task"]["id"] == task_id:
-                self._close_active(outcome, self._t(t))
+            t = self._t(t)
+            if reason == "initial":
+                a.t_answer = t
+            a.looks.append([look, t, reason, adaptation_id or ""])
+            self.store.write("looks", [f"{t:.4f}", query_id, look, reason, adaptation_id or ""])
             return {"ok": True}
 
-    def _close_active(self, outcome, t, answer=""):
-        a = self.active_task
-        if not a:
+    def _new_adaptation(self, a, trigger, to, snap, t):
+        self.adapt_seq += 1
+        rec = {"adaptation_id": f"A{self.adapt_seq:03d}", "t": t, "trigger": trigger,
+               "from_look": a.adapter.current, "to_look": to, "n_auto_before": a.adapter.n_auto,
+               "response": "chosen" if trigger == "manual" else "", "response_t": "", "response_s": "",
+               **{f"before_{k}": snap.get(k, "") for k in SNAPSHOT}}
+        a.adaptations.append(rec)
+        a.adapter.switched(to, t, auto=trigger == "auto")
+        return rec
+
+    def adapt_poll(self, query_id):
+        """Called by the browser every few hundred ms while an answer is being read."""
+        with self._lock:
+            a = self._query(query_id)
+            if a is None or a.pending is not None or a.t_answer is None:
+                return {"switch": None}
+            t = now()
+            samples = self._emotion_recent(t - self.cfg.adaptation["window"] - 1)
+            to, snap = a.adapter.should_switch(samples, t)
+            if to is None:
+                return {"switch": None}
+            rec = self._new_adaptation(a, "auto", to, snap, t)
+            a.pending = rec["adaptation_id"]
+            return {"switch": {"id": rec["adaptation_id"], "to": to, "from": rec["from_look"]}}
+
+    def adapt_manual(self, query_id, to):
+        with self._lock:
+            a = self._query(query_id)
+            if a is None or to not in self.cfg.looks or to == a.adapter.current:
+                return {"ok": False}
+            t = now()
+            snap = adapt.snapshot([s for s in self._emotion_recent(t - self.cfg.adaptation["window"]) if s],
+                                  self.cfg.adaptation)
+            rec = self._new_adaptation(a, "manual", to, snap, t)
+            return {"ok": True, "id": rec["adaptation_id"]}
+
+    def adapt_resolve(self, adaptation_id, response, t=None):
+        """Keep / Go back / none (prompt timed out) for an automatic switch."""
+        with self._lock:
+            a = self.active
+            if a is None:
+                return {"ok": False}
+            rec = next((r for r in a.adaptations if r["adaptation_id"] == adaptation_id), None)
+            if rec is None or response not in ("keep", "back", "none"):
+                return {"ok": False}
+            t = self._t(t)
+            rec.update(response=response, response_t=f"{t:.4f}", response_s=round(t - rec["t"], 3))
+            if response == "back":
+                a.adapter.switched(rec["from_look"], t, auto=False)
+            if a.pending == adaptation_id:
+                a.pending = None
+            return {"ok": True}
+
+    def pilot_frown(self, seconds=6.0):
+        if not self.pilot or self.sensing is None:
+            return {"ok": False, "error": "only in --pilot sessions with sensors"}
+        self.sensing.context.force_negative_until = now() + seconds
+        self.warn(f"Simulated frown for {seconds:.0f} s")
+        return {"ok": True}
+
+    # ------------------------------------------------------------------ end of a query
+    def _finish_query(self, step, data, t_done):
+        a = self.active
+        self.active = None
+        if a is None or a.query_id != step["query_id"]:
             return
-        self.active_task = None
-        self._task_row(a["block"], a["task"], a["t_start"], t, outcome, answer, a["counts"])
+        q = self.queries[a.query_id]
+        t_done = float(data.get("t_done") or t_done)
+        ratings = data.get("ratings") or {}
+        satisfaction = ratings.get("satisfaction", "")
+        preferred = ratings.get("preferred", "") or ""
+        quiz_answer = data.get("quiz_answer", "")
+        quiz_correct = int(quiz_answer == q["quiz"]["answer"]) if quiz_answer else ""
 
-    def _task_row(self, block, task, t0, t1, outcome, answer, counts):
-        self.store.write("tasks", {
-            "block": block["no"], "emotion": block["emotion"], "task_set": block["task_set"],
-            "variant": block["variant"], "task_id": task["id"], "type": task["type"],
-            "target_pages": ";".join(task["targets"]),
-            "t_start": "" if t0 is None else f"{t0:.4f}", "t_end": "" if t1 is None else f"{t1:.4f}",
-            "duration_s": "" if t0 is None else f"{t1 - t0:.3f}", "outcome": outcome,
-            "answer": answer, "correct_answer": task["answer"],
-            **{k: counts.get(k, 0) for k in ("clicks", "menu_opens", "page_views", "wrong_pages",
-                                             "sabotage_events", "answer_attempts")}})
+        intervals = []
+        for i, (look, t0, reason, aid) in enumerate(a.looks):
+            t1 = a.looks[i + 1][1] if i + 1 < len(a.looks) else t_done
+            intervals.append((look, t0, max(t0, t1), reason, aid))
+        per_look = collections.OrderedDict()
+        for look, t0, t1, *_ in intervals:
+            per_look[look] = per_look.get(look, 0.0) + (t1 - t0)
 
-    def _count(self, ev):
-        a = self.active_task
-        if not a or ev.get("task_id") != a["task"]["id"]:
-            return
-        name = ev.get("event", "")
-        c = a["counts"]
-        if name == "click":
-            c["clicks"] += 1
-        elif name == "menu_open":
-            c["menu_opens"] += 1
-        elif name == "page_view":
-            c["page_views"] += 1
-            page = f"{ev.get('section')}/{ev.get('page')}"
-            if ev.get("page") and page not in a["task"]["targets"]:
-                c["wrong_pages"] += 1
-        elif name.startswith("sabotage_"):
-            c["sabotage_events"] += 1
-            if name == "sabotage_answer_expired":
-                c["answer_attempts"] += 1
+        rows = self._emotion_between(a.t_answer or t_done, t_done)
+        snap = adapt.snapshot(rows, self.cfg.adaptation)
+        val_look, dom_look = [], []
+        for look in per_look:
+            look_rows = [r for (lk, t0, t1, *_) in intervals if lk == look
+                         for r in rows if t0 <= float(r["t"]) <= t1]
+            s = adapt.snapshot(look_rows, self.cfg.adaptation)
+            val_look.append(f"{look}:{s['valence']}")
+            dom_look.append(f"{look}:{s['dominant']}")
 
-    # behavioural log -----------------------------------------------------
+        final_look = intervals[-1][0] if intervals else ""
+        self.store.write("interactions", {
+            "participant": self.participant, "position": step["params"]["position"], "query_id": a.query_id,
+            "query_type": q["type"], "attempt": a.attempt, "start_look": step["params"]["start_look"],
+            "looks_seen": ">".join(lk for lk, *_ in intervals), "final_look": final_look, "n_looks": len(per_look),
+            "n_auto": sum(r["trigger"] == "auto" for r in a.adaptations),
+            "n_manual": sum(r["trigger"] == "manual" for r in a.adaptations),
+            "n_kept": sum(r["response"] in ("keep", "none") for r in a.adaptations if r["trigger"] == "auto"),
+            "n_back": sum(r["response"] == "back" for r in a.adaptations),
+            "t_answer": "" if a.t_answer is None else f"{a.t_answer:.4f}", "t_done": f"{t_done:.4f}",
+            "reading_s": "" if a.t_answer is None else round(t_done - a.t_answer, 2),
+            "time_per_look": ";".join(f"{k}:{v:.1f}" for k, v in per_look.items()),
+            "satisfaction": satisfaction, "preferred_look": preferred,
+            "quiz_answer": quiz_answer, "quiz_correct": quiz_correct,
+            "emotion_samples": snap["samples"], "face_fraction": snap["face_fraction"],
+            "valence": snap["valence"], "arousal": snap["arousal"], "dominant_emotion": snap["dominant"],
+            "negative_fraction": snap["negative_fraction"],
+            "valence_per_look": ";".join(val_look), "dominant_per_look": ";".join(dom_look)})
+
+        for rec in a.adaptations:
+            on_new = next((t1 - t0 for (lk, t0, t1, reason, aid) in intervals if aid == rec["adaptation_id"]), "")
+            self.store.write("adaptations", {
+                "participant": self.participant, "query_id": a.query_id, "query_type": q["type"],
+                "attempt": a.attempt, **rec, "t": f"{rec['t']:.4f}",
+                "response": rec["response"] or "none",
+                "time_on_new_look_s": "" if on_new == "" else round(on_new, 2), "final_look": final_look,
+                "satisfaction": satisfaction, "preferred_look": preferred, "quiz_correct": quiz_correct})
+
+        for item, value in (("satisfaction", satisfaction), ("preferred_look", preferred),
+                            ("quiz_answer", quiz_answer), ("quiz_correct", quiz_correct)):
+            self._q(t_done, f"query_{step['params']['position']}", a.query_id, "query", item, value)
+
+    # ------------------------------------------------------------------ API: behaviour log
     def log(self, batch):
         with self._lock:
             step = self.step()
+            look = self.active.adapter.current if self.active is not None else ""
             for ev in batch.get("events", []):
                 detail = ev.get("detail")
                 self.store.write("events", [
-                    f"{self._t(ev.get('t')):.4f}", step["index"], step["block"] or "", ev.get("task_id", ""),
-                    ev.get("source", "shell"), ev.get("event", ""), ev.get("section", ""), ev.get("page", ""),
-                    ev.get("item", ""), _r(ev.get("x")), _r(ev.get("y")),
+                    f"{self._t(ev.get('t')):.4f}", step["index"], step["query_id"], ev.get("look", look),
+                    ev.get("source", "shell"), ev.get("event", ""), ev.get("item", ""),
+                    _r(ev.get("x")), _r(ev.get("y")),
                     json.dumps(detail, ensure_ascii=False) if detail not in (None, "") else ""])
-                self._count(ev)
             mouse = batch.get("mouse", [])
             for t, x, y in mouse:
                 self.store.write("mouse", [f"{t:.4f}", _r(x), _r(y)])
-            if mouse:
-                self.context.mouse = (mouse[-1][1], mouse[-1][2])
+            if mouse and self.sensing is not None:
+                self.sensing.context.mouse = (mouse[-1][1], mouse[-1][2])
             for snap in batch.get("aoi", []):
                 rows = snap.get("rects") or [{"id": "", "x0": "", "y0": "", "x1": "", "y1": ""}]
                 for r in rows:
@@ -412,38 +397,12 @@ class Session:
                                              _r(r["x1"]), _r(r["y1"])])
         return {"ok": True}
 
-    # calibration -----------------------------------------------------------
-    def calibrate(self, action, payload):
-        eye = self.eye()
-        if eye is None:
-            return {"ok": False, "error": "no eye tracker"}
-        if action == "start":
-            eye.calibration_start()
-            return {"ok": True}
-        if action == "point":
-            return {"ok": eye.calibration_point(payload["x"], payload["y"])}
-        if action == "compute":
-            return {"ok": True, **eye.calibration_compute()}
-        if action == "stop":
-            eye.calibration_stop()
-            return {"ok": True}
-        if action == "validate":
-            if eye.adapter == "mock":
-                return {"ok": True, "error": 0.012, "samples": 60}
-            gaze = [g for g in eye.gaze_since(payload["t0"]) if g[0] <= payload["t1"]]
-            if not gaze:
-                return {"ok": True, "error": None, "samples": 0}
-            err = sum(((x - payload["x"]) ** 2 + (y - payload["y"]) ** 2) ** 0.5 for _, x, y in gaze) / len(gaze)
-            return {"ok": True, "error": round(err, 4), "samples": len(gaze)}
-        return {"ok": False, "error": f"unknown action {action}"}
-
-    # ------------------------------------------------------------ lifecycle
+    # ------------------------------------------------------------------ lifecycle
     def abort(self, reason="researcher abort"):
         with self._lock:
             if self.done.is_set():
                 return
-            step = self.step()
-            self._marker(step, f"abort: {reason}", now())
+            self._marker(self.step(), f"abort: {reason}", now())
             self.warn(f"Session aborted ({reason})")
             if reason == "consent declined":
                 self.withdrawn = True
@@ -453,14 +412,13 @@ class Session:
         with self._lock:
             if self.done.is_set():
                 return
-            self._close_active("aborted" if status == "aborted" else "time_up", now())
             self.status = status
             self.t_end = now()
-            self.stop_sensors()
+            if self.sensing is not None:
+                self.sensing.stop()
             self._save()
             self.store.close()
         if self.withdrawn:
-            # consent declined or withdrawn at debrief: keep nothing
             shutil.rmtree(self.folder, ignore_errors=True)
             self.status = "withdrawn" if status == "complete" else status
             self.warn("All data for this participant was deleted")
@@ -477,53 +435,53 @@ class Session:
             raise ConfigError("Cannot resume: the counterbalancing plan no longer matches session.json")
         self.completed = set(prev["progress"]["completed_steps"])
         self.current = min(set(range(len(self.steps))) - self.completed, default=len(self.steps) - 1)
+        self.attempts = collections.Counter({int(k): v for k, v in prev.get("attempts", {}).items()})
+        self.adapt_seq = prev.get("adaptations", 0)
         self.t_zero = prev["clock"]["t_zero"]
         self.wall_zero = prev["started"]
         self.calibration = prev.get("calibration", {})
-        self.induction_results = prev.get("inductions", {})
         self.status = "running"
         self.warn(f"Resumed at step {self.current} ({self.steps[self.current]['type']})")
         self._marker(self.step(), "resumed", now())
 
+    def _content_info(self):
+        out = {}
+        for q in self.cfg.queries:
+            raw = (content.CONTENT / f"{q}.yaml").read_bytes()
+            out[q] = {"sha1": hashlib.sha1(raw).hexdigest()[:12], **(self.queries[q].get("provenance") or {})}
+        return out
+
     def _save(self):
         self.store.write_json("session", {
-            "study": self.cfg.experiment["study_title"], "platform_version": __version__,
-            "group": self.group_id, "participant": self.participant, "site": self.site["id"],
-            "emotions": self.group["emotions"], "plan": self.plan,
-            "blocks": [{k: b[k] for k in ("no", "emotion", "task_set", "variant")} for b in self.blocks],
-            "flags": {"mock": self.mock, "fast": self.fast, "pilot": self.pilot},
-            "status": self.status, "started": self.wall_zero,
+            "study": self.cfg.study["study_title"], "platform_version": __version__,
+            "participant": self.participant, "plan": self.plan,
+            "flags": {"fast": self.fast, "pilot": self.pilot}, "status": self.status, "started": self.wall_zero,
             "clock": {"source": CLOCK_SOURCE, "t_zero": self.t_zero,
                       "note": "All 't' columns use this clock (seconds). t_zero = session start."},
-            "devices": {slot: {"adapter": s.adapter, **s.info, "samples": s.samples, "error": s.error}
-                        for slot, s in self.sensors.items()},
-            "client": self.client_info, "calibration": self.calibration, "inductions": self.induction_results,
+            "sensors": self.sensing.info() if self.sensing is not None else {},
+            "adaptation_rule": self.cfg.adaptation, "content": self._content_info(),
+            "client": self.client_info, "calibration": self.calibration,
             "progress": {"current": self.current, "completed_steps": sorted(self.completed),
                          "total_steps": len(self.steps)},
+            "attempts": {str(k): v for k, v in self.attempts.items()}, "adaptations": self.adapt_seq,
             "duration_s": round(getattr(self, "t_end", now()) - self.t_zero, 1),
             "host": {"os": platform.platform(), "python": platform.python_version()},
         })
 
     def snapshot(self):
         step = self.step()
-        return {"group": self.group_id, "participant": self.participant, "status": self.status,
-                "step": self.current, "steps": len(self.steps), "type": step["type"], "phase": step["phase"],
-                "block": step["block"], "emotion": self.emotion_of(step),
-                "elapsed": now() - self.t_zero, "task": self.active_task["task"]["id"] if self.active_task else None,
-                "sensors": {slot: s.status() for slot, s in self.sensors.items()},
-                "warnings": list(self.warnings), "flags": {"mock": self.mock, "fast": self.fast, "pilot": self.pilot},
-                "folder": "(deleted)" if self.withdrawn and self.done.is_set()
-                else str(paths.rel(self.folder))}
-
-
-class _LazyStream:
-    """Only creates the CSV once something is written (clock_sync stays absent for mock sensors)."""
-
-    def __init__(self, store, name, columns):
-        self.store, self.name, self.columns = store, name, columns
-
-    def write(self, row):
-        self.store.stream(self.name, self.columns).write(row)
+        live = (self.sensing.live().get("emotion") if self.sensing is not None else None) or {}
+        a = self.active
+        return {"participant": self.participant, "status": self.status, "step": self.current,
+                "steps": len(self.steps), "type": step["type"], "phase": step["phase"],
+                "query": f"{step['params'].get('position')}/{step['params'].get('total')} {step['query_id']}"
+                if step["type"] == "query" else "",
+                "look": a.adapter.current if a is not None else "",
+                "switches": len(a.adaptations) if a is not None else 0,
+                "emotion": live, "elapsed": now() - self.t_zero,
+                "sensors": self.sensing.status() if self.sensing is not None else [],
+                "warnings": list(self.warnings), "flags": {"fast": self.fast, "pilot": self.pilot},
+                "folder": "(deleted)" if self.withdrawn and self.done.is_set() else paths.rel(self.folder)}
 
 
 def _r(v, nd=5):

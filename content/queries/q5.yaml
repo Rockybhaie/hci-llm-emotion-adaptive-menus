@@ -1,0 +1,89 @@
+id: q5
+type: calculation
+subject: Grades
+query: How do I calculate my GPA?
+provenance:
+  generated_by: Claude (Anthropic), model claude-opus-5-5, from the study plan in this repository
+  generated_on: "2026-11-25"
+  reviewed_by: null
+  status: draft
+
+quiz:
+  question: "You get an A (4 points) in a 4-credit course and a C (2 points) in a 2-credit course. What is your GPA?"
+  options: ["3.00", "3.33", "3.50", "2.67"]
+  answer: "3.33"
+
+looks:
+  text:
+    - {type: heading, text: How to calculate your GPA}
+    - {type: paragraph, text: "Your **GPA** (grade point average) is an average of your grades in which bigger courses count more. On the usual 4-point scale, each letter grade is worth **grade points**: A = 4, B = 3, C = 2, D = 1, F = 0."}
+    - {type: paragraph, text: "Each course also has a number of **credits** (often 2–4). First multiply each course's grade points by its credits; this gives the **quality points** for that course."}
+    - {type: paragraph, text: "Then add up all the quality points and **divide by the total number of credits**. For example, 41 quality points over 12 credits gives a GPA of 41 ÷ 12 = **3.42**."}
+    - {type: paragraph, text: "A common mistake is to average the letter grades directly. That ignores credits, so a small 2-credit course would count as much as a big 4-credit one. (Some universities also use A−, B+ and so on; the method is the same.)"}
+
+  visual:
+    - {type: heading, text: GPA in one picture}
+    - type: formula
+      expression: "GPA = Σ (grade points × credits) ÷ Σ credits"
+      where: [["A", "= 4"], ["B", "= 3"], ["C", "= 2"], ["D", "= 1"], ["F", "= 0"]]
+    - type: chart
+      kind: bar
+      title: "Quality points per course (grade points × credits)"
+      categories: ["Biology (A, 4 cr)", "Maths (A, 3 cr)", "Economics (B, 3 cr)", "Writing (C, 2 cr)"]
+      values: [16, 12, 9, 4]
+      y_label: Quality points
+    - type: diagram
+      kind: flow
+      nodes: [Grade → points, × credits, Add them up, ÷ total credits]
+    - {type: callout, tone: note, title: Result, text: "16 + 12 + 9 + 4 = **41** quality points over **12** credits → GPA **3.42**."}
+
+  steps:
+    - {type: heading, text: Calculate your GPA in 4 steps}
+    - type: steps
+      items:
+        - {title: Turn grades into points, text: "A = 4, B = 3, C = 2, D = 1, F = 0."}
+        - {title: Multiply by credits, text: "For each course, grade points × credits = **quality points**."}
+        - {title: Add up, text: "Add all the quality points, and separately add all the credits."}
+        - {title: Divide, text: "GPA = total quality points ÷ total credits. Round to 2 decimals."}
+    - {type: callout, tone: warning, title: Common mistake, text: "Do not just average the letter grades: bigger courses (more credits) must count more."}
+
+  example:
+    - {type: heading, text: "Worked example: one semester"}
+    - type: table
+      columns: [Course, Grade, Points, Credits, Points × credits]
+      rows:
+        - [Biology, A, "4", "4", "16"]
+        - [Maths, A, "4", "3", "12"]
+        - [Economics, B, "3", "3", "9"]
+        - [Writing, C, "2", "2", "4"]
+        - [Total, "", "", "12", "41"]
+    - type: example
+      title: "From the table to the GPA"
+      steps:
+        - "Add the quality points: 16 + 12 + 9 + 4 = **41**."
+        - "Add the credits: 4 + 3 + 3 + 2 = **12**."
+        - "Divide: 41 ÷ 12 = 3.4167."
+      result: "GPA = **3.42**. (Averaging the letters, (4 + 4 + 3 + 2) ÷ 4 = 3.25, would be wrong.)"
+
+  summary:
+    - {type: heading, text: GPA cheat sheet}
+    - type: table
+      columns: [Item, Rule]
+      rows:
+        - [Grade points, "A = 4, B = 3, C = 2, D = 1, F = 0"]
+        - [Quality points, Grade points × course credits]
+        - [GPA, Total quality points ÷ total credits]
+        - [Rounding, 2 decimal places]
+        - [Watch out, "Credits matter: bigger courses count more"]
+    - {type: formula, expression: "GPA = Σ (points × credits) ÷ Σ credits"}
+
+  simple:
+    - {type: heading, text: "GPA is a weighted average"}
+    - {type: callout, tone: analogy, title: Shopping bags, text: "Think of each course as a shopping bag. The grade is how good the shopping is, and the credits are how heavy the bag is. Heavier bags count more towards how good your whole shop was."}
+    - type: cards
+      items:
+        - {title: Your grade, text: "= how good the bag is (A is the best)"}
+        - {title: Credits, text: "= how heavy the bag is"}
+        - {title: Points × credits, text: "= how much that bag counts"}
+        - {title: Divide by all credits, text: "= your average over everything"}
+    - {type: paragraph, text: "So: turn each grade into a number, give bigger courses more weight, and take the average. A big course with a great grade lifts your GPA the most."}

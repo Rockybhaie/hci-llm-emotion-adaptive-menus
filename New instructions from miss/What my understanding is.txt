@@ -1,0 +1,6 @@
+Since we are not able to get the lab equipment.
+what my partner did was find models from higging face that detects emotions from webcam trained it on 49k images plus meotions something like that.
+Now miss wants us to use that and change the experiment website such that we do University website with 5 queries related to student learnign meaning a set 5 tasks. Then collect data and then train a model and connect it to any website and it changes the website such that webcam is open and is detecting changes. 
+
+the model things are in the folder Talha (group member work)
+

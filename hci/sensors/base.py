@@ -14,6 +14,7 @@ class SensorContext:
     def __init__(self):
         self.arousal = 0.3          # 0..1, set from the current phase
         self.mouse = (0.5, 0.5)     # last pointer position, viewport-normalised
+        self.force_negative_until = 0.0   # dry runs: mock emotion shows a frown until this master-clock time
 
 
 class Sensor:

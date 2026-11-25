@@ -1,0 +1,68 @@
+# Emotion-adaptive Generative UI study: everything a session needs except the sensors (devices.yaml)
+# and the answer content (content/queries/*.yaml). All durations are in seconds.
+
+study_title: Learning Portal Study        # shown to participants (deliberately neutral)
+
+portal:                                    # decorative: the student portal the assistant lives in
+  university: Northfield University
+  student_name: Alex Morgan
+  programme: BSc, Year 2
+  term: Autumn term
+  courses:                                 # shown in the sidebar; `subject` links a query to its course
+    - {code: CS 120,   title: Intro to Data Science,    subject: Computer Science}
+    - {code: BIO 110,  title: Human Biology,            subject: Biology}
+    - {code: ECON 101, title: Principles of Economics,  subject: Economics}
+    - {code: MATH 140, title: Statistics I,             subject: Maths}
+    - {code: ENG 105,  title: Academic Writing,         subject: Writing}
+
+# The five queries in their canonical order (content/queries/<id>.yaml). The order a participant
+# meets them in is counterbalanced (hci/counterbalance.py).
+queries: [q1, q2, q3, q4, q5]
+
+# The six looks every answer exists in. `label` / `hint` are what the participant sees in the
+# "Show this differently" picker. Starting looks are rotated across participants and queries.
+looks:
+  text:    {label: Paragraphs,     hint: A written explanation,             icon: book}
+  visual:  {label: Visual,         hint: Charts and diagrams,               icon: chart}
+  steps:   {label: Step by step,   hint: Numbered steps,                    icon: list}
+  example: {label: Worked example, hint: Learn from a concrete example,     icon: pencil}
+  summary: {label: Summary,        hint: Key points in a short table,       icon: table}
+  simple:  {label: Simple,         hint: Plain words and an everyday comparison, icon: sparkles}
+
+timings:
+  baseline: 30            # calm face baseline before the first query
+  read_min: 25            # "Done" unlocks this long after the answer first appears
+  generating: 1.4         # "Generating answer..." pause after Ask
+  first_tip: 9            # on-screen tip explaining the buttons (first query only)
+
+# When the answer switches by itself. A sample is "negative" when a face is visible and either its
+# valence is below `valence_below` or the summed probability of `negative_classes` is above
+# `negative_prob_above`. A switch fires when at least `min_fraction` of the samples in the last
+# `window` seconds are negative (and the window is at least 80 % covered by face samples).
+adaptation:
+  window: 4
+  min_fraction: 0.75
+  valence_below: -0.15
+  negative_prob_above: 0.5
+  negative_classes: [anger, contempt, disgust, fear, sad]
+  cooldown: 15            # no auto-switch within this long of the previous switch (auto or manual)
+  max_auto_per_query: 2
+  policy: random_unseen   # next look = random among looks not yet seen in this query (unbiased data)
+  prompt: 8               # the "Keep / Go back" prompt waits this long; no answer counts as "kept"
+  poll_ms: 500            # how often the browser asks the server whether to switch
+
+# Webcam gaze calibration (only when config/devices.yaml has an eye tracker). Fractions of the window.
+calibration:
+  points: [[0.5, 0.5], [0.1, 0.1], [0.5, 0.1], [0.9, 0.1], [0.1, 0.5], [0.9, 0.5], [0.1, 0.9],
+           [0.5, 0.9], [0.9, 0.9]]
+  validation_points: [[0.5, 0.5], [0.2, 0.2], [0.8, 0.8]]
+  max_attempts: 2
+  max_error: 0.15         # mean validation error as a fraction of the screen diagonal
+
+fast_divisor: 6           # --fast divides every timing above by this (dry runs only)
+
+server:
+  host: 127.0.0.1
+  port: 8765
+
+browser: edge             # edge | chrome

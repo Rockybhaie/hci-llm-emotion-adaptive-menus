@@ -1,9 +1,11 @@
 # participant data never goes into version control
 data/
 
-# copyrighted stimuli
-stimuli/videos/*
-!stimuli/videos/.gitkeep
+# the teammate's full project copy (source of the webcam sensors already merged into hci/ and models/)
+New instructions from miss/Talha(group member work)/
+
+# old phase-1 video stimuli kept locally (copyrighted)
+stimuli/
 
 __pycache__/
 *.pyc

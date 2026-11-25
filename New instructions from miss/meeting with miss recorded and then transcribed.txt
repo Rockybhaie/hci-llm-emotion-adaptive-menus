@@ -1,0 +1,140 @@
+# Meeting Discussion – Runtime Emotion-Adaptive Generative UI
+
+## 1. Background and Research Direction
+
+The existing system already has an AI-based emotion detector that continuously monitors the user's emotions at runtime. However, it does not use GSR (Galvanic Skin Response). Apart from that, its functionality is quite similar to what we are trying to achieve.
+
+We were previously working on adaptive navigation. Three team members have already been working on different aspects of adaptive navigation. The remaining team members (approximately seven or eight) should now focus on Generative UI.
+
+## 2. What Is Generative UI?
+
+Generative UI (GenUI) dynamically changes the user interface at runtime.
+
+One proposed approach is to connect a Transformer model with JavaScript. An LLM would act as an intermediary agent, providing instructions that automatically modify the JavaScript and consequently change the UI.
+
+This would lead to what we can call Runtime Emotion-Adaptive Generative UI.
+
+Although considerable research has already been conducted on Adaptive Generative UI, our approach is different.
+
+In existing approaches, a user submits a query, the system identifies the user's mood, and then provides recommendations accordingly.
+
+In our approach, we first want to collect data to understand what kind of Generative UI users prefer when experiencing different emotions at runtime.
+
+## 3. Initial Research Objective
+
+Our initial target population will be university students aged 18–24.
+
+We already have an emotion detection tool that captures users' emotions at runtime. We do not need to develop another emotion detector. Instead, we need to integrate Generative UI into the existing system and collect data about users' responses to dynamically generated interfaces.
+
+The focus is on understanding how a student's emotional state relates to the type of UI they receive and whether the generated interface satisfies their needs.
+
+## 4. How Will Data Collection Work?
+
+Consider a student taking a Data Analysis or Machine Learning course.
+
+The student submits a query, such as:
+
+"Can you list the different machine learning models used for data analysis?"
+
+The system generates an initial response. While the student interacts with the output, the existing emotion detection system continuously captures their emotional state.
+
+For example, if the student appears confused, the system might provide additional explanations, charts, or graphs.
+
+Similarly, if the student is dissatisfied with the presentation, the system could display the same information differently.
+
+The purpose is to observe whether the generated interface satisfies the user's needs and how the user responds to it.
+
+This interaction will generate our initial dataset.
+
+## 5. Finalising the Queries
+
+We do not want participants to submit completely random queries. Instead, we will restrict the experiment to five predefined educational queries.
+
+These queries should be selected carefully so that they generate different types of responses, including textual explanations, charts, graphs, and other visual elements.
+
+All queries must be related to students' learning.
+
+The team responsible for the experiment needs to finalise these five queries and share them with the integration team.
+
+Deadline: Tuesday night.
+
+## 6. Initial Data Collection: Nine Participants
+
+We currently have nine team members who can participate in the initial experiment.
+
+Each participant will run all five predefined queries individually.
+
+The initial dataset will therefore contain:
+
+9 participants × 5 queries = 45 interactions.
+
+The experimental procedure will be as follows:
+
+1. A participant starts the experiment.
+2. The participant runs the first predefined query.
+3. The system captures their emotions and the generated UI.
+4. Their observations and responses are recorded.
+5. The participant repeats the process for the remaining four queries.
+
+The same procedure will be followed for all nine participants.
+
+This will give us an initial dataset of 45 interactions.
+
+## 7. Developing Our Own Generative UI Agent
+
+Once the initial dataset is available, we will integrate the collected data into our own Generative UI system.
+
+The objective is to develop an AI agent that dynamically changes the presentation of educational content based on the user's emotional state at runtime.
+
+We need to explore how LLMs and agent-based approaches can be used to achieve this.
+
+The initial 45 interactions will help us experiment with and develop the agent while larger-scale data collection is being organised.
+
+The integration team needs to determine how the existing emotion detection system can be connected to Generative UI and how the interface can be modified dynamically.
+
+## 8. Scaling the Experiment
+
+The initial nine participants are only for the first demonstration and preliminary dataset.
+
+We eventually intend to expand the experiment to approximately 125 students.
+
+The instructor has access to 125 students who can potentially participate in the study.
+
+Once the initial experimental setup is ready, we will collect data from these participants using the same predefined queries.
+
+## 9. Team Responsibilities
+
+The work needs to be divided into two major areas.
+
+A. Experiment Setup and Data Collection
+
+- Finalise five educational queries.
+- Prepare the Generative UI interface for the experiment.
+- Integrate the existing emotion detection tool.
+- Establish the procedure for collecting observations.
+- Conduct the initial experiment with nine participants.
+- Prepare the initial dataset of 45 interactions.
+
+B. AI Agent and Integration
+
+- Explore how to integrate runtime emotion detection with Generative UI.
+- Investigate LLM-based agents for dynamically modifying the interface.
+- Determine how JavaScript and the generated UI can be modified at runtime.
+- Explore how the initial dataset can be used to develop the agent.
+- Present the proposed integration approach.
+
+## 10. Deadlines
+
+- Tuesday night: Finalise and share the five educational queries.
+- Wednesday: Present the proposed integration approach and demonstrate the initial Generative UI experiment.
+- Saturday: Complete the initial data collection with nine participants, producing 45 interactions.
+- Following the initial data collection: Continue developing and experimenting with the AI agent using the collected dataset.
+- Later: Expand data collection to approximately 125 students.
+
+## Overall Research Direction
+
+The main objective is to investigate Generative UI that adapts dynamically to a student's emotional state at runtime.
+
+We will first collect data from students interacting with five predefined educational queries. During these interactions, the existing emotion detection system will capture their emotional states while we observe how they respond to the generated UI.
+
+Using the initial dataset of 45 interactions, we will begin developing our own AI agent. Once the initial setup has been tested, we will expand the experiment to approximately 125 students.

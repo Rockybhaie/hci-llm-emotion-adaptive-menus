@@ -6,118 +6,99 @@ import tempfile
 import time
 from pathlib import Path
 
-from . import browser, config, paths, sensors, tasks
+from . import browser, config, content, paths
 from .storage import SessionStore
 
 OK, WARN, FAIL = "ok", "warn", "fail"
 
 
-def _packages():
+def _packages(sensors):
+    needed = [("fastapi", "fastapi"), ("uvicorn", "uvicorn"), ("pandas", "pandas"), ("yaml", "pyyaml"),
+              ("rich", "rich")]
+    if sensors:
+        needed += [("cv2", "opencv-python"), ("mediapipe", "mediapipe"), ("onnxruntime", "onnxruntime"),
+                   ("eyetrax", "eyetrax (pip install --no-deps eyetrax)")]
     out = []
-    for mod, pip in (("fastapi", "fastapi"), ("uvicorn", "uvicorn"), ("pandas", "pandas"),
-                     ("yaml", "pyyaml"), ("rich", "rich")):
+    for mod, pip in needed:
         try:
             importlib.import_module(mod)
-            out.append((f"package {pip}", OK, "installed"))
+            out.append((f"package {pip.split()[0]}", OK, "installed"))
         except ImportError:
-            out.append((f"package {pip}", FAIL, f"pip install {pip}"))
+            out.append((f"package {pip.split()[0]}", FAIL, f"pip install {pip}"))
     return out
 
 
-def _content(cfg, groups):
+def _content(cfg):
     out = []
-    for gid in groups:
-        g = cfg.group(gid)
+    for q in cfg.queries:
         try:
-            site = config.load_site(g["site"])
-            task_cfg = config.load_tasks(g["tasks"])
-            n = 0
-            for s in ("A", "B"):
-                for variant in (None, "repetitive"):
-                    n += len(tasks.build_block(site, task_cfg, s, variant))
-            out.append((f"{gid} site + tasks", OK, f"{site['name']}: {n} task variants resolve"))
+            data = content.validate(q, cfg.looks)
+            prov = data.get("provenance") or {}
+            status = prov.get("status", "unknown")
+            level = OK if status in ("reviewed", "frozen") else WARN
+            out.append((f"answers {q}", level,
+                        f"{data['type']}: {len(cfg.looks)} looks valid · content status: {status}"
+                        + ("" if level == OK else " (have the team review it, then set status: reviewed)")))
         except config.ConfigError as exc:
-            out.append((f"{gid} site + tasks", FAIL, str(exc)))
+            out.append((f"answers {q}", FAIL, str(exc)))
     return out
 
 
-def _videos(cfg, groups, mock):
-    needed = {cfg.washout["video"]}
-    for gid in groups:
-        for emo in cfg.group(gid)["emotions"]:
-            video = cfg.emotions[emo]["induction"].get("video")
-            if video:
-                needed.add(video)
+def _models(cfg):
     out = []
-    for v in sorted(needed):
-        path = paths.VIDEOS / v
-        if path.is_dir():
-            n = len([p for p in path.iterdir() if p.suffix.lower() in (".mp4", ".webm")])
-            exists, found = n > 0, f"{n} clips (playlist)"
+    for slot, key in (("camera", "face_landmarker"), ("emotion", None)):
+        if slot == "camera":
+            p = (cfg.devices.get("camera") or {}).get(key, "models/face_landmarker.task")
         else:
-            exists, found = path.exists(), "found"
-        level = OK if exists else (WARN if mock else FAIL)
-        out.append((f"video {v}", level, found if exists else "missing — see stimuli/README.md"))
+            p = ((cfg.devices.get("emotion") or {}).get("yolo") or {}).get("model", "models/emotion_yolo11n_cls.onnx")
+        path = paths.ROOT / p
+        out.append((f"model {Path(p).name}", OK if path.exists() else FAIL,
+                    "found" if path.exists() else f"missing: {p} (see models/README.md)"))
     return out
 
 
 def _port(cfg):
-    host, port = cfg.experiment["server"]["host"], cfg.experiment["server"]["port"]
+    host, port = cfg.study["server"]["host"], cfg.study["server"]["port"]
     with socket.socket() as s:
         free = s.connect_ex((host, port)) != 0
     return [("port", OK if free else FAIL, f"{port} free" if free else f"{port} in use (another session running?)")]
 
 
 def _browser(cfg):
-    exe = browser.find(cfg.experiment.get("browser", "edge"))
+    exe = browser.find(cfg.study.get("browser", "edge"))
     return [("browser", OK if exe else FAIL, Path(exe).name if exe else "install Microsoft Edge or Chrome")]
 
 
-def _devices(cfg, mock):
-    out = []
-    timeout = cfg.devices.get("startup_timeout", 15)
+def _sensors(cfg, mock):
+    from .sensing import Sensing, planned
+    plan = planned(cfg.devices, mode="mock" if mock else "config")
+    if not plan:
+        return [("sensors", WARN, "none configured in config/devices.yaml")]
     with tempfile.TemporaryDirectory(prefix="hci-check-") as tmp:
         store = SessionStore(Path(tmp))
-        ctx = sensors.SensorContext()
-        for slot in ("eye_tracker", "gsr", "hr"):
-            adapter = cfg.devices[slot]["adapter"]
-            if mock and adapter != "none":
-                adapter = "mock"
-            if adapter == "none":
-                out.append((slot, WARN, "disabled (adapter: none)"))
-                continue
-            try:
-                sensor = sensors.create(slot, adapter, cfg.devices[slot].get(adapter), store, ctx)
-                sensor.start()
-                deadline = time.time() + timeout
-                while sensor.samples == 0 and time.time() < deadline and not sensor.error:
-                    time.sleep(0.2)
-                first = sensor.samples
-                time.sleep(3.0)
-                hz = (sensor.samples - first) / 3.0
-                sensor.stop()
-                if sensor.samples == 0:
-                    out.append((slot, FAIL, f"{adapter}: connected but no samples in {timeout}s"))
-                else:
-                    extra = ", ".join(f"{k}={v}" for k, v in sensor.info.items())
-                    out.append((slot, OK, f"{adapter}: {hz:.0f} Hz {extra}".strip()))
-            except sensors.SensorError as exc:
-                out.append((slot, FAIL, str(exc)))
-            except Exception as exc:
-                out.append((slot, FAIL, f"{adapter}: {type(exc).__name__}: {exc}"))
-        store.close()
-    return out
+        sensing = Sensing(store, mode="mock" if mock else "config", devices=cfg.devices)
+        try:
+            sensing.start()
+            before = {slot: s.samples for slot, s in sensing.sensors.items()}
+            time.sleep(3.0)
+            rows = [(slot, OK, f"{s.adapter}: {(s.samples - before[slot]) / 3.0:.0f} Hz")
+                    for slot, s in sensing.sensors.items()]
+        except Exception as exc:
+            rows = [("sensors", FAIL, f"{type(exc).__name__}: {exc}")]
+        finally:
+            sensing.stop()
+            store.close()
+    return rows
 
 
-def run(groups=None, mock=False, devices=True):
-    results = list(_packages())
+def run(sensors=True, mock=False):
+    results = list(_packages(sensors and not mock))
     try:
         cfg = config.load()
     except config.ConfigError as exc:
         return results + [("config", FAIL, str(exc))]
-    results.append(("config", OK, "config/*.yaml valid"))
-    groups = groups or list(cfg.groups)
-    results += _content(cfg, groups) + _videos(cfg, groups, mock) + _port(cfg) + _browser(cfg)
-    if devices:
-        results += _devices(cfg, mock)
+    results.append(("config", OK, "config/genui.yaml + devices.yaml valid"))
+    results += _content(cfg) + _models(cfg) + _port(cfg) + _browser(cfg)
+    if sensors:
+        results += _sensors(cfg, mock)
     return results

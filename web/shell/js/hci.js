@@ -7,7 +7,7 @@ let lastMouse = 0;
 
 export const HCI = {
   offset: 0,            // master clock = performance.now()/1000 + offset
-  ctx: { task_id: '' }, // attached to every event
+  ctx: { look: '' },    // attached to every event (the answer look on screen)
   frame: null,          // the task iframe, for coordinate conversion
 
   now() { return performance.now() / 1000 + this.offset; },
@@ -42,7 +42,7 @@ export const HCI = {
   },
 
   log(ev) {
-    queue.events.push({ t: this.now(), task_id: this.ctx.task_id, source: 'shell', ...ev });
+    queue.events.push({ t: this.now(), look: this.ctx.look, source: 'shell', ...ev });
   },
 
   mouseAt(xNorm, yNorm) {
@@ -91,7 +91,7 @@ HCI.site = {
       const [ox, oy] = frameOffset();
       [out.x, out.y] = norm(ev.x + ox, ev.y + oy);
     }
-    queue.events.push({ t: HCI.now(), task_id: HCI.ctx.task_id, ...out });
+    queue.events.push({ t: HCI.now(), look: HCI.ctx.look, ...out });
   },
   mouse(cx, cy) {
     const [ox, oy] = frameOffset();

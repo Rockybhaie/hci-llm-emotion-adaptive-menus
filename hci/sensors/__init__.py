@@ -4,8 +4,13 @@ from .base import EyeSensor, Sensor, SensorContext, SensorError
 
 ADAPTERS = {
     "eye_tracker": {
+        "webcam": ("webcam", "WebcamGaze"),      # EyeTrax webcam gaze (default, no hardware needed)
         "tobii": ("tobii", "TobiiEye"),
         "mock": ("mock", "MockEye"),
+    },
+    "emotion": {
+        "yolo": ("webcam", "YoloEmotion"),       # YOLO11n facial-emotion classifier on the webcam
+        "mock": ("webcam", "MockEmotion"),
     },
     "gsr": {
         "shimmer": ("shimmer", "ShimmerGsr"),
@@ -23,7 +28,7 @@ ADAPTERS = {
 
 
 def create(slot, adapter, options, store, context, sync_stream=None):
-    """Build the sensor for one slot (eye_tracker | gsr | hr); returns None for 'none'."""
+    """Build the sensor for one slot (eye_tracker | emotion | gsr | hr); returns None for 'none'."""
     if adapter == "none":
         return None
     if adapter == "unset":

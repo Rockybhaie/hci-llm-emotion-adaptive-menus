@@ -1,0 +1,88 @@
+id: q4
+type: plan
+subject: Study skills
+query: How should I prepare for my final exams in 2 weeks?
+provenance:
+  generated_by: Claude (Anthropic), model claude-opus-5-5, from the study plan in this repository
+  generated_on: "2026-11-25"
+  reviewed_by: null
+  status: draft
+
+quiz:
+  question: Which study method helps you remember the most a week later?
+  options: [Re-reading your notes many times, Testing yourself with practice questions, Highlighting the textbook, Studying everything the night before]
+  answer: Testing yourself with practice questions
+
+looks:
+  text:
+    - {type: heading, text: Preparing for final exams in two weeks}
+    - {type: paragraph, text: "Two weeks is enough if you use them well. Start by **making a plan**: list your exams and dates, note which topics you feel weakest in, and give the most time to exams that are soon, heavily weighted or difficult for you."}
+    - {type: paragraph, text: "When you study, **test yourself** instead of re-reading. Answer practice questions, explain topics from memory or use flashcards. Remembering something from memory makes it stick much better than reading it again."}
+    - {type: paragraph, text: "**Spread your study out** over the days instead of cramming one subject at a time. Revisit each subject every two or three days and **mix** different topics in one session; it feels harder, but you remember more."}
+    - {type: paragraph, text: "In the final days, do **past papers under timed conditions**. Keep the last day before an exam light, and **sleep 7–9 hours**; sleep is when your brain stores what you learned."}
+
+  visual:
+    - {type: heading, text: Your two weeks at a glance}
+    - type: diagram
+      kind: timeline
+      unit: Day
+      total: 14
+      items:
+        - {label: Plan, from: 1, to: 2, text: "List exams, topics and weak spots"}
+        - {label: Learn and practise, from: 3, to: 9, text: "Rotate subjects; practice questions every day"}
+        - {label: Past papers, from: 10, to: 12, text: "Timed, exam-style; fix mistakes"}
+        - {label: Light review, from: 13, to: 14, text: "Flashcards only; sleep well"}
+    - type: chart
+      kind: bar
+      title: "Remembered one week later (approx., Roediger & Karpicke, 2006)"
+      categories: [Read 4 times, Read 3 times + 1 test, Read once + 3 tests]
+      values: [40, 56, 61]
+      y_label: "% remembered"
+      highlight: 2
+    - {type: callout, tone: tip, title: The takeaway, text: "Testing yourself beats re-reading, even when re-reading feels easier."}
+
+  steps:
+    - {type: heading, text: Your two-week plan in 5 steps}
+    - type: steps
+      items:
+        - {title: "Days 1–2: make a plan", text: "List every exam and its date. Mark weak topics and give them the most time."}
+        - {title: "Days 3–9: learn and practise", text: "Study 2–3 subjects a day and rotate them. End each session with **practice questions**, not re-reading."}
+        - {title: "Every few days: revisit", text: "Come back to each subject after 2–3 days (**spaced practice**) so it sticks."}
+        - {title: "Days 10–12: past papers", text: "Do full past papers **under timed conditions**, then study every mistake."}
+        - {title: "Days 13–14: light review and rest", text: "Quick flashcards only. **Sleep 7–9 hours**; no all-night cramming."}
+
+  example:
+    - {type: heading, text: "A real plan: Sara has three exams"}
+    - type: example
+      title: "Biology, Economics and Maths in two weeks"
+      setup: "Sara feels fine about Biology, unsure about Economics and weakest in Maths. Maths is worth the most credits."
+      steps:
+        - "Days 1–2: she lists every topic and rates it red, amber or green. Maths gets the most red."
+        - "Days 3–9: each day she does Maths in the morning and rotates Biology and Economics in the afternoon, ending with 10 practice questions."
+        - "Every third day she re-tests herself on topics from earlier in the week."
+        - "Days 10–12: one timed past paper per subject; she reworks every wrong answer."
+        - "Days 13–14: flashcards for 1 hour a day, early nights."
+      result: "Most time goes to her weakest, heaviest exam, and every subject is **practised and revisited**, not just re-read."
+
+  summary:
+    - {type: heading, text: Exam preparation cheat sheet}
+    - type: table
+      columns: [When, Do this, Why]
+      rows:
+        - [Days 1–2, "Plan: exams, topics, weak spots", So time goes where it matters most]
+        - [Days 3–9, "Practise and rotate subjects", Testing and mixing improve memory]
+        - [Every 2–3 days, Revisit earlier topics, Spaced practice stops forgetting]
+        - [Days 10–12, Timed past papers, Practise real exam conditions]
+        - [Days 13–14, "Light review, 7–9 h sleep", Sleep stores what you learned]
+    - {type: callout, tone: warning, title: Avoid, text: "All-night cramming and only re-reading or highlighting: they feel productive but are the least effective."}
+
+  simple:
+    - {type: heading, text: "Train like it is a race"}
+    - {type: callout, tone: analogy, title: The runner, text: "Nobody runs a marathon by training only the night before. Runners build up a little every day, run practice races, and rest just before the big day."}
+    - type: cards
+      items:
+        - {title: A training plan, text: "= your 2-week study plan"}
+        - {title: Short runs every day, text: "= a little of each subject, often"}
+        - {title: Practice races, text: "= past papers with a timer"}
+        - {title: Resting before the race, text: "= a light last day and good sleep"}
+    - {type: paragraph, text: "Plan it, practise a bit every day by testing yourself, and rest before the exam."}

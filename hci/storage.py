@@ -45,15 +45,28 @@ class CsvStream:
 
 
 # Columns of every behavioural file written by the session (sensor files are defined by each adapter).
+EMOTION_CLASSES = ["anger", "contempt", "disgust", "fear", "happy", "neutral", "sad", "surprise"]
+SNAPSHOT = ["samples", "face_fraction", "negative_fraction", "valence", "arousal", "dominant",
+            *[f"p_{c}" for c in EMOTION_CLASSES]]
+
 SCHEMAS = {
-    "markers": ["t", "step", "step_type", "phase", "block", "emotion", "event"],
-    "events": ["t", "step", "block", "task_id", "source", "event", "section", "page", "item", "x", "y", "detail"],
+    "markers": ["t", "step", "step_type", "phase", "query_id", "event"],
+    "events": ["t", "step", "query_id", "look", "source", "event", "item", "x", "y", "detail"],
     "mouse": ["t", "x", "y"],
     "aoi": ["t", "snapshot", "kind", "id", "x0", "y0", "x1", "y1"],
-    "tasks": ["block", "emotion", "task_set", "variant", "task_id", "type", "target_pages",
-              "t_start", "t_end", "duration_s", "outcome", "answer", "correct_answer",
-              "clicks", "menu_opens", "page_views", "wrong_pages", "sabotage_events", "answer_attempts"],
-    "questionnaires": ["t", "tag", "block", "emotion", "instrument", "item", "value"],
+    "looks": ["t", "query_id", "look", "reason", "adaptation_id"],
+    "questionnaires": ["t", "tag", "query_id", "instrument", "item", "value"],
+    # one row per query: the 45-row dataset of the first run
+    "interactions": ["participant", "position", "query_id", "query_type", "attempt", "start_look", "looks_seen",
+                     "final_look", "n_looks", "n_auto", "n_manual", "n_kept", "n_back", "t_answer", "t_done",
+                     "reading_s", "time_per_look", "satisfaction", "preferred_look", "quiz_answer", "quiz_correct",
+                     "emotion_samples", "face_fraction", "valence", "arousal", "dominant_emotion",
+                     "negative_fraction", "valence_per_look", "dominant_per_look"],
+    # one row per look change: emotion before -> change -> reaction -> the query's outcome
+    "adaptations": ["participant", "query_id", "query_type", "attempt", "adaptation_id", "t", "trigger",
+                    "from_look", "to_look", "n_auto_before", "response", "response_t", "response_s",
+                    "time_on_new_look_s", "final_look", "satisfaction", "preferred_look", "quiz_correct",
+                    *[f"before_{k}" for k in SNAPSHOT]],
 }
 
 
@@ -76,7 +89,7 @@ class SessionStore:
 
     def write_json(self, name, data):
         tmp = self.folder / f".{name}.json.tmp"
-        tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+        tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False, default=str), encoding="utf-8")
         tmp.replace(self.folder / f"{name}.json")
 
     def read_json(self, name):

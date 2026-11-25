@@ -1,0 +1,91 @@
+id: q3
+type: cause-effect
+subject: Economics
+query: Why do prices go up when demand rises?
+provenance:
+  generated_by: Claude (Anthropic), model claude-opus-5-5, from the study plan in this repository
+  generated_on: "2026-11-25"
+  reviewed_by: null
+  status: draft
+
+quiz:
+  question: "Demand for a product rises, but the amount for sale stays the same. At the old price, what appears?"
+  options: [A shortage, A surplus, A lower price, No change at all]
+  answer: A shortage
+
+looks:
+  text:
+    - {type: heading, text: Why prices rise when demand rises}
+    - {type: paragraph, text: "A price comes from two sides. **Demand** is how much buyers want to buy at each price: the cheaper it is, the more they want. **Supply** is how much sellers are willing to sell: the higher the price, the more they offer."}
+    - {type: paragraph, text: "The market settles where the two meet, the **equilibrium price**. At that price, the amount buyers want equals the amount sellers offer."}
+    - {type: paragraph, text: "When demand rises (more people want the product), buyers now want more than sellers are offering at the old price. This gap is a **shortage**. Buyers compete for the limited goods, and sellers notice they can charge more."}
+    - {type: paragraph, text: "As the price rises, some buyers drop out and sellers are encouraged to supply more. The shortage closes at a **new, higher equilibrium price**, where slightly more is sold than before."}
+
+  visual:
+    - {type: heading, text: Supply and demand on one chart}
+    - type: chart
+      kind: line
+      title: "Umbrellas: a rainy day pushes demand to the right"
+      x_label: Umbrellas sold per day
+      y_label: Price ($)
+      series:
+        - name: Supply
+          points: [[10, 1], [20, 2], [30, 3], [40, 4], [50, 5], [60, 6], [70, 7], [80, 8], [90, 9]]
+        - name: Demand before
+          dashed: true
+          points: [[10, 9], [20, 8], [30, 7], [40, 6], [50, 5], [60, 4], [70, 3], [80, 2], [90, 1]]
+        - name: Demand after rain
+          points: [[10, 11], [20, 10], [30, 9], [40, 8], [50, 7], [60, 6], [70, 5], [80, 4], [90, 3]]
+    - type: diagram
+      kind: flow
+      nodes: [Demand rises, Shortage at the old price, Buyers compete, Price rises, New balance]
+    - {type: callout, tone: note, title: Reading the chart, text: "Lines cross at the price where buyers and sellers agree: **$5** before the rain, **$6** after."}
+
+  steps:
+    - {type: heading, text: What happens when demand rises}
+    - type: steps
+      items:
+        - {title: The market is balanced, text: "At the **equilibrium price**, buyers want exactly as much as sellers offer."}
+        - {title: Demand rises, text: "Something makes more people want the product: rain, a trend, a holiday."}
+        - {title: A shortage appears, text: "At the old price, buyers now want **more** than is available."}
+        - {title: The price goes up, text: "Buyers compete for the limited stock, so sellers can charge more."}
+        - {title: A new balance, text: "The higher price makes some buyers drop out and sellers supply more, until the two match at a **higher equilibrium price**."}
+
+  example:
+    - {type: heading, text: The umbrella stall on a rainy day}
+    - type: example
+      title: "A normal sunny day"
+      setup: "At **$5**, shoppers want 50 umbrellas and the stall is happy to sell 50."
+      steps: ["Buyers want 50 = sellers offer 50"]
+      result: "The market is balanced at **$5**."
+    - type: example
+      title: "It starts to rain"
+      setup: "Suddenly, at $5, shoppers want **70** umbrellas. The stall still offers only 50 at that price."
+      steps:
+        - "Shortage = 70 − 50 = **20 umbrellas**."
+        - "Umbrellas sell out fast, so the stall raises the price."
+        - "At **$6**, shoppers want 60 and the stall is willing to sell 60."
+      result: "New balance: **$6**, with **60** umbrellas sold. Higher demand → higher price and more sold."
+
+  summary:
+    - {type: heading, text: Demand and price in one table}
+    - type: table
+      columns: [Term, Meaning]
+      rows:
+        - [Demand, How much buyers want at each price (more when cheaper)]
+        - [Supply, How much sellers offer at each price (more when pricier)]
+        - [Equilibrium price, The price where demand equals supply]
+        - [Shortage, Buyers want more than is available at the current price]
+        - [Surplus, More is available than buyers want at the current price]
+    - {type: callout, tone: tip, title: In one sentence, text: "More demand → shortage at the old price → price rises until supply and demand match again."}
+
+  simple:
+    - {type: heading, text: "Like the last slice of pizza"}
+    - {type: callout, tone: analogy, title: The pizza party, text: "Two slices of pizza are left. If only one friend is hungry, nobody cares about them. If five friends are hungry, those slices suddenly become very valuable, and someone might even offer to pay for one."}
+    - type: cards
+      items:
+        - {title: Hungry friends, text: "= demand"}
+        - {title: Slices left, text: "= supply"}
+        - {title: More hungry friends, text: "= demand rises"}
+        - {title: People offering more, text: "= the price goes up"}
+    - {type: paragraph, text: "When many people want something and there is not enough of it, its price goes up. That is all it is."}

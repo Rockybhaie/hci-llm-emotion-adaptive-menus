@@ -1,0 +1,90 @@
+id: q2
+type: concept
+subject: Biology
+query: How does the human heart pump blood?
+provenance:
+  generated_by: Claude (Anthropic), model claude-opus-5-5, from the study plan in this repository
+  generated_on: "2026-11-25"
+  reviewed_by: null
+  status: draft
+
+quiz:
+  question: Which chamber of the heart pumps oxygen-rich blood out to the whole body?
+  options: [Right atrium, Right ventricle, Left atrium, Left ventricle]
+  answer: Left ventricle
+
+looks:
+  text:
+    - {type: heading, text: How the heart pumps blood}
+    - {type: paragraph, text: "The heart is a muscle about the size of a fist with **four chambers**: two upper chambers (the **atria**) that receive blood, and two lower chambers (the **ventricles**) that pump it out."}
+    - {type: paragraph, text: "It is really **two pumps side by side**. The right side receives used, oxygen-poor blood from the body and pumps it to the **lungs**, where it picks up oxygen. The left side receives this oxygen-rich blood from the lungs and pumps it out to the **whole body**."}
+    - {type: paragraph, text: "Each heartbeat starts with an electrical signal from the heart's natural pacemaker (the **SA node**). The atria squeeze first and fill the ventricles; then the ventricles squeeze hard and push blood out. **Valves** between the chambers work like one-way doors, so blood never flows backwards."}
+    - {type: paragraph, text: "At rest the heart beats about **70 times a minute** and pumps about **5 litres** of blood per minute. The **left ventricle** has the thickest wall because it has to push blood all the way around the body."}
+
+  visual:
+    - {type: heading, text: One full trip through the heart}
+    - type: diagram
+      kind: cycle
+      center: Blood's loop
+      nodes: [Body, Right atrium, Right ventricle, Lungs, Left atrium, Left ventricle]
+      caption: "Right side → lungs to pick up oxygen. Left side → body to deliver it. Then the loop starts again."
+    - type: chart
+      kind: bar
+      title: Blood pumped per minute
+      categories: [Resting, Walking, Running]
+      values: [5, 10, 20]
+      y_label: Litres per minute
+      highlight: 0
+    - {type: callout, tone: note, title: Valves, text: "Four valves act as one-way doors, so blood only ever moves forward around this loop."}
+
+  steps:
+    - {type: heading, text: One heartbeat, step by step}
+    - type: steps
+      items:
+        - {title: Blood comes back from the body, text: "Oxygen-poor blood enters the **right atrium**."}
+        - {title: To the lungs, text: "The **right ventricle** pumps it to the lungs, where it drops carbon dioxide and picks up **oxygen**."}
+        - {title: Back to the heart, text: "Oxygen-rich blood returns to the **left atrium**."}
+        - {title: Out to the body, text: "The **left ventricle**, the strongest chamber, pumps it out through the aorta to the whole body."}
+        - {title: Repeat, text: "An electrical signal from the **SA node** starts every beat, about 70 times a minute at rest. **Valves** stop blood flowing backwards."}
+
+  example:
+    - {type: heading, text: Follow one red blood cell}
+    - type: example
+      title: "A blood cell starts in your toe, low on oxygen"
+      setup: "It has just delivered its oxygen to the muscles in your foot."
+      steps:
+        - "It travels up a vein and enters the **right atrium**, then drops into the **right ventricle**."
+        - "One squeeze sends it to the **lungs**. There it releases carbon dioxide and picks up fresh **oxygen**."
+        - "It flows back into the **left atrium**, then the **left ventricle**."
+        - "A powerful squeeze pushes it into the aorta and back out to the body, maybe to your brain this time."
+      result: "The whole trip takes about **one minute**."
+    - type: example
+      title: "How much blood is that?"
+      steps:
+        - "Each beat pushes out about **70 ml** of blood."
+        - "At **70 beats** a minute: 70 × 70 ml = 4,900 ml."
+      result: "About **5 litres per minute**, roughly all the blood in your body, every minute."
+
+  summary:
+    - {type: heading, text: The heart at a glance}
+    - type: table
+      columns: [Part, Side, What it does]
+      rows:
+        - [Right atrium, Right, Receives oxygen-poor blood from the body]
+        - [Right ventricle, Right, Pumps that blood to the lungs]
+        - [Left atrium, Left, Receives oxygen-rich blood from the lungs]
+        - [Left ventricle, Left, "Pumps blood to the whole body (thickest wall)"]
+        - [Valves, Both, "One-way doors: stop blood flowing backwards"]
+        - [SA node, Right atrium, "Natural pacemaker: starts every beat"]
+    - {type: callout, tone: tip, title: In one sentence, text: "Right side to the lungs, left side to the body, about 70 beats and 5 litres a minute at rest."}
+
+  simple:
+    - {type: heading, text: "The heart is a delivery hub"}
+    - {type: callout, tone: analogy, title: Two delivery vans, text: "Picture a delivery hub with two vans. One van takes empty boxes to the warehouse (the lungs) to be filled with oxygen. The other van takes the full boxes out to every house in town (your body)."}
+    - type: cards
+      items:
+        - {title: The hub, text: "= your heart"}
+        - {title: The warehouse, text: "= your lungs, where blood is filled with oxygen"}
+        - {title: The houses, text: "= the rest of your body, which uses the oxygen"}
+        - {title: One-way doors, text: "= valves, so nothing goes back the wrong way"}
+    - {type: paragraph, text: "The hub never closes: it sends out both vans about 70 times every minute, your whole life."}

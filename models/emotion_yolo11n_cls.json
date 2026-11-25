@@ -1,0 +1,171 @@
+{
+  "classes": [
+    "anger",
+    "contempt",
+    "disgust",
+    "fear",
+    "happy",
+    "neutral",
+    "sad",
+    "surprise"
+  ],
+  "imgsz": 96,
+  "input": "RGB, square face crop resized to imgsz, values 0..1, NCHW; output = softmax probabilities",
+  "base_model": "yolo11n-cls.pt",
+  "weights": "C:/Desktop/Desktop 2/Course Resources/Semester 7/HCI/yolobased/hci-llm-emotion-adaptive-menus/emotion_model/runs/emotion_yolo11n/weights/best.pt",
+  "epochs_completed": 20,
+  "best_epoch": 20,
+  "val_top1_best": 0.75259,
+  "note": "continued run, best at epoch 20 of 20",
+  "datasets": [
+    "RAF-DB (Kaggle release, HF elipaluma/RAF-DB_Kaggle)",
+    "AffectNet short (HF Mauregato/affectnet_short)"
+  ],
+  "test": {
+    "n": 2891,
+    "top1": 0.7368,
+    "macro_f1": 0.6803,
+    "per_class": {
+      "anger": {
+        "precision": 0.601,
+        "recall": 0.642,
+        "f1": 0.621,
+        "n": 274
+      },
+      "contempt": {
+        "precision": 0.715,
+        "recall": 0.621,
+        "f1": 0.665,
+        "n": 182
+      },
+      "disgust": {
+        "precision": 0.521,
+        "recall": 0.502,
+        "f1": 0.511,
+        "n": 201
+      },
+      "fear": {
+        "precision": 0.617,
+        "recall": 0.527,
+        "f1": 0.568,
+        "n": 241
+      },
+      "happy": {
+        "precision": 0.931,
+        "recall": 0.913,
+        "f1": 0.922,
+        "n": 711
+      },
+      "neutral": {
+        "precision": 0.776,
+        "recall": 0.856,
+        "f1": 0.814,
+        "n": 541
+      },
+      "sad": {
+        "precision": 0.643,
+        "recall": 0.624,
+        "f1": 0.633,
+        "n": 346
+      },
+      "surprise": {
+        "precision": 0.695,
+        "recall": 0.722,
+        "f1": 0.708,
+        "n": 395
+      }
+    },
+    "confusion": [
+      [
+        176,
+        15,
+        31,
+        9,
+        3,
+        7,
+        22,
+        11
+      ],
+      [
+        13,
+        113,
+        12,
+        2,
+        5,
+        11,
+        15,
+        11
+      ],
+      [
+        39,
+        3,
+        101,
+        6,
+        5,
+        18,
+        20,
+        9
+      ],
+      [
+        13,
+        2,
+        8,
+        127,
+        0,
+        6,
+        26,
+        59
+      ],
+      [
+        3,
+        3,
+        5,
+        2,
+        649,
+        40,
+        4,
+        5
+      ],
+      [
+        8,
+        0,
+        6,
+        2,
+        24,
+        463,
+        21,
+        17
+      ],
+      [
+        32,
+        12,
+        23,
+        17,
+        5,
+        28,
+        216,
+        13
+      ],
+      [
+        9,
+        10,
+        8,
+        41,
+        6,
+        24,
+        12,
+        285
+      ]
+    ],
+    "labels": [
+      "anger",
+      "contempt",
+      "disgust",
+      "fear",
+      "happy",
+      "neutral",
+      "sad",
+      "surprise"
+    ]
+  }
+}

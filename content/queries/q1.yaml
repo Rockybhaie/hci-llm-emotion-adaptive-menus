@@ -1,0 +1,93 @@
+id: q1
+type: comparison
+subject: Computer Science
+query: List the different machine learning models used for data analysis.
+provenance:
+  generated_by: Claude (Anthropic), model claude-opus-5-5, from the study plan in this repository
+  generated_on: "2026-11-25"
+  reviewed_by: null          # fill in after the team has checked the content
+  status: draft              # draft -> reviewed -> frozen (do not edit after data collection starts)
+
+quiz:
+  question: A shop wants to split its customers into groups by buying habits. Nobody has labelled the customers. Which model fits best?
+  options: [Linear regression, k-means clustering, Logistic regression, Decision tree]
+  answer: k-means clustering
+
+looks:
+  text:
+    - {type: heading, text: Machine learning models for data analysis}
+    - {type: paragraph, text: "Most models used in data analysis fall into three groups, depending on **what you want the model to produce**."}
+    - {type: paragraph, text: "**Predicting a number (regression).** Linear regression draws the best straight line through your data, for example predicting a house price from its size. It is fast and easy to explain, but it assumes the relationship is roughly a straight line."}
+    - {type: paragraph, text: "**Predicting a category (classification).** Logistic regression predicts yes/no outcomes such as spam or not spam. A decision tree asks a series of yes/no questions and is easy to read. A random forest combines many trees and is usually more accurate, but harder to explain."}
+    - {type: paragraph, text: "**Finding groups (clustering).** When the data has no labels, k-means clustering groups similar points together, for example customer segments."}
+    - {type: paragraph, text: "**Neural networks** can do regression and classification on complex data such as images and text, but they need a lot of data and are hard to interpret."}
+
+  visual:
+    - {type: heading, text: "Which model? Start from your goal"}
+    - type: diagram
+      kind: tree
+      root: What do you want the model to produce?
+      branches:
+        - {label: A number, leaves: [Linear regression, Neural network]}
+        - {label: A category, leaves: [Logistic regression, Decision tree, Random forest]}
+        - {label: Groups (no labels), leaves: [k-means clustering]}
+    - type: chart
+      kind: bar
+      title: How easy each model is to explain (1 = hard, 5 = easy)
+      categories: [Linear reg., Logistic reg., Decision tree, Random forest, k-means, Neural net]
+      values: [5, 4, 5, 2, 4, 1]
+      y_label: Ease of explaining
+    - {type: callout, tone: tip, title: Rule of thumb, text: "Start with the simplest model that fits your goal. Move to random forests or neural networks only when the simple one is not accurate enough."}
+
+  steps:
+    - {type: heading, text: Choosing a machine learning model in 4 steps}
+    - type: steps
+      items:
+        - {title: Decide what you want out, text: "A number (price, temperature), a category (spam / not spam) or groups in unlabelled data."}
+        - {title: "Number? Use regression", text: "Start with **linear regression**. Use a neural network only for very complex data."}
+        - {title: "Category? Use classification", text: "Try **logistic regression** or a **decision tree** first; switch to a **random forest** if you need more accuracy."}
+        - {title: "No labels? Use clustering", text: "Use **k-means clustering** to find natural groups, for example customer segments."}
+    - {type: callout, tone: note, title: Remember, text: "Simple models are easier to explain; complex models (random forests, neural networks) are often more accurate but need more data."}
+
+  example:
+    - {type: heading, text: Three real problems, three models}
+    - type: example
+      title: "Problem 1: predict a flat's monthly rent from its size"
+      setup: "Output is a number, and rent rises steadily with size."
+      steps: ["Number → regression", "Relationship looks like a straight line"]
+      result: "**Linear regression**"
+    - type: example
+      title: "Problem 2: decide whether an email is spam"
+      setup: "Output is a category: spam or not spam. We have thousands of labelled emails."
+      steps: ["Category → classification", "We want something simple and explainable first"]
+      result: "**Logistic regression** (or a **decision tree**; a **random forest** if more accuracy is needed)"
+    - type: example
+      title: "Problem 3: find types of customers in sales data"
+      setup: "No one has labelled the customers; we want natural groups."
+      steps: ["No labels → clustering"]
+      result: "**k-means clustering**"
+    - {type: callout, tone: note, title: "And neural networks?", text: "They can solve problems 1 and 2 too, especially with images or text, but need much more data and are hard to explain."}
+
+  summary:
+    - {type: heading, text: ML models at a glance}
+    - type: table
+      columns: [Model, Task, Output, Typical use, Main strength, Main weakness]
+      rows:
+        - [Linear regression, Regression, A number, House prices, Simple and explainable, Assumes a straight line]
+        - [Logistic regression, Classification, Yes / no, Spam filter, Fast and explainable, Simple boundaries only]
+        - [Decision tree, Classification, A category, Loan approval, Easy to read, Can overfit]
+        - [Random forest, Classification, A category, Fraud detection, Usually accurate, Harder to explain]
+        - [k-means clustering, Clustering, Groups, Customer segments, Needs no labels, You choose the number of groups]
+        - [Neural network, Both, Number or category, Images and text, Handles complex data, Needs lots of data]
+
+  simple:
+    - {type: heading, text: "Think of models as tools in a toolbox"}
+    - {type: callout, tone: analogy, title: The toolbox, text: "You would not use a hammer to cut wood. In the same way, each model is a tool for one kind of job."}
+    - type: cards
+      items:
+        - {title: "The ruler: linear regression", text: "Draws a straight line to guess a number, like a price."}
+        - {title: "The sorter: logistic regression", text: "Puts things into yes or no, like spam or not spam."}
+        - {title: "The question game: decision tree", text: "Asks yes/no questions until it reaches an answer."}
+        - {title: "The team of trees: random forest", text: "Many trees vote together, so it makes fewer mistakes."}
+        - {title: "The grouper: k-means", text: "Puts similar things together when nobody has labelled them."}
+        - {title: "The brain-like one: neural network", text: "Very powerful for pictures and text, but needs lots of examples."}

@@ -1,20 +1,46 @@
 # Which recorder to use for each sensor. `python run.py check` tests them.
-# `--mock` on the command line replaces every adapter with simulated data.
+# `python run.py session ... --sensors mock` replaces every adapter with simulated data,
+# `--sensors off` runs without any sensor (behaviour only).
 #
-# eye_tracker:  tobii | mock | none
+# Webcam pivot: the EEG / ECG / Tobii hardware was not available, so the default setup uses only the
+# laptop webcam. One camera thread feeds both webcam sensors (frames are processed live, never saved):
+#   eye_tracker: webcam   EyeTrax gaze estimation (MediaPipe FaceLandmarker + ridge regression), calibrated
+#                         by the on-screen calibration step at the start of the session        -> gaze.csv
+#   emotion:     yolo     our YOLO11n facial-emotion classifier (emotion_model/)               -> emotion.csv
+#
+# eye_tracker:  webcam | tobii | mock | none
+# emotion:      yolo | mock | none
 # gsr:          shimmer | lsl | serial | mock | none
 # hr:           polar_h10 | lsl | serial | mock | none
-#
 # `unset` stops a real session from starting until you choose a device.
 
+camera:
+  index: 0                  # 0 = built-in webcam
+  width: 640
+  height: 480
+  fps: 30
+  mirror: false             # gaze is calibrated on the un-mirrored image; leave false for sessions
+  face_landmarker: models/face_landmarker.task
+  face_margin: 1.0          # face crop = landmark box (tight, like the training crops; best in our crop test)
+
 eye_tracker:
-  adapter: tobii
+  adapter: webcam
+  webcam:
+    smoothing: 0.6          # exponential smoothing of the gaze point (0 = none, closer to 1 = smoother)
+    point_seconds: 0.8      # calibration: how long features are collected at each dot
   tobii:
     serial: null            # null = first tracker found
     frequency: null         # null = tracker default (e.g. 60 Hz on a Nano)
 
+emotion:
+  adapter: yolo
+  yolo:
+    model: models/emotion_yolo11n_cls.onnx
+    hz: 10                  # classifications per second written to emotion.csv
+    display_smoothing: 0.6  # only for the live view; emotion.csv keeps the raw per-frame probabilities
+
 gsr:
-  adapter: unset
+  adapter: none
   shimmer:
     port: COM5              # Bluetooth serial port of the Shimmer3 GSR+
   lsl:
@@ -25,7 +51,7 @@ gsr:
     baud: 115200
 
 hr:
-  adapter: unset
+  adapter: none
   polar_h10:
     address: null           # Bluetooth address, or null = first "Polar H10" found
   lsl:
@@ -36,4 +62,4 @@ hr:
     baud: 115200
 
 # A sensor must deliver samples within this many seconds of starting.
-startup_timeout: 15
+startup_timeout: 20

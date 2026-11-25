@@ -1,4 +1,5 @@
-// Tobii calibration (collected through the server's tobii_research session) + a quick validation.
+// Gaze calibration + a quick validation. The server records the eye features at each dot (webcam: EyeTrax,
+// or a Tobii through tobii_research) and fits the gaze model; validation measures the error on 5 new dots.
 import { HCI } from '../hci.js';
 import { clicked, show, sleep } from '../ui.js';
 
@@ -38,9 +39,10 @@ export async function calibration(step) {
   const p = step.params;
   let el = await show(`
     <div class="eyebrow">Setup</div>
-    <h1>Eye-tracker calibration</h1>
+    <h1>Eye-tracking calibration</h1>
     <p class="lead">A dot will move around the screen. Follow it with your eyes and look at its centre until it moves again.</p>
-    <p class="hint">Keep your head still. This takes about 30 seconds.</p>
+    <p class="hint">Sit about an arm's length from the screen, facing the webcam, and keep your head as still as you can
+      for the rest of the session. This takes about 40 seconds.</p>
     <div class="actions"><button class="btn primary" id="go">Start calibration</button></div>`);
   await clicked(el, '#go');
 

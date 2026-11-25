@@ -1,18 +1,12 @@
-"""2 x 2 Latin square over emotion order and task-set order.
+"""Query order and starting looks, both decided by the participant number.
 
-Participant numbers cycle through the four schemes, so any 4 consecutive
-participants (P01-P04, P05-P08) are fully balanced.
+With k = n - 1 (P01 -> 0):
+  query order    row k mod 5 of a cyclic Latin square: every query is in every position once per 5 participants.
+  starting look  query i (in canonical order) starts in look (i + k) mod 6, so across 6 consecutive participants
+                 every query starts once in every look, and every participant starts in 5 different looks.
 """
 
 import re
-
-SCHEMES = [
-    # (emotion order, task-set order)
-    ((0, 1), ("A", "B")),
-    ((1, 0), ("A", "B")),
-    ((0, 1), ("B", "A")),
-    ((1, 0), ("B", "A")),
-]
 
 PID_PATTERN = re.compile(r"^P(\d{2,3})$")
 
@@ -27,12 +21,9 @@ def participant_number(pid):
     return n
 
 
-def assign(pid, emotions):
-    """Return the block plan for one participant: [(emotion, task_set), (emotion, task_set)]."""
-    n = participant_number(pid)
-    index = (n - 1) % len(SCHEMES)
-    order, sets = SCHEMES[index]
-    return {
-        "scheme": index + 1,
-        "blocks": [{"emotion": emotions[o], "task_set": s} for o, s in zip(order, sets)],
-    }
+def assign(pid, queries, looks):
+    k = participant_number(pid) - 1
+    shift = k % len(queries)
+    order = queries[shift:] + queries[:shift]
+    start = {q: looks[(i + k) % len(looks)] for i, q in enumerate(queries)}
+    return {"order_scheme": shift + 1, "look_scheme": k % len(looks) + 1, "order": order, "start_looks": start}
