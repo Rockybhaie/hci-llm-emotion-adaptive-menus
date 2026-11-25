@@ -132,7 +132,7 @@ def test_full_session_writes_every_file_with_every_label(tmp_path, group, pid):
     walk(client, session)
     folder = tmp_path / group / pid
     for name in ("session.json", "plan.json", "plan.txt", "markers.csv", "events.csv", "mouse.csv", "aoi.csv", "tasks.csv",
-                 "questionnaires.csv", "subblocks.csv", "merged.csv"):
+                 "questionnaires.csv", "subblocks.csv", "merged.csv", "ux_tasks.csv", "ux_subblocks.csv", "ux_menus.csv"):
         assert (folder / name).exists(), name
     assert not any((folder / f"{n}.csv").exists() for n in ("gaze", "gsr", "hr", "clock_sync")), "sensor files must not exist"
     state = json.loads((folder / "session.json").read_text())
@@ -186,6 +186,20 @@ def test_full_session_writes_every_file_with_every_label(tmp_path, group, pid):
         assert col in sub.columns and sub[col].notna().all(), col
     assert (sub.tlx_effort == 55).all() and sorted(sub[sub.emotion_block == 1].menu_rank) == [1, 2, 3]
 
+    # run_tasks passes a wrong page twice, then shows the first target page only
+    ux = pd.read_csv(folder / "ux_tasks.csv")
+    ux_real = ux[ux.phase == "tasks"]
+    lookups = ux_real[ux_real.type == "lookup"]
+    assert lookups.target_reached.eq(1).all() and lookups.time_to_target_s.gt(0).all()
+    assert (lookups.lostness - 0.601).abs().lt(0.001).all()                  # S = 3, N = 2, R = 1
+    assert ux_real[ux_real.type == "compare"].target_reached.eq(0).all() and ux.nav_failure.eq(0).all()
+    assert list(ux.groupby("menu_id").use_no.max()) == [10, 10, 10]          # 2 practice + 2 x 4 tasks per menu
+    ux_sub = pd.read_csv(folder / "ux_subblocks.csv")
+    assert len(ux_sub) == 6 and ux_sub.success_rate.eq(1).all() and ux_sub.menu_rank.notna().all()
+    assert ux_sub.wrong_page_rate.eq(round(2 / 3, 3)).all() and ux_sub.mood_change_happy.eq(0).all()
+    ux_menus = pd.read_csv(folder / "ux_menus.csv")
+    assert list(ux_menus.menu_id) == plan["menu_order"] and ux_menus.relearn_ratio.notna().all()
+
     merged = pd.read_csv(folder / "merged.csv", keep_default_na=False)
     assert list(merged.columns) == ["t", "t_rel", "step", *LABELS, "task_id", "menu_state", "mouse_x", "mouse_y", "mouse_dist",
                                     "clicks", "menu_events", "page_views", "backtracks", "sabotage"]
@@ -204,7 +218,10 @@ def test_export_combines_every_table_with_the_new_columns(tmp_path):
         walk(client, session)
     sessions, written = export.export_all(root=tmp_path, out=tmp_path / "exports", rebuild=True)
     names = {p.name for p in written}
-    assert names == {"dataset_all.csv", "tasks_all.csv", "subblocks_all.csv", "events_all.csv", "questionnaires_all.csv", "sessions.csv"}
+    assert names == {"dataset_all.csv", "tasks_all.csv", "subblocks_all.csv", "events_all.csv", "questionnaires_all.csv",
+                     "ux_tasks_all.csv", "ux_subblocks_all.csv", "ux_menus_all.csv", "sessions.csv"}
+    ux_menus = pd.read_csv(tmp_path / "exports" / "ux_menus_all.csv")
+    assert len(ux_menus) == 6 and list(ux_menus.columns[:2]) == ["group", "participant"]
     out = tmp_path / "exports"
     tasks_all = pd.read_csv(out / "tasks_all.csv")
     assert list(tasks_all.columns[:2]) == ["group", "participant"] and set(tasks_all.group) == {"G1", "G3"}

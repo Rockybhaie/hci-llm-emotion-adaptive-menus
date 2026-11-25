@@ -516,6 +516,11 @@ class Session:
                 merge_session(self.folder)
             except Exception as exc:
                 self.warn(f"merged.csv / subblocks.csv could not be built: {exc}")
+            try:
+                from .ux import ux_summary
+                ux_summary(self.folder)
+            except Exception as exc:
+                self.warn(f"ux_*.csv could not be built: {exc}")
         self.done.set()
 
     def _restore(self, prev):

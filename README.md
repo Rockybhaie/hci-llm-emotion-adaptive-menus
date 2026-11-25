@@ -45,7 +45,7 @@ the current phase, emotion, sub-block and menu, plus any warnings.
 | `… --windowed` / `--no-browser` | Normal browser window / don't open a browser |
 | `python run.py export` | Combine all sessions into `data/exports/` |
 | `python run.py clean-pilot` | Delete `data/_pilot/` |
-| `python -m pytest` | All 145 tests (about 13 min; 6 are skipped by default: five of the six whole-session dry runs, which run with `HCI_FULL_DRY_RUN=1`). `-m "not slow"` skips the every-task-in-every-menu test and the dry run (about 5 min) |
+| `python -m pytest` | All 148 tests (about 13 min; 6 are skipped by default: five of the six whole-session dry runs, which run with `HCI_FULL_DRY_RUN=1`). `-m "not slow"` skips the every-task-in-every-menu test and the dry run (about 5 min) |
 | `python tools/participant_bot.py --group G2 --participant P03` | A scripted participant completes a whole session in Edge (a fast dry run; `--real-time` for real timings) |
 
 To stop a session, press **Ctrl+C** in the terminal or **Ctrl+Shift+Q** in the browser. Both save what was recorded so far.
@@ -111,9 +111,11 @@ Every row of `markers`, `events`, `tasks`, `questionnaires` and `merged` carries
 | `subblocks.csv` | **One row per sub-block:** the task measures aggregated, plus the six mood ratings, the workload ratings and the menu preference |
 | `questionnaires.csv` | Consent, demographics, SAM, mood ratings, workload, menu ranking, debrief choice |
 | `merged.csv` | **The model-ready timeline:** 10 Hz, with phase, emotion, menu, sub-block, task, mouse position, menu state and event counts |
+| `ux_tasks.csv`, `ux_subblocks.csv`, `ux_menus.csv` | **The UX goals** (effective, efficient, safe, good utility, learnable, memorable, enjoyable) per task, per sub-block and per menu, computed from the files above ([docs/ux-mapping.md](docs/ux-mapping.md)) |
 
 Every column is described in [docs/data-dictionary.md](docs/data-dictionary.md). `python run.py export` stacks all
-sessions into `data/exports/` (`dataset_all`, `tasks_all`, `subblocks_all`, `events_all`, `questionnaires_all`, `sessions`).
+sessions into `data/exports/` (`dataset_all`, `tasks_all`, `subblocks_all`, `events_all`, `questionnaires_all`,
+`ux_tasks_all`, `ux_subblocks_all`, `ux_menus_all`, `sessions`).
 
 ## Sensors
 
@@ -165,5 +167,6 @@ hci/sensors/, config/devices.yaml, web/shell/js/steps/calibration.js   unused (s
 - [docs/task-design.md](docs/task-design.md): websites, task subsets, measures
 - [docs/emotion-induction.md](docs/emotion-induction.md): why each emotion is induced the way it is (with boosters)
 - [docs/data-dictionary.md](docs/data-dictionary.md): every output file and column
+- [docs/ux-mapping.md](docs/ux-mapping.md): the seven UX goals, their indicators and how to read them
 - [docs/experimental-setup.md](docs/experimental-setup.md): room and PC settings (sensor sections are for the separate sensor stage)
 - [docs/consent-form.md](docs/consent-form.md) · [docs/debrief.md](docs/debrief.md): printable forms

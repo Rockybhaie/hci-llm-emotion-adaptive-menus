@@ -141,4 +141,10 @@ Long format: `t`, `tag`, the six label columns, `instrument`, `item`, `value`.
 | `mouse_x`, `mouse_y`, `mouse_dist` | Last mouse position and distance moved in the bin |
 | `clicks`, `menu_events`, `page_views`, `backtracks`, `sabotage` | Event counts in the bin (`clicks` = clicks inside the site; `menu_events` = `menu_open` + `menu_close` + `item_select`) |
 
-`python run.py export` stacks all completed sessions into `data/exports/`: `dataset_all.csv` (merged), `tasks_all.csv`, `subblocks_all.csv`, `events_all.csv`, `questionnaires_all.csv` (each with `group` and `participant` columns first) and `sessions.csv` (one row per session: plan, status, duration).
+## ux_tasks.csv, ux_subblocks.csv, ux_menus.csv: the UX goals
+
+Indicators for the seven UX goals (effective, efficient, safe, good utility, learnable, memorable, enjoyable), one row per
+task, per sub-block (last attempt, practice excluded) and per menu. Every column, how it is computed and how to read it is
+in [ux-mapping.md](ux-mapping.md).
+
+`python run.py export` stacks all completed sessions into `data/exports/`: `dataset_all.csv` (merged), `tasks_all.csv`, `subblocks_all.csv`, `events_all.csv`, `questionnaires_all.csv`, `ux_tasks_all.csv`, `ux_subblocks_all.csv`, `ux_menus_all.csv` (each with `group` and `participant` columns first) and `sessions.csv` (one row per session: plan, status, duration).

@@ -6,6 +6,7 @@ merged.csv    (per session)  one row per 100 ms: the behavioural timeline with p
 subblocks.csv (per session)  one row per sub-block: performance, behaviour, mood and workload ratings and
                              the menu preference. Practice is excluded. For a sub-block that was repeated
                              after an interruption only the last attempt is used.
+ux_*.csv      (per session)  UX indicators per task, sub-block and menu (built by hci/ux.py).
 data/exports/                every completed session stacked into one file per table.
 
 There are no sensor columns: sensors are handled outside this app.
@@ -202,10 +203,12 @@ def session_folders(root=paths.DATA):
 
 
 def export_all(root=paths.DATA, out=paths.EXPORTS, rebuild=False):
+    from .ux import ux_summary          # ux imports this module
     out.mkdir(parents=True, exist_ok=True)
-    tables = {"dataset_all": [], "tasks_all": [], "subblocks_all": [], "events_all": [], "questionnaires_all": []}
     sources = {"dataset_all": "merged", "tasks_all": "tasks", "subblocks_all": "subblocks", "events_all": "events",
-               "questionnaires_all": "questionnaires"}
+               "questionnaires_all": "questionnaires", "ux_tasks_all": "ux_tasks", "ux_subblocks_all": "ux_subblocks",
+               "ux_menus_all": "ux_menus"}
+    tables = {table: [] for table in sources}
     sessions = []
     for folder in session_folders(root):
         info = json.loads((folder / "session.json").read_text(encoding="utf-8"))
@@ -213,6 +216,8 @@ def export_all(root=paths.DATA, out=paths.EXPORTS, rebuild=False):
             merge_session(folder)
         if rebuild or not (folder / "subblocks.csv").exists():
             subblock_summary(folder)
+        if rebuild or not (folder / "ux_tasks.csv").exists():
+            ux_summary(folder)
         keys = {"group": info["group"], "participant": info["participant"]}
         for table, name in sources.items():
             df = _read(folder, name)
